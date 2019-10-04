@@ -16,22 +16,16 @@ using System.Windows.Shapes;
 
 namespace AutoGarmin.View
 {
-    /// <summary>
-    /// Логика взаимодействия для UserControlLogs.xaml
-    /// </summary>
     public partial class UserControlLogs : UserControl
     {
+
+        #region Logs
+
         private Logs logs;
 
-        public void LogAdd(string nickname, string diskname, string model, string action)
+        public void LogAdd(string id, string nickname, string diskname, string model, string action)
         {
-            logs.Add(nickname, diskname, model, action);
-            DataGridLogs.ScrollIntoView(logs.Last());
-        }
-
-        public void LogAdd(Devices.Device device, string action)
-        {
-            logs.Add(device.nickname, device.diskname, device.model, action);
+            logs.Add(id, nickname, diskname, model, action);
             DataGridLogs.ScrollIntoView(logs.Last());
         }
 
@@ -39,6 +33,8 @@ namespace AutoGarmin.View
         {
             logs.Clear();
         }
+
+        #endregion
 
         public UserControlLogs()
         {

@@ -20,9 +20,13 @@ namespace AutoGarmin
     /// </summary>
     public partial class UserControlDevice : UserControl
     {
-        public UserControlDevice()
+        public UserControlDevice(string Name, View.UserControlDevices.Device device)
         {
             InitializeComponent();
+            this.Name = Name;
+            LabelModel.ToolTip = "Device id: " + device.id;
+            LabelModel.Content = device.model + " (" + device.diskname + ")";
+            LabelNickname.Content = device.nickname;
         }
     }
 }

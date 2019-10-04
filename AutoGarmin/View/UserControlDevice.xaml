@@ -18,6 +18,8 @@
         </Grid.ColumnDefinitions>
         <Image x:Name="ImageDevice" Grid.Column="1" Margin="0"/>
         <Rectangle x:Name="RectangleDeviceStatus" Fill="#00000000" Margin="0" Stroke="Black" StrokeThickness="0"/>
+        <Label x:Name="LabelNickname" Content="1-1" Grid.Column="2" HorizontalAlignment="Left" Margin="5,27,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="LabelModel" Content="Garmin GPSMAP 66S (E:)" Grid.Column="2" HorizontalAlignment="Left" Margin="5,4,0,0" VerticalAlignment="Top" Foreground="White"/>
 
     </Grid>
 </UserControl>

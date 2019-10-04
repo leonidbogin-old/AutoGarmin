@@ -78,8 +78,9 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding time}" Foreground="White" Header="Время" IsReadOnly="True" Width="55" MinWidth="55"  />
+                <DataGridTextColumn Binding="{Binding id}" Foreground="White" Header="id" IsReadOnly="True" Width="80" MinWidth="80" />
                 <DataGridTextColumn Binding="{Binding nickname}" Foreground="White" Header="Наименование" IsReadOnly="True" Width="110" MinWidth="110" />
-                <DataGridTextColumn Binding="{Binding model}" Foreground="White" Header="Модель" IsReadOnly="True" Width="130" MinWidth="130" />
+                <DataGridTextColumn Binding="{Binding modelAndDiskname}" Foreground="White" Header="Модель" IsReadOnly="True" Width="130" MinWidth="130" />
                 <DataGridTextColumn HeaderStyle="{StaticResource DataGridHeaderLeft}" CellStyle="{StaticResource DataGridCellLeft}" Binding="{Binding action}" Foreground="White" Header="Действие" IsReadOnly="True" Width="*" MinWidth="150" />
             </DataGrid.Columns>
         </DataGrid>
