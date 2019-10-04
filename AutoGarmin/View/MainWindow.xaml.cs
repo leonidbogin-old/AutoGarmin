@@ -34,14 +34,6 @@ namespace AutoGarmin
 
         #endregion
 
-        #region Logs
-
-        
-        
-
-        #endregion
-
-
         public MainWindow()
         {
             InitializeComponent();
