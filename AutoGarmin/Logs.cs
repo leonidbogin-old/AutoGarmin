@@ -11,14 +11,14 @@ namespace AutoGarmin
     {
         public ObservableCollection<LogLine> logLines = new ObservableCollection<LogLine>();
 
-        public void Add(string nickname, string diskname, string model, string action)
+        public void Add(string id, string nickname, string diskname, string model, string action)
         {
             LogLine logNew = new LogLine()
             {
                 time = DateTime.Now.ToString("HH:mm:ss"),
+                id = id,
                 nickname = nickname,
-                diskname = diskname,
-                model = model,
+                modelAndDiskname = model + " (" + diskname + ")",
                 action = action
             };
             logLines.Add(logNew);
@@ -37,9 +37,9 @@ namespace AutoGarmin
         public class LogLine
         {
             public string time { get; set; }
+            public string id { get; set; }
             public string nickname { get; set; }
-            public string diskname { get; set; }
-            public string model { get; set; }
+            public string modelAndDiskname { get; set; }
             public string action { get; set; }
         }
     }

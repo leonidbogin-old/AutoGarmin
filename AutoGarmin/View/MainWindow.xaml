@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AutoGarmin"
         mc:Ignorable="d"
         Background="{x:Null}"
-        Title="AutoGarmin v0.1" Height="450" Width="800" Foreground="White" Icon="/icon.ico">
+        Title="AutoGarmin v0.1" Height="450" Width="800" Foreground="White" Icon="/icon.ico" Loaded="Window_Loaded">
     <Window.Resources>
 
         <!--#region Styles main buttons-->
@@ -84,6 +84,5 @@
             </StackPanel>
             <Grid x:Name="GridContent" Margin="0" Grid.Row="1" Background="#FF1E1E1E"/>
         </Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="174,81,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
     </Grid>
 </Window>
