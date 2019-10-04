@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoGarmin"
         mc:Ignorable="d"
-        Background="{x:Null}"
-        Title="AutoGarmin v0.1" Height="450" Width="800" Foreground="White" Icon="/icon.ico" Loaded="Window_Loaded">
+        Title="AutoGarmin 1.0" Height="500" Width="800" Foreground="White" Icon="/icon.ico" Loaded="Window_Loaded" MinWidth="638" Background="#FF1E1E1E" MinHeight="350">
     <Window.Resources>
 
         <!--#region Styles main buttons-->
@@ -65,11 +64,11 @@
             <RowDefinition x:Name="ColumnMain"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="ColumnSidebar" Width="250"/>
+            <ColumnDefinition x:Name="ColumnSidebar" Width="240"/>
             <ColumnDefinition x:Name="ColumnContent"/>
         </Grid.ColumnDefinitions>
         <Rectangle x:Name="RectangleSidebar" Fill="#FF252526" Margin="0" Stroke="#FF252526" StrokeThickness="0" Grid.Row="0"/>
-        <Grid x:Name="GridMain" Grid.Column="1" Margin="0">
+        <Grid x:Name="GridMain" Margin="0" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="32"/>
                 <RowDefinition x:Name="RowDefinitionContent"/>

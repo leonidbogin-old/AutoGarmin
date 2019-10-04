@@ -51,6 +51,7 @@ namespace AutoGarmin.View
                 if (devices[i].check)
                 {
                     UserControlDevice userControlDeviceRemove = null;
+                    //FIX (.findname not work)
                     foreach (UserControlDevice userControlDevice in StackPanelDevices.Children)
                     {
                         if (userControlDevice.Name == "userControlDevice" + devices[i].id)
@@ -73,15 +74,14 @@ namespace AutoGarmin.View
                 nickname = nickname,
                 diskname = diskname,
                 model = model,
-                time_connect = DateTime.Now,
-                check = false
+                check = false,
+                timeConnect = DateTime.Now
             };
             devices.Add(device);
             UserControlDevice userControlDevice = new UserControlDevice("userControlDevice" + id, device);
             userControlDevice.ApplyTemplate();
             StackPanelDevices.Children.Add(userControlDevice);
-            userControlLogs.LogAdd(device.id, device.nickname,
-                        device.diskname, device.model, "Устройство подключено");
+            userControlLogs.LogAdd(device.id, device.nickname, device.diskname, device.model, "Устройство подключено");
         }
 
         public UserControlDevices(UserControlLogs userControlLogs)
@@ -96,9 +96,9 @@ namespace AutoGarmin.View
             public string nickname { get; set; }
             public string diskname { get; set; }
             public string model { get; set; }
-            public DateTime time_connect { get; set; }
             public bool ready { get; set; }
             public bool check { get; set; }
+            public DateTime timeConnect { get; set; }
         }
     }
 }

@@ -21,17 +21,35 @@ namespace AutoGarmin.View
 
         #region Logs
 
-        private Logs logs;
+        private ObservableCollection<LogLine> logLines = new ObservableCollection<LogLine>();
 
         public void LogAdd(string id, string nickname, string diskname, string model, string action)
         {
-            logs.Add(id, nickname, diskname, model, action);
-            DataGridLogs.ScrollIntoView(logs.Last());
+            LogLine logNew = new LogLine()
+            {
+                time = DateTime.Now.ToString("HH:mm:ss"),
+                id = id,
+                nickname = nickname,
+                modelAndDiskname = model + " (" + diskname + ")",
+                action = action
+            };
+            logLines.Add(logNew);
+
+            DataGridLogs.ScrollIntoView(logLines.Last());
         }
 
         public void LogClear()
         {
-            logs.Clear();
+            logLines.Clear();
+        }
+
+        public class LogLine
+        {
+            public string time { get; set; }
+            public string id { get; set; }
+            public string nickname { get; set; }
+            public string modelAndDiskname { get; set; }
+            public string action { get; set; }
         }
 
         #endregion
@@ -39,8 +57,7 @@ namespace AutoGarmin.View
         public UserControlLogs()
         {
             InitializeComponent();
-            logs = new Logs();
-            DataGridLogs.ItemsSource = logs.logLines;
+            DataGridLogs.ItemsSource = logLines;
         }
 
         private void DataGridLogsClear_Click(object sender, RoutedEventArgs e)
