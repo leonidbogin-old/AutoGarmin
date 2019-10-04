@@ -25,7 +25,13 @@ namespace AutoGarmin.View
 
         public void LogAdd(string nickname, string diskname, string model, string action)
         {
-            logs.Add("1-2", "F", "Garmin GPSMAP S66", "Устройство подключено");
+            logs.Add(nickname, diskname, model, action);
+            DataGridLogs.ScrollIntoView(logs.Last());
+        }
+
+        public void LogAdd(Devices.Device device, string action)
+        {
+            logs.Add(device.nickname, device.diskname, device.model, action);
             DataGridLogs.ScrollIntoView(logs.Last());
         }
 
