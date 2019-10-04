@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-D:\Projects\AutoGarmin\AutoGarmin\obj\Debug\
+D:\GitHub\AutoGarmin\AutoGarmin\obj\Debug\
 AutoGarmin
 none
 false
 DEBUG;TRACE
-D:\Projects\AutoGarmin\AutoGarmin\App.xaml
+D:\GitHub\AutoGarmin\AutoGarmin\App.xaml
 41023778885
 
-8-1511888268
+9273884060
 14-1290796308
 View\MainWindow.xaml;View\UserControlDevice.xaml;View\UserControlDevices.xaml;View\UserControlLogs.xaml;
 

@@ -69,7 +69,6 @@
             <ColumnDefinition x:Name="ColumnContent"/>
         </Grid.ColumnDefinitions>
         <Rectangle x:Name="RectangleSidebar" Fill="#FF252526" Margin="0" Stroke="#FF252526" StrokeThickness="0" Grid.Row="0"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="104,58,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Grid x:Name="GridMain" Grid.Column="1" Margin="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="32"/>
@@ -85,5 +84,6 @@
             </StackPanel>
             <Grid x:Name="GridContent" Margin="0" Grid.Row="1" Background="#FF1E1E1E"/>
         </Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="174,81,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
     </Grid>
 </Window>
