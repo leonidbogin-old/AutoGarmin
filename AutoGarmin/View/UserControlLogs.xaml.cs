@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,14 +21,29 @@ namespace AutoGarmin.View
     /// </summary>
     public partial class UserControlLogs : UserControl
     {
+        private Logs logs;
+
+        public void LogAdd(string nickname, string diskname, string model, string action)
+        {
+            logs.Add("1-2", "F", "Garmin GPSMAP S66", "Устройство подключено");
+            DataGridLogs.ScrollIntoView(logs.Last());
+        }
+
+        public void LogClear()
+        {
+            logs.Clear();
+        }
+
         public UserControlLogs()
         {
             InitializeComponent();
+            logs = new Logs();
+            DataGridLogs.ItemsSource = logs.logLines;
         }
 
         private void DataGridLogsClear_Click(object sender, RoutedEventArgs e)
         {
-            DataGridLogs.Items.Clear();
+            LogClear();
         }
     }
 }

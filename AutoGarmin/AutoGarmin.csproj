@@ -74,6 +74,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logs.cs" />
     <Compile Include="View\UserControlDevice.xaml.cs">
       <DependentUpon>UserControlDevice.xaml</DependentUpon>
     </Compile>

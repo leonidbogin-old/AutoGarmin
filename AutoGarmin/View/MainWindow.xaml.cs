@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,15 +25,21 @@ namespace AutoGarmin
     /// </summary>
     public partial class MainWindow : Window
     {
+        public const string GPXPath = "GPX";
+
         #region View
 
         private UserControlDevices userControlDevices;
         private UserControlLogs userControlLogs;
-        
+
         #endregion
 
+        #region Logs
 
-        ObservableCollection<Log> logs = null;
+        
+        
+
+        #endregion
 
 
         public MainWindow()
@@ -46,14 +53,6 @@ namespace AutoGarmin
 
             GridContent.Children.Add(userControlDevices);
             GridContent.Children.Add(userControlLogs);
-        }
-
-        private class Log
-        {
-            public string time { get; set; }
-            public string nickname { get; set; }
-            public string model { get; set; }
-            public string action { get; set; }
         }
 
         //private int i = 0;
@@ -97,11 +96,17 @@ namespace AutoGarmin
 
         private void ButtonTrackFolder_Click(object sender, RoutedEventArgs e)
         {
+            if (!Directory.Exists(GPXPath)) Directory.CreateDirectory(GPXPath);
             Process Proc = new Process();
             Proc.StartInfo.FileName = "explorer";
-            Proc.StartInfo.Arguments = "GPX";
+            Proc.StartInfo.Arguments = GPXPath;
             Proc.Start();
             Proc.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            userControlLogs.LogAdd("1-2", "F", "Garmin GPSMAP S66", "Устройство подключено");
         }
     }
 }
