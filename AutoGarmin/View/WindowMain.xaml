@@ -9,7 +9,6 @@
     <Window.Resources>
 
         <!--#region Styles main buttons-->
-
         <Style x:Key="MainButton" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#FF2d2d2d"/>
             <Setter Property="Foreground" Value="#FF8e8e8e"/>
@@ -34,7 +33,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
         <Style x:Key="MainButton_Active" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#FF1E1E1E"/>
             <Setter Property="Foreground" Value="#FFEDEDED"/>
@@ -55,7 +53,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
         <!--#endregion-->
 
     </Window.Resources>
