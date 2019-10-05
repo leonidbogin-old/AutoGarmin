@@ -52,6 +52,7 @@ namespace AutoGarmin.View
                 {
                     StackPanelDevices.Children.Remove(devices[i].userControl);
                     logs.LogAdd(devices[i], "Устройство отключено");
+                    devices[i].userControl = null;
                     devices.Remove(devices[i]);
                     i--;
                 }

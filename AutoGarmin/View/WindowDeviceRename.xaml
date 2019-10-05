@@ -31,9 +31,9 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <TextBox x:Name="TextBoxNickname" Height="23" Margin="0,0,15,61" TextWrapping="Wrap" VerticalAlignment="Bottom" Background="#FF383838" Foreground="White" VerticalContentAlignment="Center" Padding="3,0,0,0" Width="159" HorizontalAlignment="Right"/>
-        <Button x:Name="ButtonSave" Content="Сохранить" Margin="0,0,15,16" Foreground="#FFA6FB99" Width="90" Height="35" Click="ButtonSave_Click" IsDefault="True" Style="{StaticResource ButtonRename}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Bottom"  />
-        <Button x:Name="ButtonCancel" Content="Отмена"  Margin="0,0,113,16"  Foreground="#FFF9B3B3" Padding="0" Click="ButtonCancel_Click" IsCancel="True" Height="35" Width="60"  Style="{StaticResource ButtonRename}" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+        <TextBox x:Name="TextBoxNickname" Height="23" Margin="0,0,15,61" TextWrapping="Wrap" VerticalAlignment="Bottom" Background="#FF383838" Foreground="White" VerticalContentAlignment="Center" Padding="3,0,0,0" Width="159" HorizontalAlignment="Right" TabIndex="0" KeyDown="TextBoxNickname_KeyDown"/>
+        <Button x:Name="ButtonSave" Content="Сохранить" Margin="0,0,15,16" Foreground="#FFA6FB99" Width="90" Height="35" Click="ButtonSave_Click" IsDefault="True" Style="{StaticResource ButtonRename}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" TabIndex="1"  />
+        <Button x:Name="ButtonCancel" Content="Отмена"  Margin="0,0,113,16"  Foreground="#FFF9B3B3" Padding="0" Click="ButtonCancel_Click" IsCancel="True" Height="35" Width="60"  Style="{StaticResource ButtonRename}" HorizontalAlignment="Right" VerticalAlignment="Bottom" TabIndex="2" />
         <Label Content="Наименование" HorizontalAlignment="Right" Margin="0,0,179,60" VerticalAlignment="Bottom" Foreground="#FFCFCFCF"/>
     </Grid>
 </Window>
