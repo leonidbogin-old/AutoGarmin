@@ -1,4 +1,5 @@
-﻿using AutoGarmin.View;
+﻿using AutoGarmin.Class;
+using AutoGarmin.View;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -81,7 +82,7 @@ namespace AutoGarmin
                             if (!devices.Check(id))
                             {
                                 if (!first && Properties.Settings.Default.SoundConnect)
-                                    new System.Media.SoundPlayer("sounds/connect.wav").Play();
+                                    Sound.Play(Path.Sound.Connect);
                                 devices.Add(id, nickname, Convert.ToString(DI.Name), model); //Добавление устройства
                             }
                     }
