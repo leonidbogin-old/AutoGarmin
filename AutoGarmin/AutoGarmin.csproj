@@ -76,6 +76,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\DeviceRenameWindow.xaml.cs">
+      <DependentUpon>DeviceRenameWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControlDevice.xaml.cs">
       <DependentUpon>UserControlDevice.xaml</DependentUpon>
     </Compile>
@@ -85,6 +88,10 @@
     <Compile Include="View\UserControlLogs.xaml.cs">
       <DependentUpon>UserControlLogs.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\DeviceRenameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

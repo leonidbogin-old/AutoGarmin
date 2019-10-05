@@ -6,6 +6,11 @@
              xmlns:local="clr-namespace:AutoGarmin"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="340" Height="75" Background="#FF272727" VerticalAlignment="Top" BorderBrush="#FF252526" BorderThickness="1" Margin="0,0,0,15" Width="Auto">
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Сменить наименование" Click="DataGridDeviceRename_Click" />
+        </ContextMenu>
+    </UserControl.ContextMenu>
     <Grid x:Name="GridDevice">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -15,10 +20,11 @@
             <ColumnDefinition Width="70"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        
         <Image x:Name="ImageDevice" Grid.Column="1" Source="/AutoGarmin;component/no.ico" Margin="0,6"/>
         <Rectangle x:Name="RectangleDeviceStatus" Margin="0" Stroke="Black" StrokeThickness="0" Width="7" HorizontalAlignment="Left" StrokeDashArray="0" StrokeMiterLimit="0"/>
-        <Label x:Name="LabelNickname" Content="1-1" Grid.Column="2" HorizontalAlignment="Left" Margin="13,36,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="28" ToolTip="Наименование"/>
-        <Label x:Name="LabelModel" Content="Garmin GPSMAP 66S (E:)" Grid.Column="2" HorizontalAlignment="Left" Margin="13,10,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="140" ToolTip="Модель"/>
+        <Label x:Name="LabelNickname" Content="1-1" Grid.Column="2" HorizontalAlignment="Left" Margin="13,36,0,0" VerticalAlignment="Top" Foreground="White" Height="26" ToolTip="Наименование"/>
+        <Label x:Name="LabelModel" Content="Garmin GPSMAP 66S (E:)" Grid.Column="2" HorizontalAlignment="Left" Margin="13,10,0,0" VerticalAlignment="Top" Foreground="White" Height="26" ToolTip="Модель"/>
         <Label x:Name="LabelId" Content="3990423305" Grid.Column="2" Margin="0,10,10,0" VerticalAlignment="Top" Foreground="#FF414446" Height="26" Width="85" HorizontalAlignment="Right" ToolTip="id устройства" HorizontalContentAlignment="Right"/>
         <Label x:Name="LabelTimeConnect" Content="23:10:32" Grid.Column="2" Margin="0,36,10,0" VerticalAlignment="Top" Foreground="#FF414446" Height="26" Width="85" HorizontalAlignment="Right" ToolTip="Время подключения" HorizontalContentAlignment="Right"/>
 

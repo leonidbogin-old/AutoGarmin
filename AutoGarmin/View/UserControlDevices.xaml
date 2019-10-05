@@ -10,6 +10,5 @@
         <ScrollViewer x:Name="ScrollViewerDevices" Margin="0" Padding="0" BorderThickness="0" HorizontalScrollBarVisibility="Auto">
             <StackPanel x:Name="StackPanelDevices" Margin="50,20,35,5" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
         </ScrollViewer>
-
     </Grid>
 </UserControl>

@@ -18,7 +18,7 @@ namespace AutoGarmin.View
 {
     public partial class UserControlDevices : UserControl
     {
-        //Ссылка на логи
+        //Ссылка 
         private UserControlLogs userControlLogs;
 
         public List<Device> devices = new List<Device>();
@@ -54,10 +54,12 @@ namespace AutoGarmin.View
                     //FIX (.findname not work)
                     foreach (UserControlDevice userControlDevice in StackPanelDevices.Children)
                     {
-                        if (userControlDevice.Name == "userControlDevice" + devices[i].id)
+                        if (userControlDevice.device.id == devices[i].id)
                             userControlDeviceRemove = userControlDevice;
                     }
                     StackPanelDevices.Children.Remove(userControlDeviceRemove);
+                    userControlDeviceRemove.device = null;
+                    userControlDeviceRemove = null;
                     userControlLogs.LogAdd(devices[i].id, devices[i].nickname,
                         devices[i].diskname, devices[i].model, "Устройство отключено");
                     devices.Remove(devices[i]);
@@ -78,8 +80,8 @@ namespace AutoGarmin.View
                 timeConnect = DateTime.Now
             };
             devices.Add(device);
-            UserControlDevice userControlDevice = new UserControlDevice("userControlDevice" + id, device);
-            userControlDevice.ApplyTemplate();
+            UserControlDevice userControlDevice = new UserControlDevice(device, userControlLogs);
+            //userControlDevice.ApplyTemplate();
             StackPanelDevices.Children.Add(userControlDevice);
             userControlLogs.LogAdd(device.id, device.nickname, device.diskname, device.model, "Устройство подключено");
         }

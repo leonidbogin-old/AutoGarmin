@@ -20,7 +20,6 @@ D:\Projects\AutoGarmin\AutoGarmin\obj\Debug\View\MainWindow.baml
 D:\Projects\AutoGarmin\AutoGarmin\obj\Debug\View\UserControlDevice.baml
 D:\Projects\AutoGarmin\AutoGarmin\obj\Debug\View\UserControlDevices.baml
 D:\Projects\AutoGarmin\AutoGarmin\obj\Debug\View\UserControlLogs.baml
-D:\GitHub\AutoGarmin\AutoGarmin\obj\Debug\AutoGarmin.csprojAssemblyReference.cache
 D:\GitHub\AutoGarmin\AutoGarmin\obj\Debug\View\MainWindow.g.cs
 D:\GitHub\AutoGarmin\AutoGarmin\obj\Debug\View\UserControlDevice.g.cs
 D:\GitHub\AutoGarmin\AutoGarmin\obj\Debug\View\UserControlDevices.g.cs
@@ -42,3 +41,6 @@ D:\GitHub\AutoGarmin\AutoGarmin\obj\Debug\AutoGarmin.g.resources
 D:\GitHub\AutoGarmin\AutoGarmin\obj\Debug\AutoGarmin.Properties.Resources.resources
 D:\GitHub\AutoGarmin\AutoGarmin\obj\Debug\AutoGarmin.csproj.GenerateResource.cache
 D:\GitHub\AutoGarmin\AutoGarmin\obj\Debug\AutoGarmin.csproj.CoreCompileInputs.cache
+D:\GitHub\AutoGarmin\AutoGarmin\obj\Debug\View\DeviceRenameWindow.g.cs
+D:\GitHub\AutoGarmin\AutoGarmin\obj\Debug\View\DeviceRenameWindow.baml
+D:\GitHub\AutoGarmin\AutoGarmin\obj\Debug\AutoGarmin.csprojAssemblyReference.cache

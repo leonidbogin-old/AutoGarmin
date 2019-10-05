@@ -176,5 +176,9 @@ namespace AutoGarmin
 
         #endregion
 
+        private void DataGridContentUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateDevices();
+        }
     }
 }

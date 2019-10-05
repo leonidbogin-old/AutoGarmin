@@ -16,15 +16,20 @@ using System.Windows.Shapes;
 
 namespace AutoGarmin
 {
-    /// <summary>
-    /// Логика взаимодействия для UserControlDevice.xaml
-    /// </summary>
+
     public partial class UserControlDevice : UserControl
     {
-        public UserControlDevice(string Name, View.UserControlDevices.Device device)
+        //Ссылка
+        private View.UserControlLogs userControlLogs;
+        //Ссылка
+        public View.UserControlDevices.Device device;
+
+        public UserControlDevice(View.UserControlDevices.Device device, View.UserControlLogs userControlLogs)
         {
+            this.userControlLogs = userControlLogs;
             InitializeComponent();
-            this.Name = Name;
+            this.Name = "userControlDevice" + device.id;
+            this.device = device;
             LabelModel.Content = device.model + " (" + device.diskname + ")";
             LabelNickname.Content = device.nickname;
             LabelId.Content = device.id;
@@ -64,6 +69,31 @@ namespace AutoGarmin
 
             foreach (string path in directories)
                 GetAllFiles(path, fileExtension, files);
+        }
+
+        private void DataGridDeviceRename_Click(object sender, RoutedEventArgs e)
+        {
+            DeviceRenameWindow deviceRenameWindow = new DeviceRenameWindow(ref device);
+            View.UserControlDevices.Device deviceTemp = device; //Ссылка
+            if (deviceRenameWindow.ShowDialog().Value)
+            {
+                if (device != null)
+                {
+                    if (LabelNickname.Content.ToString() != device.nickname)
+                    {
+                        userControlLogs.LogAdd(deviceTemp.id, deviceTemp.nickname, deviceTemp.diskname, deviceTemp.model,
+                                "Изменено наименование с '" + LabelNickname.Content + "' на '" + deviceTemp.nickname + "'");
+                        LabelNickname.Content = deviceTemp.nickname;
+                    }
+                }
+                else
+                {
+                    userControlLogs.LogAdd(deviceTemp.id, deviceTemp.nickname, deviceTemp.diskname, deviceTemp.model,
+                                "Ошибка изменения наименования. Устройство было отключено");
+                    MessageBox.Show("Устройство было отключено. Изменение наименования не возможно.", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }
