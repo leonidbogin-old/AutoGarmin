@@ -18,19 +18,17 @@ namespace AutoGarmin.View
 {
     public partial class UserControlLogs : UserControl
     {
-
         #region Logs
-
         private ObservableCollection<LogLine> logLines = new ObservableCollection<LogLine>();
 
-        public void LogAdd(string id, string nickname, string diskname, string model, string action)
+        public void LogAdd(Device device, string action)
         {
             LogLine logNew = new LogLine()
             {
                 time = DateTime.Now.ToString("HH:mm:ss"),
-                id = id,
-                nickname = nickname,
-                modelAndDiskname = model + " (" + diskname + ")",
+                id = device.id,
+                nickname = device.nickname,
+                modelAndDiskname = $"{device.model} ({device.diskname})",
                 action = action
             };
             logLines.Add(logNew);
@@ -42,16 +40,6 @@ namespace AutoGarmin.View
         {
             logLines.Clear();
         }
-
-        public class LogLine
-        {
-            public string time { get; set; }
-            public string id { get; set; }
-            public string nickname { get; set; }
-            public string modelAndDiskname { get; set; }
-            public string action { get; set; }
-        }
-
         #endregion
 
         public UserControlLogs()
