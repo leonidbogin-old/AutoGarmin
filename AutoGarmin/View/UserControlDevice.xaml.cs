@@ -18,20 +18,17 @@ using System.Xml;
 
 namespace AutoGarmin
 {
-
     public partial class UserControlDevice : UserControl
     {
-        //Ссылка
-        private View.UserControlLogs logs;
-        //Ссылка
-        public Device device;
+        private View.UserControlLogs logs; //Ссылка
+        private Device device; //Ссылка
 
         public UserControlDevice(ref Device device, ref View.UserControlLogs logs)
         {
             this.logs = logs;
             this.device = device;
             InitializeComponent();
-            this.Name = "userControlDevice" + device.id;
+            this.Name = "userControlDevice" + device.id; //UI Id
             LabelModel.Content = $"{device.model} ({device.diskname})";
             LabelNickname.Content = device.nickname;
             LabelId.Content = device.id;
@@ -47,6 +44,7 @@ namespace AutoGarmin
             string path = diskname + Path.GarminIco;
             if (!File.Exists(path))
             {
+                //Если нет стандартного ico, ищем любые другие ico на устройстве
                 List<string> files = new List<string>();
                 try
                 {
@@ -55,7 +53,7 @@ namespace AutoGarmin
                 catch (UnauthorizedAccessException) { }
                 if (files.Count > 0)
                     path = files[0];
-                else path = Path.NoIco;
+                else path = Path.NoIco; //Иначе ставим картинку из ресурсов 'no.ico'
             }
             bm1.BeginInit();
             bm1.UriSource = new Uri(path, UriKind.RelativeOrAbsolute);
@@ -77,13 +75,13 @@ namespace AutoGarmin
 
         private void DataGridDeviceRename_Click(object sender, RoutedEventArgs e)
         {
-            if (device != null)
+            if (device != null) //if (device == null) -> return
             {
                 string nickname = device.nickname;
                 WindowDeviceRename deviceRenameWindow = new WindowDeviceRename(nickname);
-                if (deviceRenameWindow.ShowDialog().Value)
+                if (deviceRenameWindow.ShowDialog().Value) 
                 {
-                    if (device != null)
+                    if (device != null) //if (device == null) -> show error
                     {
                         device.nickname = deviceRenameWindow.nickname;
                         XmlDocument xDoc = new XmlDocument();
