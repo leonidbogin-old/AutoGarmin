@@ -37,71 +37,88 @@ namespace AutoGarmin
 
         private void UpdateDevices()
         {
+            UpdateDevices(false);
+        }
+
+        private void UpdateDevices(bool first)
+        {
             devices.CheckStart(); //Начало проверки устройств на актуальность
-            List<string> disksName = new List<string>(); //Буквы дисков
-            
-            //Выборка USB устройств
-            foreach (System.Management.ManagementObject drive in
-                    new System.Management.ManagementObjectSearcher(
-                    "select * from Win32_DiskDrive where InterfaceType='USB'").Get())
+            //List<string> disksName = new List<string>(); //Буквы дисков
+
+            //Выборка букв USB устройств
+            //Новый простой способ
+            DriveInfo[] D = DriveInfo.GetDrives();
+            foreach (DriveInfo DI in D)
             {
-                foreach (System.Management.ManagementObject partition in
-                    new System.Management.ManagementObjectSearcher(
-                    "ASSOCIATORS OF {Win32_DiskDrive.DeviceID='" + drive["DeviceID"]
-                    + "'} WHERE AssocClass = Win32_DiskDriveToDiskPartition").Get())
-                {
-                    foreach (System.Management.ManagementObject disk in
-                        new System.Management.ManagementObjectSearcher(
-                        "ASSOCIATORS OF {Win32_DiskPartition.DeviceID='"
-                        + partition["DeviceID"]
-                        + "'} WHERE AssocClass = Win32_LogicalDiskToPartition").Get())
+                if (DI.DriveType == DriveType.Removable)
+                { 
+                    //Проверка устройств на Garmin
+                    if (File.Exists(Convert.ToString(DI.Name) + Path.GarminXml))
                     {
-                        disksName.Add(disk["Name"].ToString().Trim()); //Запись буквы устройства в список
-                    }
-                }
-            }
+                        string id = null;
+                        string model = null;
+                        string nickname = null;
 
-            //Проверка устройств на Garmin
-            foreach (string diskName in disksName)
-            {
-                if (File.Exists(diskName + Path.GarminXml))
-                {
-                    string id = null;
-                    string model = null;
-                    string nickname = null;
+                        //Загрузка данных устройства из XML файла
+                        XmlDocument xDoc = new XmlDocument();
+                        xDoc.Load(Convert.ToString(DI.Name) + Path.GarminXml);
+                        XmlElement xRoot = xDoc.DocumentElement;
 
-                    //Загрузка данных устройства из XML файла
-                    XmlDocument xDoc = new XmlDocument();
-                    xDoc.Load(diskName + Path.GarminXml);
-                    XmlElement xRoot = xDoc.DocumentElement;
-
-                    foreach (XmlNode xnode in xRoot)
-                    {
-                        if (xnode.Name == "Id") id = xnode.InnerText;
-                        else if (xnode.Name == "Model")
+                        foreach (XmlNode xnode in xRoot)
                         {
-                            foreach (XmlNode xmodel in xnode)
+                            if (xnode.Name == "Id") id = xnode.InnerText;
+                            else if (xnode.Name == "Model")
                             {
-                                if (xmodel.Name == "Description") model = xmodel.InnerText;
+                                foreach (XmlNode xmodel in xnode)
+                                {
+                                    if (xmodel.Name == "Description") model = xmodel.InnerText;
+                                }
                             }
+                            else if (xnode.Name == "Nickname") nickname = xnode.InnerText;
                         }
-                        else if (xnode.Name == "Nickname") nickname = xnode.InnerText;
-                    }
 
-                    if (id != null)
-                        if (!devices.Check(id))
-                        {
-                            devices.Add(id, nickname, diskName, model); //Добавление устройства
-                        }
+                        if (id != null)
+                            if (!devices.Check(id))
+                            {
+                                if (!first && Properties.Settings.Default.SoundConnect)
+                                    new System.Media.SoundPlayer("sounds/connect.wav").Play();
+                                devices.Add(id, nickname, Convert.ToString(DI.Name), model); //Добавление устройства
+                            }
+                    }
                 }
             }
             devices.CheckEnd(); //Конец проверки устройств на актуальность (не актуальные удаляются)
+            //Старый способ
+            //foreach (System.Management.ManagementObject drive in
+            //        new System.Management.ManagementObjectSearcher(
+            //        "select * from Win32_DiskDrive where InterfaceType='USB'").Get())
+            //{
+            //    foreach (System.Management.ManagementObject partition in
+            //        new System.Management.ManagementObjectSearcher(
+            //        "ASSOCIATORS OF {Win32_DiskDrive.DeviceID='" + drive["DeviceID"]
+            //        + "'} WHERE AssocClass = Win32_DiskDriveToDiskPartition").Get())
+            //    {
+            //        foreach (System.Management.ManagementObject disk in
+            //            new System.Management.ManagementObjectSearcher(
+            //            "ASSOCIATORS OF {Win32_DiskPartition.DeviceID='"
+            //            + partition["DeviceID"]
+            //            + "'} WHERE AssocClass = Win32_LogicalDiskToPartition").Get())
+            //        {
+            //            disksName.Add(disk["Name"].ToString().Trim()); //Запись буквы устройства в список
+            //        }
+            //    }
+            //}
+            
         }
         #endregion
 
         public WindowMain()
         {
             InitializeComponent();
+
+            CheckBoxSoundConnect.IsChecked = Properties.Settings.Default.SoundConnect;
+            CheckBoxSoundReady.IsChecked = Properties.Settings.Default.SoundReady;
+            CheckBoxSoundDisconnect.IsChecked = Properties.Settings.Default.SoundDisconnect;
 
             logs = new UserControlLogs();
             logs.Visibility = Visibility.Hidden;
@@ -117,7 +134,7 @@ namespace AutoGarmin
             //Hwnd start
             HwndSource source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
             source.AddHook(new HwndSourceHook(WndProc));
-            UpdateDevices();
+            UpdateDevices(true);
         }
 
         #region MainButton Event
@@ -157,6 +174,42 @@ namespace AutoGarmin
         private void DataGridContentUpdate_Click(object sender, RoutedEventArgs e)
         {
             UpdateDevices();
+        }
+
+        private void CheckBoxSoundConnect_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.SoundConnect = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxSoundConnect_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.SoundConnect = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxSoundReady_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.SoundReady = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxSoundReady_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.SoundReady = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxSoundDisconnect_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.SoundDisconnect = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxSoundDisconnect_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.SoundDisconnect = false;
+            Properties.Settings.Default.Save();
         }
     }
 }

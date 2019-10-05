@@ -55,6 +55,54 @@
         </Style>
         <!--#endregion-->
 
+        <!--<Style TargetType="{x:Type CheckBox}">
+            <Style.Setters>
+                <Setter Property="Control.HorizontalAlignment" Value="Left" />
+                <Setter Property="Control.VerticalAlignment" Value="Top" />
+                <Setter Property="Control.Foreground" Value="#FFBBBBBB" />
+                <Setter Property="Control.FontSize" Value="11" />
+                <Setter Property="Control.Height" Value="15" />
+                <Setter Property="Control.Background" Value="#FF383838" />
+                <Setter Property="Control.Cursor" Value="Hand"/>-->
+        <Style x:Key="{x:Type CheckBox}" TargetType="CheckBox">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Foreground" Value="#FFBBBBBB" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Height" Value="15" />
+            <Setter Property="Background" Value="#FF383838" />
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <BulletDecorator Background="Transparent">
+                            <BulletDecorator.Bullet>
+                                <Border x:Name="Border" Width="15" Height="15" CornerRadius="0" Background="#FF252526" BorderThickness="1" BorderBrush="#FF383838">
+                                    <Path Width="7" Height="7" x:Name="CheckMark" SnapsToDevicePixels="False" Stroke="#FFBBBBBB" StrokeThickness="2" Data="M 0 0 L 7 7 M 0 7 L 7 0" />
+                                </Border>
+                            </BulletDecorator.Bullet>
+                            <ContentPresenter Margin="6,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True"/>
+                        </BulletDecorator>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="false">
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <Setter TargetName="CheckMark" Property="Data" Value="M 0 7 L 7 0" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF3C3C3C" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF3C3C3C" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#FF383838" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Window.Resources>
     <Grid x:Name="Grid">
         <Grid.RowDefinitions>
@@ -103,18 +151,21 @@
                         <RowDefinition Height="21"/>
                         <RowDefinition Height="120"/>
                         <RowDefinition Height="21"/>
-                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="83"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Rectangle Fill="#FF383838" Margin="0" Stroke="#FF252526" StrokeThickness="0"/>
-                    <Label Content="Файл карты" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Center" Background="{x:Null}" Foreground="#FFC8C8C8" Padding="0" FontFamily="Calibri"/>
+                    <Label Content="Файл карты" HorizontalAlignment="Left" Margin="18,3,0,3" VerticalAlignment="Center" Background="{x:Null}" Foreground="#FFC8C8C8" Padding="0" FontFamily="Calibri" Height="15" Width="60"/>
                     <Rectangle Fill="#FF383838" Margin="0" Stroke="#FF252526" StrokeThickness="0" Grid.Row="2"/>
-                    <Label Content="Параметры работы" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Center" Background="{x:Null}" Foreground="#FFC8C8C8" Padding="0" FontFamily="Calibri" Grid.Row="2"/>
+                    <Label Content="Параметры работы" HorizontalAlignment="Left" Margin="18,3,0,3" VerticalAlignment="Center" Background="{x:Null}" Foreground="#FFC8C8C8" Padding="0" FontFamily="Calibri" Grid.Row="2" Height="15" Width="98"/>
                     <Rectangle Fill="#FF383838" Margin="0" Stroke="#FF252526" StrokeThickness="0" Grid.Row="4"/>
-                    <Label Content="Настройки звука" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Center" Background="{x:Null}" Foreground="#FFC8C8C8" Padding="0" FontFamily="Calibri" Grid.Row="4"/>
+                    <Label Content="Настройки звука" HorizontalAlignment="Left" Margin="18,3,0,3" VerticalAlignment="Center" Background="{x:Null}" Foreground="#FFC8C8C8" Padding="0" FontFamily="Calibri" Grid.Row="4" Height="15" Width="84"/>
+                    <CheckBox x:Name="CheckBoxSoundConnect" Content=" Звук подключения" Margin="17,10,0,0" Grid.Row="5" Checked="CheckBoxSoundConnect_Checked" Unchecked="CheckBoxSoundConnect_Unchecked" Width="119"/>
+                    <CheckBox x:Name="CheckBoxSoundReady" Content=" Звук завершения" Margin="17,32,0,0" Grid.Row="5" Checked="CheckBoxSoundReady_Checked" Unchecked="CheckBoxSoundReady_Unchecked" Width="111"/>
+                    <CheckBox x:Name="CheckBoxSoundDisconnect" Content=" Звук отключения" Margin="17,54,0,0" Grid.Row="5" Checked="CheckBoxSoundDisconnect_Checked" Unchecked="CheckBoxSoundDisconnect_Unchecked" Width="111"/>
                 </Grid>
             </ScrollViewer>
         </Grid>
