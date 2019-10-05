@@ -17,7 +17,8 @@ namespace AutoGarmin
         private UserControlLogs logs;
         #endregion
 
-        #region USBDevices
+        #region USBDevices 
+        //Отлов событий подключения/отключения usb устройств
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             if (msg == USB.Code.WM_DEVICECHANGE)
@@ -113,6 +114,7 @@ namespace AutoGarmin
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //Hwnd start
             HwndSource source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
             source.AddHook(new HwndSourceHook(WndProc));
             UpdateDevices();
