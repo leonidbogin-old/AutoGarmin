@@ -1,55 +1,33 @@
 ﻿using AutoGarmin.View;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Management;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Xml;
 
 namespace AutoGarmin
 {
-    public partial class MainWindow : Window
+    public partial class WindowMain : Window
     {
-        public const string GPXPath = "GPX";
-
         #region View
-
-        private UserControlDevices userControlDevices;
-        private UserControlLogs userControlLogs;
-
+        private UserControlDevices devices;
+        private UserControlLogs logs;
         #endregion
 
         #region USBDevices
-
-        const int WM_DEVICECHANGE = 0x0219; //что-то связанное с usb
-        const int DBT_DEVICEARRIVAL = 0x8000; //устройство подключено
-        const int DBT_DEVICEREMOVECOMPLETE = 0x8004; // устройство отключено
-
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            if (msg == WM_DEVICECHANGE)
+            if (msg == USB.Code.WM_DEVICECHANGE)
             {
-                if (wParam.ToInt32() == DBT_DEVICEARRIVAL 
-                    || wParam.ToInt32() == DBT_DEVICEREMOVECOMPLETE)
+                if (wParam.ToInt32() == USB.Code.DBT_DEVICEARRIVAL 
+                    || wParam.ToInt32() == USB.Code.DBT_DEVICEREMOVECOMPLETE)
                 {
                     Dispatcher.BeginInvoke(new MethodInvoker(delegate
                     {
-                        UpdateDevices();
+                        UpdateDevices(); 
                     }));
                 }
             }
@@ -58,10 +36,10 @@ namespace AutoGarmin
 
         private void UpdateDevices()
         {
-            userControlDevices.CheckStart();
-
-            List<string> disksName = new List<string>();
-
+            devices.CheckStart(); //Начало проверки устройств на актуальность
+            List<string> disksName = new List<string>(); //Буквы дисков
+            
+            //Выборка USB устройств
             foreach (System.Management.ManagementObject drive in
                     new System.Management.ManagementObjectSearcher(
                     "select * from Win32_DiskDrive where InterfaceType='USB'").Get())
@@ -77,22 +55,23 @@ namespace AutoGarmin
                         + partition["DeviceID"]
                         + "'} WHERE AssocClass = Win32_LogicalDiskToPartition").Get())
                     {
-                        disksName.Add(disk["Name"].ToString().Trim());
+                        disksName.Add(disk["Name"].ToString().Trim()); //Запись буквы устройства в список
                     }
                 }
             }
 
+            //Проверка устройств на Garmin
             foreach (string diskName in disksName)
             {
-                if (File.Exists(diskName + @"\Garmin\GarminDevice.xml"))
+                if (File.Exists(diskName + Path.GarminXml))
                 {
-                    
                     string id = null;
                     string model = null;
                     string nickname = null;
 
+                    //Загрузка данных устройства из XML файла
                     XmlDocument xDoc = new XmlDocument();
-                    xDoc.Load(diskName + @"\Garmin\GarminDevice.xml");
+                    xDoc.Load(diskName + Path.GarminXml);
                     XmlElement xRoot = xDoc.DocumentElement;
 
                     foreach (XmlNode xnode in xRoot)
@@ -109,30 +88,27 @@ namespace AutoGarmin
                     }
 
                     if (id != null)
-                        if (!userControlDevices.Check(id))
+                        if (!devices.Check(id))
                         {
-                            userControlDevices.Add(id, nickname, diskName, model);
+                            devices.Add(id, nickname, diskName, model); //Добавление устройства
                         }
                 }
             }
-
-            userControlDevices.CheckEnd();
+            devices.CheckEnd(); //Конец проверки устройств на актуальность (не актуальные удаляются)
         }
-
         #endregion
 
-        public MainWindow()
+        public WindowMain()
         {
             InitializeComponent();
 
-            userControlLogs = new UserControlLogs();
-            userControlDevices = new UserControlDevices(userControlLogs);
+            logs = new UserControlLogs();
+            logs.Visibility = Visibility.Hidden;
+            GridContent.Children.Add(logs);
 
-            userControlDevices.Visibility = Visibility.Visible;
-            userControlLogs.Visibility = Visibility.Hidden;
-
-            GridContent.Children.Add(userControlDevices);
-            GridContent.Children.Add(userControlLogs);
+            devices = new UserControlDevices(ref logs);
+            devices.Visibility = Visibility.Visible;
+            GridContent.Children.Add(devices);            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -143,13 +119,12 @@ namespace AutoGarmin
         }
 
         #region MainButton Event
-
         private void ButtonDevices_Click(object sender, RoutedEventArgs e)
         {
-            if (userControlDevices.Visibility == Visibility.Hidden)
+            if (devices.Visibility == Visibility.Hidden)
             {
-                userControlDevices.Visibility = Visibility.Visible;
-                userControlLogs.Visibility = Visibility.Hidden;
+                devices.Visibility = Visibility.Visible;
+                logs.Visibility = Visibility.Hidden;
                 ButtonLogs.Style = (Style)FindResource("MainButton");
                 ButtonDevices.Style = (Style)FindResource("MainButton_Active");
             }
@@ -157,10 +132,10 @@ namespace AutoGarmin
 
         private void ButtonLogs_Click(object sender, RoutedEventArgs e)
         {
-            if (userControlLogs.Visibility == Visibility.Hidden)
+            if (logs.Visibility == Visibility.Hidden)
             {
-                userControlLogs.Visibility = Visibility.Visible;
-                userControlDevices.Visibility = Visibility.Hidden;
+                logs.Visibility = Visibility.Visible;
+                devices.Visibility = Visibility.Hidden;
                 ButtonDevices.Style = (Style)FindResource("MainButton");
                 ButtonLogs.Style = (Style)FindResource("MainButton_Active");
             }
@@ -168,14 +143,13 @@ namespace AutoGarmin
 
         private void ButtonTrackFolder_Click(object sender, RoutedEventArgs e)
         {
-            if (!Directory.Exists(GPXPath)) Directory.CreateDirectory(GPXPath);
+            if (!Directory.Exists(Path.GPX)) Directory.CreateDirectory(Path.GPX);
             Process Proc = new Process();
             Proc.StartInfo.FileName = "explorer";
-            Proc.StartInfo.Arguments = GPXPath;
+            Proc.StartInfo.Arguments = Path.GPX;
             Proc.Start();
             Proc.Close();
         }
-
         #endregion
 
         private void DataGridContentUpdate_Click(object sender, RoutedEventArgs e)

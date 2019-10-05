@@ -19,7 +19,7 @@ namespace AutoGarmin.View
     public partial class UserControlDevices : UserControl
     {
         //Ссылка 
-        private UserControlLogs userControlLogs;
+        private UserControlLogs logs;
 
         public List<Device> devices = new List<Device>();
 
@@ -27,7 +27,7 @@ namespace AutoGarmin.View
         {
             foreach (Device device in devices)
             {
-                device.check = true;
+                device.check = true; //Отмечаем все устройства для проверки актуальности
             }
         }
 
@@ -37,7 +37,7 @@ namespace AutoGarmin.View
             {
                 if (device.id == id)
                 {
-                    device.check = false;
+                    device.check = false; //Убираем флаг у проверенных устройств
                     return true;
                 }
             }
@@ -50,18 +50,8 @@ namespace AutoGarmin.View
             {
                 if (devices[i].check)
                 {
-                    UserControlDevice userControlDeviceRemove = null;
-                    //FIX (.findname not work)
-                    foreach (UserControlDevice userControlDevice in StackPanelDevices.Children)
-                    {
-                        if (userControlDevice.device.id == devices[i].id)
-                            userControlDeviceRemove = userControlDevice;
-                    }
-                    StackPanelDevices.Children.Remove(userControlDeviceRemove);
-                    userControlDeviceRemove.device = null;
-                    userControlDeviceRemove = null;
-                    userControlLogs.LogAdd(devices[i].id, devices[i].nickname,
-                        devices[i].diskname, devices[i].model, "Устройство отключено");
+                    StackPanelDevices.Children.Remove(devices[i].userControl);
+                    logs.LogAdd(devices[i], "Устройство отключено");
                     devices.Remove(devices[i]);
                     i--;
                 }
@@ -79,28 +69,16 @@ namespace AutoGarmin.View
                 check = false,
                 timeConnect = DateTime.Now
             };
+            device.userControl = new UserControlDevice(ref device, ref logs); 
             devices.Add(device);
-            UserControlDevice userControlDevice = new UserControlDevice(device, userControlLogs);
-            //userControlDevice.ApplyTemplate();
-            StackPanelDevices.Children.Add(userControlDevice);
-            userControlLogs.LogAdd(device.id, device.nickname, device.diskname, device.model, "Устройство подключено");
+            StackPanelDevices.Children.Add(device.userControl);
+            logs.LogAdd(device, "Устройство подключено");
         }
 
-        public UserControlDevices(UserControlLogs userControlLogs)
+        public UserControlDevices(ref UserControlLogs logs)
         {
-            this.userControlLogs = userControlLogs;
+            this.logs = logs;
             InitializeComponent();
-        }
-
-        public class Device
-        {
-            public string id { get; set; }
-            public string nickname { get; set; }
-            public string diskname { get; set; }
-            public string model { get; set; }
-            public bool ready { get; set; }
-            public bool check { get; set; }
-            public DateTime timeConnect { get; set; }
         }
     }
 }

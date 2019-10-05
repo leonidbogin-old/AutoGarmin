@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 
 namespace AutoGarmin
 {
-    public partial class DeviceRenameWindow : Window
+    public partial class WindowDeviceRename : Window
     {
         public string nickname;
 
-        public DeviceRenameWindow(string nickname)
+        public WindowDeviceRename(string nickname)
         {
             InitializeComponent();
             TextBoxNickname.Text = nickname;
