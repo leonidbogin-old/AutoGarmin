@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoGarmin"
         mc:Ignorable="d"
-        Title="Сменить наименование устройства" Width="299" Height="139" WindowStartupLocation="CenterScreen" Background="#FF252526" Icon="/AutoGarmin;component/icon.ico" Topmost="True" ResizeMode="NoResize" >
+        Title="Сменить наименование устройства" Width="299" Height="139" WindowStartupLocation="CenterScreen" Background="#FF252526" Icon="/AutoGarmin;component/icon.ico" Topmost="True" ResizeMode="NoResize" Loaded="Window_Loaded" >
     <Window.Resources>
         <Style x:Key="ButtonRename" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#FF383838"/>

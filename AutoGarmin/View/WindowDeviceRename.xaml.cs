@@ -44,5 +44,10 @@ namespace AutoGarmin
                 this.DialogResult = true;
             }
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            TextBoxNickname.Focus();
+        }
     }
 }
