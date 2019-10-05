@@ -80,7 +80,13 @@
                 <Button x:Name="ButtonLogs" Style="{StaticResource MainButton}" Content="Лог действий" Click="ButtonLogs_Click" Width="120"/>
                 <Button x:Name="ButtonTrackFolder" Style="{StaticResource MainButton}" Content="Папка слитых треков" Click="ButtonTrackFolder_Click" Width="150" Margin="0"/>
             </StackPanel>
-            <Grid x:Name="GridContent" Margin="0" Grid.Row="1" Background="#FF1E1E1E"/>
+            <Grid x:Name="GridContent" Margin="0" Grid.Row="1" Background="#FF1E1E1E">
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Обновить список устройств" Click="DataGridContentUpdate_Click" />
+                    </ContextMenu>
+                </Grid.ContextMenu>
+            </Grid>
         </Grid>
         <Grid x:Name="GridSidebar" Margin="0" Background="#FF252526">
             <Grid.ColumnDefinitions>

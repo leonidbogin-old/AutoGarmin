@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\GitHub\AutoGarmin\AutoGarmin\App.xaml
-41023778885
+5490389577
 
-9-1640415726
+10899597777
 16-2058018180
-View\MainWindow.xaml;View\UserControlDevice.xaml;View\UserControlDevices.xaml;View\UserControlLogs.xaml;
+View\DeviceRenameWindow.xaml;View\MainWindow.xaml;View\UserControlDevice.xaml;View\UserControlDevices.xaml;View\UserControlLogs.xaml;
 
-False
+True
 
