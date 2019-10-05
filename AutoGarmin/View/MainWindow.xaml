@@ -67,7 +67,6 @@
             <ColumnDefinition x:Name="ColumnSidebar" Width="240"/>
             <ColumnDefinition x:Name="ColumnContent"/>
         </Grid.ColumnDefinitions>
-        <Rectangle x:Name="RectangleSidebar" Fill="#FF252526" Margin="0" Stroke="#FF252526" StrokeThickness="0" Grid.Row="0"/>
         <Grid x:Name="GridMain" Margin="0" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="32"/>
@@ -82,6 +81,39 @@
                 <Button x:Name="ButtonTrackFolder" Style="{StaticResource MainButton}" Content="Папка слитых треков" Click="ButtonTrackFolder_Click" Width="150" Margin="0"/>
             </StackPanel>
             <Grid x:Name="GridContent" Margin="0" Grid.Row="1" Background="#FF1E1E1E"/>
+        </Grid>
+        <Grid x:Name="GridSidebar" Margin="0" Background="#FF252526">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label Content="Параметры приложения" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Center" Foreground="#FFBBBBBB" Padding="0,0,0,2"/>
+            <ScrollViewer Margin="0" Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <Grid x:Name="GridSidebarContent" Margin="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="21"/>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="21"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="21"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Fill="#FF383838" Margin="0" Stroke="#FF252526" StrokeThickness="0"/>
+                    <Label Content="Файл карты" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Center" Background="{x:Null}" Foreground="#FFC8C8C8" Padding="0" FontFamily="Calibri"/>
+                    <Rectangle Fill="#FF383838" Margin="0" Stroke="#FF252526" StrokeThickness="0" Grid.Row="2"/>
+                    <Label Content="Параметры работы" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Center" Background="{x:Null}" Foreground="#FFC8C8C8" Padding="0" FontFamily="Calibri" Grid.Row="2"/>
+                    <Rectangle Fill="#FF383838" Margin="0" Stroke="#FF252526" StrokeThickness="0" Grid.Row="4"/>
+                    <Label Content="Настройки звука" HorizontalAlignment="Left" Margin="18,0,0,0" VerticalAlignment="Center" Background="{x:Null}" Foreground="#FFC8C8C8" Padding="0" FontFamily="Calibri" Grid.Row="4"/>
+                </Grid>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Window>
