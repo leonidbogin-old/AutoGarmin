@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,18 +17,17 @@ namespace AutoGarmin
 {
     public partial class DeviceRenameWindow : Window
     {
-        private View.UserControlDevices.Device device;
+        public string nickname;
 
-        public DeviceRenameWindow(ref View.UserControlDevices.Device device)
+        public DeviceRenameWindow(string nickname)
         {
             InitializeComponent();
-            TextBoxNickname.Text = device.nickname;
-            this.device = device;
+            TextBoxNickname.Text = nickname;
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            device.nickname = TextBoxNickname.Text;
+            nickname = TextBoxNickname.Text;
             this.DialogResult = true;
         }
 

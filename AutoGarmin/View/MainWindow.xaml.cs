@@ -89,6 +89,7 @@ namespace AutoGarmin
                     
                     string id = null;
                     string model = null;
+                    string nickname = null;
 
                     XmlDocument xDoc = new XmlDocument();
                     xDoc.Load(diskName + @"\Garmin\GarminDevice.xml");
@@ -97,19 +98,20 @@ namespace AutoGarmin
                     foreach (XmlNode xnode in xRoot)
                     {
                         if (xnode.Name == "Id") id = xnode.InnerText;
-                        if (xnode.Name == "Model")
+                        else if (xnode.Name == "Model")
                         {
                             foreach (XmlNode xmodel in xnode)
                             {
                                 if (xmodel.Name == "Description") model = xmodel.InnerText;
                             }
                         }
+                        else if (xnode.Name == "Nickname") nickname = xnode.InnerText;
                     }
 
                     if (id != null)
                         if (!userControlDevices.Check(id))
                         {
-                            userControlDevices.Add(id, "1-1", diskName, model);
+                            userControlDevices.Add(id, nickname, diskName, model);
                         }
                 }
             }
