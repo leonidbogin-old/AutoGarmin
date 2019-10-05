@@ -50,6 +50,8 @@ namespace AutoGarmin.View
             {
                 if (devices[i].check)
                 {
+                    if (Properties.Settings.Default.SoundDisconnect)
+                        new System.Media.SoundPlayer("sounds/disconnect.wav").Play();
                     StackPanelDevices.Children.Remove(devices[i].userControl);
                     logs.LogAdd(devices[i], "Устройство отключено");
                     devices[i].userControl = null;
@@ -74,6 +76,7 @@ namespace AutoGarmin.View
             devices.Add(device);
             StackPanelDevices.Children.Add(device.userControl);
             logs.LogAdd(device, "Устройство подключено");
+            //new System.Media.SoundPlayer("sounds/ready.wav").Play();
         }
 
         public UserControlDevices(ref UserControlLogs logs)
