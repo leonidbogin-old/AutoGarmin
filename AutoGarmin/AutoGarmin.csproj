@@ -79,6 +79,7 @@
     <Compile Include="Class\Device.cs" />
     <Compile Include="Class\LogLine.cs" />
     <Compile Include="Class\Path.cs" />
+    <Compile Include="Class\Sound.cs" />
     <Compile Include="Class\USB.cs" />
     <Compile Include="View\WindowDeviceRename.xaml.cs">
       <DependentUpon>WindowDeviceRename.xaml</DependentUpon>
