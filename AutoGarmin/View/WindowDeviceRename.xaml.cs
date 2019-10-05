@@ -35,5 +35,14 @@ namespace AutoGarmin
         {
             this.DialogResult = false;
         }
+
+        private void TextBoxNickname_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                nickname = TextBoxNickname.Text;
+                this.DialogResult = true;
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
     <Grid>
         <ScrollViewer x:Name="ScrollViewerDevices" Margin="0" Padding="0" BorderThickness="0" HorizontalScrollBarVisibility="Auto">
-            <StackPanel x:Name="StackPanelDevices" Margin="50,20,35,5" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+            <StackPanel x:Name="StackPanelDevices" Margin="30,20,15,5" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
         </ScrollViewer>
     </Grid>
 </UserControl>

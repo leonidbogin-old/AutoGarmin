@@ -75,13 +75,13 @@ namespace AutoGarmin
 
         private void DataGridDeviceRename_Click(object sender, RoutedEventArgs e)
         {
-            if (device != null) //if (device == null) -> return
+            if (device.userControl != null) //if (device.userControl == null) -> return
             {
                 string nickname = device.nickname;
                 WindowDeviceRename deviceRenameWindow = new WindowDeviceRename(nickname);
                 if (deviceRenameWindow.ShowDialog().Value) 
                 {
-                    if (device != null) //if (device == null) -> show error
+                    if (device.userControl != null) //if (device.userControl == null) -> show error
                     {
                         device.nickname = deviceRenameWindow.nickname;
                         XmlDocument xDoc = new XmlDocument();
