@@ -9,10 +9,12 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace AutoGarmin
 {
@@ -73,25 +75,38 @@ namespace AutoGarmin
 
         private void DataGridDeviceRename_Click(object sender, RoutedEventArgs e)
         {
-            DeviceRenameWindow deviceRenameWindow = new DeviceRenameWindow(ref device);
-            View.UserControlDevices.Device deviceTemp = device; //Ссылка
-            if (deviceRenameWindow.ShowDialog().Value)
+            if (device != null)
             {
-                if (device != null)
+                string nickname = device.nickname;
+                DeviceRenameWindow deviceRenameWindow = new DeviceRenameWindow(nickname);
+                
+                if (deviceRenameWindow.ShowDialog().Value)
                 {
-                    if (LabelNickname.Content.ToString() != device.nickname)
+                    if (device != null)
                     {
-                        userControlLogs.LogAdd(deviceTemp.id, deviceTemp.nickname, deviceTemp.diskname, deviceTemp.model,
-                                "Изменено наименование с '" + LabelNickname.Content + "' на '" + deviceTemp.nickname + "'");
-                        LabelNickname.Content = deviceTemp.nickname;
+                        device.nickname = deviceRenameWindow.nickname;
+                        XmlDocument xDoc = new XmlDocument();
+                        xDoc.Load(device.diskname + @"\Garmin\GarminDevice.xml");
+                        XmlElement xRoot = xDoc.DocumentElement;
+                        XmlElement xmlElem = xDoc.CreateElement("Nickname", xRoot.NamespaceURI);
+
+
+                        XmlText xmlText = xDoc.CreateTextNode(device.nickname);
+                        xmlElem.AppendChild(xmlText);
+                        xmlElem.Attributes.RemoveAll();
+                        xRoot.AppendChild(xmlElem);
+                        xDoc.Save(device.diskname + @"\Garmin\GarminDevice.xml");
+                        
+                        userControlLogs.LogAdd(device.id, device.nickname, device.diskname, device.model,
+                                "Изменено наименование с '" + LabelNickname.Content + "' на '" + device.nickname + "'");
+                        LabelNickname.Content = device.nickname;
                     }
-                }
-                else
-                {
-                    userControlLogs.LogAdd(deviceTemp.id, deviceTemp.nickname, deviceTemp.diskname, deviceTemp.model,
-                                "Ошибка изменения наименования. Устройство было отключено");
-                    MessageBox.Show("Устройство было отключено. Изменение наименования не возможно.", "Ошибка",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    else
+                    {
+                        userControlLogs.LogAdd("", "", "", "", "Ошибка изменения наименования. Устройство было отключено");
+                        MessageBox.Show("Устройство было отключено. Изменение наименования не возможно.", "Ошибка",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
         }
