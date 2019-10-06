@@ -117,10 +117,6 @@ namespace AutoGarmin
         {
             InitializeComponent();
 
-            CheckBoxSoundConnect.IsChecked = Properties.Settings.Default.SoundConnect;
-            CheckBoxSoundReady.IsChecked = Properties.Settings.Default.SoundReady;
-            CheckBoxSoundDisconnect.IsChecked = Properties.Settings.Default.SoundDisconnect;
-
             logs = new UserControlLogs();
             logs.Visibility = Visibility.Hidden;
             GridContent.Children.Add(logs);
@@ -132,13 +128,39 @@ namespace AutoGarmin
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            LoadSidebar();
             //Hwnd start
             HwndSource source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
             source.AddHook(new HwndSourceHook(WndProc));
             UpdateDevices(true);
         }
 
-        #region MainButton Event
+        private void LoadSidebar()
+        {
+            CheckBoxTracksDownload.IsChecked = Properties.Settings.Default.AutoTracksDownload;
+            CheckBoxTracksClear.IsChecked = Properties.Settings.Default.AutoTracksClean;
+            CheckBoxMapClean.IsChecked = Properties.Settings.Default.AutoMapClean;
+            CheckBoxMapLoad.IsChecked = Properties.Settings.Default.AutoMapLoad;
+
+            CheckBoxSoundConnect.IsChecked = Properties.Settings.Default.SoundConnect;
+            CheckBoxSoundReady.IsChecked = Properties.Settings.Default.SoundReady;
+            CheckBoxSoundDisconnect.IsChecked = Properties.Settings.Default.SoundDisconnect;
+
+            if (Properties.Settings.Default.Auto)
+            {
+                ButtonAuto.Style = (Style)FindResource("ButtonAutoOn");
+                ButtonAuto.Content = Path.ButonAuto.On;
+                this.Title = Path.WindowTitleAutoOn;
+            }
+            else
+            {
+                ButtonAuto.Style = (Style)FindResource("ButtonAutoOff");
+                ButtonAuto.Content = Path.ButonAuto.Off;
+                this.Title = Path.WindowTitle;
+            }
+        }
+
+        #region MainButton
         private void ButtonDevices_Click(object sender, RoutedEventArgs e)
         {
             if (devices.Visibility == Visibility.Hidden)
@@ -172,11 +194,86 @@ namespace AutoGarmin
         }
         #endregion
 
-        private void DataGridContentUpdate_Click(object sender, RoutedEventArgs e)
+        #region MapFile
+
+        private void MapFileChange()
         {
-            UpdateDevices();
+            //System.Windows.Forms.MessageBox.Show(explorer);
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.CheckFileExists = true;
+            openFile.Filter = "Map files(*.kmz)|*.kmz|All files(*.*)|*.*";
+            openFile.Multiselect = false;
+            openFile.CheckPathExists = true;
+            openFile.Title = "Выбор файла для заливки";
+            openFile.InitialDirectory = "shell:MyComputerFolder";
+            if (openFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                System.Windows.Forms.MessageBox.Show(openFile.FileName);
+            }
         }
 
+        private void ButtonFileChange_Click(object sender, RoutedEventArgs e)
+        {
+            MapFileChange();
+        }
+
+        private void TextBoxFile_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            MapFileChange();
+        }
+        #endregion
+
+        #region AutoSettings
+        private void CheckBoxTracksDownload_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AutoTracksDownload = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxTracksDownload_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AutoTracksDownload = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxTracksClear_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AutoTracksClean = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxTracksClear_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AutoTracksClean = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxMapClean_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AutoMapClean = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxMapClean_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AutoMapClean = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxMapLoad_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AutoMapLoad = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxMapLoad_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AutoMapLoad = false;
+            Properties.Settings.Default.Save();
+        }
+        #endregion
+
+        #region Audio
         private void CheckBoxSoundConnect_Checked(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.SoundConnect = true;
@@ -211,6 +308,35 @@ namespace AutoGarmin
         {
             Properties.Settings.Default.SoundDisconnect = false;
             Properties.Settings.Default.Save();
+        }
+        #endregion
+
+        #region ButtonAuto
+        private void ButtonAuto_Click(object sender, RoutedEventArgs e)
+        {
+            if (Properties.Settings.Default.Auto)
+            {
+                Properties.Settings.Default.Auto = false;
+                Properties.Settings.Default.Save();
+                ButtonAuto.Style = (Style)FindResource("ButtonAutoOff");
+                ButtonAuto.Content = Path.ButonAuto.Off;
+                this.Title = Path.WindowTitle;
+            }
+            else
+            {
+                Properties.Settings.Default.Auto = true;
+                Properties.Settings.Default.Save();
+                ButtonAuto.Style = (Style)FindResource("ButtonAutoOn");
+                ButtonAuto.Content = Path.ButonAuto.On;
+                this.Title = Path.WindowTitleAutoOn;
+            }
+        }
+        #endregion
+
+        //Right click devices
+        private void DataGridContentUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateDevices();
         }
     }
 }
