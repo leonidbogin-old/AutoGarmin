@@ -37,7 +37,7 @@ namespace AutoGarmin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool SoundReady {
             get {
                 return ((bool)(this["SoundReady"]));
@@ -56,6 +56,78 @@ namespace AutoGarmin.Properties {
             }
             set {
                 this["SoundDisconnect"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Auto {
+            get {
+                return ((bool)(this["Auto"]));
+            }
+            set {
+                this["Auto"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MapPath {
+            get {
+                return ((string)(this["MapPath"]));
+            }
+            set {
+                this["MapPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoTracksDownload {
+            get {
+                return ((bool)(this["AutoTracksDownload"]));
+            }
+            set {
+                this["AutoTracksDownload"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoTracksClean {
+            get {
+                return ((bool)(this["AutoTracksClean"]));
+            }
+            set {
+                this["AutoTracksClean"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoMapClean {
+            get {
+                return ((bool)(this["AutoMapClean"]));
+            }
+            set {
+                this["AutoMapClean"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoMapLoad {
+            get {
+                return ((bool)(this["AutoMapLoad"]));
+            }
+            set {
+                this["AutoMapLoad"] = value;
             }
         }
     }
