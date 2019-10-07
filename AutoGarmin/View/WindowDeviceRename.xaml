@@ -4,17 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoGarmin"
-        mc:Ignorable="d"
-        Title="Сменить наименование устройства" Width="299" Height="139" WindowStartupLocation="CenterScreen" Background="#FF252526" Icon="/AutoGarmin;component/icon.ico" Topmost="True" ResizeMode="NoResize" Loaded="Window_Loaded" >
+        mc:Ignorable="d" Width="275" Height="80" WindowStartupLocation="CenterScreen" Background="#FF252526" Icon="/AutoGarmin;component/icon.ico" Topmost="True" ResizeMode="NoResize" Loaded="Window_Loaded" >
     <Window.Resources>
         <Style x:Key="ButtonRename" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#FF383838"/>
-            <Setter Property="Padding" Value="5" />
+            <Setter Property="Foreground" Value="#FFBBBBBB" />
+            <Setter Property="Padding" Value="0" />
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="#FF406992">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -31,9 +31,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <TextBox x:Name="TextBoxNickname" Height="23" Margin="0,0,15,61" TextWrapping="Wrap" VerticalAlignment="Bottom" Background="#FF383838" Foreground="White" VerticalContentAlignment="Center" Padding="3,0,0,0" Width="159" HorizontalAlignment="Right" TabIndex="0" KeyDown="TextBoxNickname_KeyDown"/>
-        <Button x:Name="ButtonSave" Content="Сохранить" Margin="0,0,15,16" Foreground="#FFA6FB99" Width="90" Height="35" Click="ButtonSave_Click" IsDefault="True" Style="{StaticResource ButtonRename}" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" TabIndex="1"  />
-        <Button x:Name="ButtonCancel" Content="Отмена"  Margin="0,0,113,16"  Foreground="#FFF9B3B3" Padding="0" Click="ButtonCancel_Click" IsCancel="True" Height="35" Width="60"  Style="{StaticResource ButtonRename}" HorizontalAlignment="Right" VerticalAlignment="Bottom" TabIndex="2" />
-        <Label Content="Наименование" HorizontalAlignment="Right" Margin="0,0,179,60" VerticalAlignment="Bottom" Foreground="#FFCFCFCF"/>
+        <TextBox x:Name="TextBoxNickname" Height="23" Margin="0,0,70,0" TextWrapping="Wrap" VerticalAlignment="Center" Background="#FF383838" Foreground="White" VerticalContentAlignment="Center" Padding="3,0,0,0" Width="159" HorizontalAlignment="Center" TabIndex="0" KeyDown="TextBoxNickname_KeyDown" Panel.ZIndex="1" MaxLines="1"/>
+        <Button x:Name="ButtonSave" Content="Сохранить" Margin="158,0,0,0" Width="70" Click="ButtonSave_Click" IsDefault="True" Style="{StaticResource ButtonRename}" TabIndex="1" Height="23" VerticalAlignment="Center" HorizontalAlignment="Center" />
     </Grid>
 </Window>
