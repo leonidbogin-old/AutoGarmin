@@ -19,20 +19,28 @@ namespace AutoGarmin.View
 {
     public partial class UserControlDevices : UserControl
     {
-        //Ссылка 
+        #region Links
         private UserControlLogs logs;
+        #endregion
 
-        public List<Device> devices = new List<Device>();
+        public List<Device> devices = new List<Device>(); //Список устройств
 
-        public void CheckStart()
+        public UserControlDevices(ref UserControlLogs logs) //Инициализация
+        {
+            this.logs = logs;
+            InitializeComponent();
+        }
+
+        #region Check devices
+        public void CheckStart() //Старт проверки акуальности устройств
         {
             foreach (Device device in devices)
             {
-                device.check = true; //Отмечаем все устройства для проверки актуальности
+                device.check = true; //Отмечаем все устройства
             }
         }
 
-        public bool Check(string id)
+        public bool Check(string id) //Проверяем устройство
         {
             foreach (Device device in devices)
             {
@@ -45,7 +53,7 @@ namespace AutoGarmin.View
             return false;
         }
         
-        public void CheckEnd()
+        public void CheckEnd() //Конец проверки актульности. Не акуальные удаляем
         {
             for (int i = 0; i < devices.Count; i++)
             {
@@ -61,8 +69,9 @@ namespace AutoGarmin.View
                 }
             }
         }
+        #endregion
 
-        public void Add(string id, string nickname, string diskname, string model)
+        public void Add(string id, string nickname, string diskname, string model) //Добавление устройства
         {
             Device device = new Device()
             {
@@ -77,12 +86,6 @@ namespace AutoGarmin.View
             devices.Add(device);
             StackPanelDevices.Children.Add(device.userControl);
             logs.LogAdd(device, Const.Message.DeviceConnect);
-        }
-
-        public UserControlDevices(ref UserControlLogs logs)
-        {
-            this.logs = logs;
-            InitializeComponent();
         }
     }
 }

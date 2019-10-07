@@ -18,14 +18,20 @@ namespace AutoGarmin.View
 {
     public partial class UserControlLogs : UserControl
     {
-        #region Logs
+        //Коллекция логов. Привязка к dataGridLogs
         private ObservableCollection<LogLine> logLines = new ObservableCollection<LogLine>();
 
-        public void LogAdd(Device device, string action)
+        public UserControlLogs() //Инициализация
+        {
+            InitializeComponent();
+            DataGridLogs.ItemsSource = logLines;
+        }
+
+        public void LogAdd(Device device, string action) //Новый лог
         {
             LogLine logNew = new LogLine()
             {
-                time = DateTime.Now.ToString("HH:mm:ss"),
+                time = DateTime.Now.ToString(Const.Time.Log),
                 id = device.id,
                 nickname = device.nickname,
                 modelAndDiskname = $"{device.model} ({device.diskname})",
@@ -36,16 +42,9 @@ namespace AutoGarmin.View
             DataGridLogs.ScrollIntoView(logLines.Last());
         }
 
-        public void LogClear()
+        public void LogClear() //Очистка лога
         {
             logLines.Clear();
-        }
-        #endregion
-
-        public UserControlLogs()
-        {
-            InitializeComponent();
-            DataGridLogs.ItemsSource = logLines;
         }
 
         private void DataGridLogsClear_Click(object sender, RoutedEventArgs e)
