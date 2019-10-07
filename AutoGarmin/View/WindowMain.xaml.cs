@@ -36,14 +36,9 @@ namespace AutoGarmin
             return IntPtr.Zero;
         }
 
-        private void UpdateDevices()
+        private void UpdateDevices(bool first) //Обновление устройств (true = Первое обновление)
         {
-            UpdateDevices(false);
-        }
-
-        private void UpdateDevices(bool first)
-        {
-            CheckFile();
+            CheckFile(); //Проверка файла на актуальность
             devices.CheckStart(); //Начало проверки устройств на актуальность
 
             //Выборка букв USB устройств
@@ -52,7 +47,7 @@ namespace AutoGarmin
             {
                 if (DI.DriveType == DriveType.Removable)
                 { 
-                    //Проверка устройств на Garmin
+                    //Проверка устройств на Garmin устройство
                     if (File.Exists(Convert.ToString(DI.Name) + Const.Path.GarminXml))
                     {
                         string id = null;
@@ -66,15 +61,15 @@ namespace AutoGarmin
 
                         foreach (XmlNode xnode in xRoot)
                         {
-                            if (xnode.Name == "Id") id = xnode.InnerText;
-                            else if (xnode.Name == "Model")
+                            if (xnode.Name == Const.Xml.Id) id = xnode.InnerText;
+                            else if (xnode.Name == Const.Xml.Model)
                             {
                                 foreach (XmlNode xmodel in xnode)
                                 {
-                                    if (xmodel.Name == "Description") model = xmodel.InnerText;
+                                    if (xmodel.Name == Const.Xml.Description) model = xmodel.InnerText;
                                 }
                             }
-                            else if (xnode.Name == "Nickname") nickname = xnode.InnerText;
+                            else if (xnode.Name == Const.Xml.Nickname) nickname = xnode.InnerText;
                         }
 
                         if (id != null)
@@ -89,10 +84,15 @@ namespace AutoGarmin
             }
             devices.CheckEnd(); //Конец проверки устройств на актуальность (не актуальные удаляются)            
         }
+
+        private void UpdateDevices() //Не первое обновление устройств
+        {
+            UpdateDevices(false);
+        }
         #endregion
 
         #region Window
-        public WindowMain()
+        public WindowMain() //Инициализация
         {
             InitializeComponent();
 
@@ -105,7 +105,7 @@ namespace AutoGarmin
             GridContent.Children.Add(devices);            
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e) //Загрузка окна
         {
             LoadSidebar();
             //Hwnd start
@@ -114,9 +114,10 @@ namespace AutoGarmin
             UpdateDevices(true);
         }
 
-        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        private void Window_GotFocus(object sender, RoutedEventArgs e) //Окно получило фокус
         {
             CheckFile();
+            UpdateDevices();
         }
         #endregion
 
@@ -155,9 +156,9 @@ namespace AutoGarmin
         #endregion
 
         #region SideBar
-        private void LoadSidebar()
+        private void LoadSidebar() //Загрузка Sidebar
         {
-            CheckFile();
+            CheckFile(); //Проверка файла на актуальность
 
             CheckBoxTracksDownload.IsChecked = Properties.Settings.Default.AutoTracksDownload;
             CheckBoxTracksClear.IsChecked = Properties.Settings.Default.AutoTracksClean;
@@ -428,7 +429,7 @@ namespace AutoGarmin
         }
         #endregion
 
-        private void DataGridContentUpdate_Click(object sender, RoutedEventArgs e) //Right click devices
+        private void DataGridContentUpdate_Click(object sender, RoutedEventArgs e) 
         {
             UpdateDevices();
         }

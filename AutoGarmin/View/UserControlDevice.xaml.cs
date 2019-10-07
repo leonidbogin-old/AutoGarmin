@@ -20,26 +20,28 @@ namespace AutoGarmin
 {
     public partial class UserControlDevice : UserControl
     {
-        private View.UserControlLogs logs; //Ссылка
-        private Device device; //Ссылка
 
-        public UserControlDevice(ref Device device, ref View.UserControlLogs logs)
+        #region Links
+        private View.UserControlLogs logs; 
+        private Device device;
+        #endregion
+
+        public UserControlDevice(ref Device device, ref View.UserControlLogs logs) //Инилизация
         {
             this.logs = logs;
             this.device = device;
             InitializeComponent();
-            this.Name = "userControlDevice" + device.id; //UI Id
             LabelModel.Content = $"{device.model} ({device.diskname})";
             if (device.nickname != null && device.nickname.Length > 0)
                 LabelNickname.Content = device.nickname;
             else LabelNickname.Content = Const.Label.NoNickname;
             LabelId.Content = device.id;
-            LabelTimeConnect.Content = device.timeConnect.ToString("HH:mm:ss");
+            LabelTimeConnect.Content = device.timeConnect.ToString(Const.Time.Connect);
             ImageDevice.Source = LoadIco(device.diskname);
         }
 
         #region LoadIco
-        private BitmapImage LoadIco(string diskname)
+        private BitmapImage LoadIco(string diskname) //Загрузка иконки устройства
         {
             BitmapImage bm1 = new BitmapImage();
 
@@ -65,7 +67,7 @@ namespace AutoGarmin
             return bm1;
         }
 
-        private static void GetAllFiles(string rootDirectory, string fileExtension, List<string> files)
+        private static void GetAllFiles(string rootDirectory, string fileExtension, List<string> files) //Поиск .ico файлов на устройстве
         {
             string[] directories = Directory.GetDirectories(rootDirectory);
             files.AddRange(Directory.GetFiles(rootDirectory, fileExtension));
@@ -75,7 +77,7 @@ namespace AutoGarmin
         }
         #endregion
 
-        private void RenameDevice()
+        private void RenameDevice() //Переименовать устройство
         {
             if (device.userControl != null) //if (device.userControl == null) -> return
             {
@@ -149,12 +151,12 @@ namespace AutoGarmin
             }
         }
 
-        private void DataGridDeviceRename_Click(object sender, RoutedEventArgs e)
+        private void DataGridDeviceRename_Click(object sender, RoutedEventArgs e) 
         {
             RenameDevice();
         }
 
-        private void LabelNickname_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void LabelNickname_MouseDoubleClick(object sender, MouseButtonEventArgs e) 
         {
             RenameDevice();
         }
