@@ -18,7 +18,7 @@ namespace AutoGarmin
         private UserControlLogs logs;
         #endregion
 
-        #region USBDevices 
+        #region USB
         //Отлов событий подключения/отключения usb устройств
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
@@ -43,18 +43,17 @@ namespace AutoGarmin
 
         private void UpdateDevices(bool first)
         {
+            CheckFile();
             devices.CheckStart(); //Начало проверки устройств на актуальность
-            //List<string> disksName = new List<string>(); //Буквы дисков
 
             //Выборка букв USB устройств
-            //Новый простой способ
             DriveInfo[] D = DriveInfo.GetDrives();
             foreach (DriveInfo DI in D)
             {
                 if (DI.DriveType == DriveType.Removable)
                 { 
                     //Проверка устройств на Garmin
-                    if (File.Exists(Convert.ToString(DI.Name) + Path.GarminXml))
+                    if (File.Exists(Convert.ToString(DI.Name) + Const.Path.GarminXml))
                     {
                         string id = null;
                         string model = null;
@@ -62,7 +61,7 @@ namespace AutoGarmin
 
                         //Загрузка данных устройства из XML файла
                         XmlDocument xDoc = new XmlDocument();
-                        xDoc.Load(Convert.ToString(DI.Name) + Path.GarminXml);
+                        xDoc.Load(Convert.ToString(DI.Name) + Const.Path.GarminXml);
                         XmlElement xRoot = xDoc.DocumentElement;
 
                         foreach (XmlNode xnode in xRoot)
@@ -82,37 +81,17 @@ namespace AutoGarmin
                             if (!devices.Check(id))
                             {
                                 if (!first && Properties.Settings.Default.SoundConnect)
-                                    Sound.Play(Path.Sound.Connect);
+                                    Sound.Play(Const.Path.Sound.Connect);
                                 devices.Add(id, nickname, Convert.ToString(DI.Name), model); //Добавление устройства
                             }
                     }
                 }
             }
-            devices.CheckEnd(); //Конец проверки устройств на актуальность (не актуальные удаляются)
-            //Старый способ
-            //foreach (System.Management.ManagementObject drive in
-            //        new System.Management.ManagementObjectSearcher(
-            //        "select * from Win32_DiskDrive where InterfaceType='USB'").Get())
-            //{
-            //    foreach (System.Management.ManagementObject partition in
-            //        new System.Management.ManagementObjectSearcher(
-            //        "ASSOCIATORS OF {Win32_DiskDrive.DeviceID='" + drive["DeviceID"]
-            //        + "'} WHERE AssocClass = Win32_DiskDriveToDiskPartition").Get())
-            //    {
-            //        foreach (System.Management.ManagementObject disk in
-            //            new System.Management.ManagementObjectSearcher(
-            //            "ASSOCIATORS OF {Win32_DiskPartition.DeviceID='"
-            //            + partition["DeviceID"]
-            //            + "'} WHERE AssocClass = Win32_LogicalDiskToPartition").Get())
-            //        {
-            //            disksName.Add(disk["Name"].ToString().Trim()); //Запись буквы устройства в список
-            //        }
-            //    }
-            //}
-            
+            devices.CheckEnd(); //Конец проверки устройств на актуальность (не актуальные удаляются)            
         }
         #endregion
 
+        #region Window
         public WindowMain()
         {
             InitializeComponent();
@@ -135,30 +114,11 @@ namespace AutoGarmin
             UpdateDevices(true);
         }
 
-        private void LoadSidebar()
+        private void Window_GotFocus(object sender, RoutedEventArgs e)
         {
-            CheckBoxTracksDownload.IsChecked = Properties.Settings.Default.AutoTracksDownload;
-            CheckBoxTracksClear.IsChecked = Properties.Settings.Default.AutoTracksClean;
-            CheckBoxMapClean.IsChecked = Properties.Settings.Default.AutoMapClean;
-            CheckBoxMapLoad.IsChecked = Properties.Settings.Default.AutoMapLoad;
-
-            CheckBoxSoundConnect.IsChecked = Properties.Settings.Default.SoundConnect;
-            CheckBoxSoundReady.IsChecked = Properties.Settings.Default.SoundReady;
-            CheckBoxSoundDisconnect.IsChecked = Properties.Settings.Default.SoundDisconnect;
-
-            if (Properties.Settings.Default.Auto)
-            {
-                ButtonAuto.Style = (Style)FindResource("ButtonAutoOn");
-                ButtonAuto.Content = Path.ButonAuto.On;
-                this.Title = Path.WindowTitleAutoOn;
-            }
-            else
-            {
-                ButtonAuto.Style = (Style)FindResource("ButtonAutoOff");
-                ButtonAuto.Content = Path.ButonAuto.Off;
-                this.Title = Path.WindowTitle;
-            }
+            CheckFile();
         }
+        #endregion
 
         #region MainButton
         private void ButtonDevices_Click(object sender, RoutedEventArgs e)
@@ -185,18 +145,65 @@ namespace AutoGarmin
 
         private void ButtonTrackFolder_Click(object sender, RoutedEventArgs e)
         {
-            if (!Directory.Exists(Path.GPX)) Directory.CreateDirectory(Path.GPX);
+            if (!Directory.Exists(Const.Path.GPX)) Directory.CreateDirectory(Const.Path.GPX);
             Process Proc = new Process();
             Proc.StartInfo.FileName = "explorer";
-            Proc.StartInfo.Arguments = Path.GPX;
+            Proc.StartInfo.Arguments = Const.Path.GPX;
             Proc.Start();
             Proc.Close();
         }
         #endregion
 
-        #region MapFile
+        #region SideBar
+        private void LoadSidebar()
+        {
+            CheckFile();
 
-        private void MapFileChange()
+            CheckBoxTracksDownload.IsChecked = Properties.Settings.Default.AutoTracksDownload;
+            CheckBoxTracksClear.IsChecked = Properties.Settings.Default.AutoTracksClean;
+            CheckBoxMapClean.IsChecked = Properties.Settings.Default.AutoMapClean;
+            CheckBoxMapLoad.IsChecked = Properties.Settings.Default.AutoMapLoad;
+
+            CheckBoxSoundConnect.IsChecked = Properties.Settings.Default.SoundConnect;
+            CheckBoxSoundReady.IsChecked = Properties.Settings.Default.SoundReady;
+            CheckBoxSoundDisconnect.IsChecked = Properties.Settings.Default.SoundDisconnect;
+
+            if (Properties.Settings.Default.Auto)
+            {
+                ButtonAuto.Style = (Style)FindResource("ButtonAutoOn");
+                ButtonAuto.Content = Const.Label.ButonAuto.On;
+                this.Title = Const.Title.MainAutoOn;
+            }
+            else
+            {
+                ButtonAuto.Style = (Style)FindResource("ButtonAutoOff");
+                ButtonAuto.Content = Const.Label.ButonAuto.Off;
+                this.Title = Const.Title.MainAutoOn;
+            }
+        }
+        #endregion
+
+        #region MapFile
+        public void CheckFile() //Проверка актульности файла, отображение файла
+        {
+            if (File.Exists(Const.Path.CustomMaps + @"\" + Properties.Settings.Default.MapName))
+            {
+                TextBoxFile.ToolTip = "";
+                TextBoxFile.Text = Properties.Settings.Default.MapName;
+                System.IO.FileInfo file = new System.IO.FileInfo(Const.Path.CustomMaps + @"\" + Properties.Settings.Default.MapName);
+                LabelFileSize.Content = Const.Label.FileSize + " " + BytesToString(file.Length);
+                CheckBoxMapLoad.Style = (Style)FindResource("CheckBox");
+            }
+            else
+            {
+                TextBoxFile.ToolTip = Const.Error.LoadMapNotWork;
+                TextBoxFile.Text = "";
+                LabelFileSize.Content = Const.Error.NoMapFile;
+                CheckBoxMapLoad.Style = (Style)FindResource("CheckBoxError");
+            }
+        }
+
+        private void OpenDialogMapFileChange() //Открытие диалога выбора файла
         {
             //System.Windows.Forms.MessageBox.Show(explorer);
             OpenFileDialog openFile = new OpenFileDialog();
@@ -204,22 +211,110 @@ namespace AutoGarmin
             openFile.Filter = "Map files(*.kmz)|*.kmz|All files(*.*)|*.*";
             openFile.Multiselect = false;
             openFile.CheckPathExists = true;
-            openFile.Title = "Выбор файла для заливки";
-            openFile.InitialDirectory = "shell:MyComputerFolder";
+            openFile.Title = Const.Title.ChooseFile;
+            if (Directory.Exists(Properties.Settings.Default.MapOldPath))
+                openFile.InitialDirectory = Properties.Settings.Default.MapOldPath;
+            else openFile.InitialDirectory = "shell:MyComputerFolder";
             if (openFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                System.Windows.Forms.MessageBox.Show(openFile.FileName);
+                MapFileChange(openFile.FileName);
+            }
+            CheckFile();
+        }
+
+        private void Window_Drop(object sender, System.Windows.DragEventArgs e) //Перетягивание файла в окно
+        {
+            if (e.Data.GetDataPresent(System.Windows.Forms.DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(System.Windows.Forms.DataFormats.FileDrop);
+                bool exitsKmz = false;
+                foreach (string file in files)
+                    if ((Path.GetExtension(file)).ToLower() == (Const.Path.MapFileExtension).ToLower())
+                    {
+                        MapFileChange(files[0]);
+                        exitsKmz = true;
+                        break;
+                    }
+                //Если выполнение кода дошло сюда, 
+                //  следовательно в выбранных файлах не было файла с расширением .kmz
+                if (exitsKmz)
+                {
+                    if (System.Windows.Forms.MessageBox.Show(Const.Error.NoKmz, Const.Error.WordWarning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
+                        == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        MapFileChange(files[0]);
+                    }
+                }
+            }
+            CheckFile();
+        }
+
+        private void MapFileChange(string path) //Изменение файла
+        {
+            if (!Directory.Exists(Const.Path.CustomMaps)) Directory.CreateDirectory(Const.Path.CustomMaps);
+            try
+            {
+                if (path != System.Windows.Forms.Application.StartupPath
+                    + @"\" + Const.Path.CustomMaps + @"\" + Properties.Settings.Default.MapName)
+                {
+                    var dirInfo = new DirectoryInfo(Const.Path.CustomMaps);
+                    foreach (var file in dirInfo.GetFiles())
+                        file.Delete();
+                    File.Copy(path, Const.Path.CustomMaps + @"\" + Path.GetFileName(path), true);
+                    Properties.Settings.Default.MapName = Path.GetFileName(path);
+                    Properties.Settings.Default.MapOldPath = Path.GetDirectoryName(path);
+                    Properties.Settings.Default.Save();
+                }
+                else
+                {
+                    Properties.Settings.Default.MapOldPath = Path.GetDirectoryName(path);
+                    Properties.Settings.Default.Save();
+                }
+            }
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show(Const.Error.Copy + ".",
+                    Const.Error.WordError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void ButtonFileChange_Click(object sender, RoutedEventArgs e)
+        private void MapFileClean() //Удаление файла
         {
-            MapFileChange();
+            var dirInfo = new DirectoryInfo(Const.Path.CustomMaps);
+            foreach (var file in dirInfo.GetFiles())
+                file.Delete();
+            CheckFile();
+        }
+
+        private static string BytesToString(long byteCount) //Строка размера файла
+        {
+            string[] suf = { "Байт", "Кб", "Мб", "Гб", "Тб", "Пб", "Эб" }; //
+            if (byteCount == 0)
+                return "0" + suf[0];
+            long bytes = Math.Abs(byteCount);
+            int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
+            double num = Math.Round(bytes / Math.Pow(1024, place), 1);
+            return (Math.Sign(byteCount) * num).ToString() + " " + suf[place];
+        }
+
+        private void ButtonFileChange_Click(object sender, RoutedEventArgs e) //Нажатие кнопки "Выбрать" файл
+        {
+            OpenDialogMapFileChange();
         }
 
         private void TextBoxFile_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            MapFileChange();
+            OpenDialogMapFileChange();
+        }
+
+        private void ButtonFileClean_Click(object sender, RoutedEventArgs e) //Нажатие кновки удаления файла
+        {
+            MapFileClean();
+        } 
+
+        private void ContextMenuFile_Open(object sender, RoutedEventArgs e) //Событие открытия ContextMenu файла
+        {
+            CheckFile();
         }
         #endregion
 
@@ -319,22 +414,21 @@ namespace AutoGarmin
                 Properties.Settings.Default.Auto = false;
                 Properties.Settings.Default.Save();
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOff");
-                ButtonAuto.Content = Path.ButonAuto.Off;
-                this.Title = Path.WindowTitle;
+                ButtonAuto.Content = Const.Label.ButonAuto.Off;
+                this.Title = Const.Title.Main;
             }
             else
             {
                 Properties.Settings.Default.Auto = true;
                 Properties.Settings.Default.Save();
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOn");
-                ButtonAuto.Content = Path.ButonAuto.On;
-                this.Title = Path.WindowTitleAutoOn;
+                ButtonAuto.Content = Const.Label.ButonAuto.On;
+                this.Title = Const.Title.MainAutoOn;
             }
         }
         #endregion
 
-        //Right click devices
-        private void DataGridContentUpdate_Click(object sender, RoutedEventArgs e)
+        private void DataGridContentUpdate_Click(object sender, RoutedEventArgs e) //Right click devices
         {
             UpdateDevices();
         }

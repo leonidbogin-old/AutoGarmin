@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoGarmin"
         mc:Ignorable="d"
-        Height="500" Width="800" Foreground="White" Icon="/icon.ico" Loaded="Window_Loaded" MinWidth="638" Background="#FF1E1E1E" MinHeight="350">
+        Height="500" Width="800" Foreground="White" Icon="/icon.ico" Loaded="Window_Loaded" MinWidth="638" Background="#FF1E1E1E" MinHeight="350" AllowDrop="True" Drop="Window_Drop" GotFocus="Window_GotFocus">
     <Window.Resources>
 
         <!--#region MainButtons-->
@@ -115,7 +115,6 @@
         <!--#region ButtonSmall-->
         <Style x:Key="ButtonSmall" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#FF383838"/>
-            <Setter Property="BorderBrush" Value="#FF383838"/>
             <Setter Property="Foreground" Value="#FFBBBBBB" />
             <Setter Property="FontSize" Value="10.5" />
             <Setter Property="Padding" Value="1,1,1,0" />
@@ -141,7 +140,7 @@
         <!--#endregion-->
 
         <!--#region CheckBox-->
-        <Style x:Key="{x:Type CheckBox}" TargetType="CheckBox">
+        <Style x:Key="CheckBox" TargetType="CheckBox">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="Foreground" Value="#FFBBBBBB" />
@@ -277,22 +276,29 @@
                     <Label Content="Параметры работы" HorizontalAlignment="Left" Margin="18,3,0,3" VerticalAlignment="Center" Background="{x:Null}" Foreground="#FFC8C8C8" Padding="0" FontFamily="Calibri" Grid.Row="2" Height="15" Width="98"/>
                     <Rectangle Fill="#FF383838" Margin="0" Stroke="#FF252526" StrokeThickness="0" Grid.Row="4"/>
                     <Label Content="Настройки звука" HorizontalAlignment="Left" Margin="18,3,0,3" VerticalAlignment="Center" Background="{x:Null}" Foreground="#FFC8C8C8" Padding="0" FontFamily="Calibri" Grid.Row="4" Height="15" Width="84"/>
-                    <CheckBox x:Name="CheckBoxSoundConnect" Content=" Звук подключения" Margin="17,10,0,0" Grid.Row="5" Checked="CheckBoxSoundConnect_Checked" Unchecked="CheckBoxSoundConnect_Unchecked" Width="119"/>
-                    <CheckBox x:Name="CheckBoxSoundReady" Content=" Звук завершения" Margin="17,32,0,0" Grid.Row="5" Checked="CheckBoxSoundReady_Checked" Unchecked="CheckBoxSoundReady_Unchecked" Width="111"/>
-                    <CheckBox x:Name="CheckBoxSoundDisconnect" Content=" Звук отключения" Margin="17,54,0,0" Grid.Row="5" Checked="CheckBoxSoundDisconnect_Checked" Unchecked="CheckBoxSoundDisconnect_Unchecked" Width="111"/>
-                    <CheckBox x:Name="CheckBoxTracksDownload" Content="Скачать треки" Margin="17,10,0,0" Grid.Row="3" Checked="CheckBoxTracksDownload_Checked" Unchecked="CheckBoxTracksDownload_Unchecked" Width="119"/>
-                    <CheckBox x:Name="CheckBoxTracksClear" Content="Очистить папку треков" Margin="17,32,0,0" Grid.Row="3" Unchecked="CheckBoxTracksClear_Unchecked" Checked="CheckBoxTracksClear_Checked"/>
-                    <CheckBox x:Name="CheckBoxMapClean" Content="Очистить старые карты" Margin="17,54,0,0" Grid.Row="3" Checked="CheckBoxMapClean_Checked" Unchecked="CheckBoxMapClean_Unchecked"/>
-                    <CheckBox x:Name="CheckBoxMapLoad" Style="{StaticResource CheckBoxError}" Content="Залить карту" Margin="17,76,0,0" Grid.Row="3" Checked="CheckBoxMapLoad_Checked" Unchecked="CheckBoxMapLoad_Unchecked" ToolTip="Заливка карты без файла не работает"/>
-                    <TextBox x:Name="TextBoxFile" Height="23" Margin="18,12,70,0" TextWrapping="Wrap" Text="zal.kmz" VerticalAlignment="Top" Grid.Row="1" Background="#FF515151" BorderBrush="#FF383838" Foreground="White" VerticalContentAlignment="Center" Cursor="Hand" IsReadOnly="True" Padding="5,0,0,0" SelectionOpacity="0.5" UndoLimit="0" MouseDoubleClick="TextBoxFile_MouseDoubleClick">
+                    <CheckBox x:Name="CheckBoxSoundConnect" Style="{StaticResource CheckBox}" Content=" Звук подключения" Margin="17,10,0,0" Grid.Row="5" Checked="CheckBoxSoundConnect_Checked" Unchecked="CheckBoxSoundConnect_Unchecked" Width="119"/>
+                    <CheckBox x:Name="CheckBoxSoundReady" Style="{StaticResource CheckBox}" Content=" Звук завершения" Margin="17,32,0,0" Grid.Row="5" Checked="CheckBoxSoundReady_Checked" Unchecked="CheckBoxSoundReady_Unchecked" Width="111"/>
+                    <CheckBox x:Name="CheckBoxSoundDisconnect" Style="{StaticResource CheckBox}" Content=" Звук отключения" Margin="17,54,0,0" Grid.Row="5" Checked="CheckBoxSoundDisconnect_Checked" Unchecked="CheckBoxSoundDisconnect_Unchecked" Width="111"/>
+                    <CheckBox x:Name="CheckBoxTracksDownload" Style="{StaticResource CheckBox}" Content="Скачать треки" Margin="17,10,0,0" Grid.Row="3" Checked="CheckBoxTracksDownload_Checked" Unchecked="CheckBoxTracksDownload_Unchecked" Width="119"/>
+                    <CheckBox x:Name="CheckBoxTracksClear" Style="{StaticResource CheckBox}" Content="Очистить папку треков" Margin="17,32,0,0" Grid.Row="3" Unchecked="CheckBoxTracksClear_Unchecked" Checked="CheckBoxTracksClear_Checked"/>
+                    <CheckBox x:Name="CheckBoxMapClean" Style="{StaticResource CheckBox}" Content="Очистить старые карты" Margin="17,54,0,0" Grid.Row="3" Checked="CheckBoxMapClean_Checked" Unchecked="CheckBoxMapClean_Unchecked"/>
+                    <CheckBox x:Name="CheckBoxMapLoad" Style="{StaticResource CheckBox}" Content="Залить карту" Margin="17,76,0,0" Grid.Row="3" Checked="CheckBoxMapLoad_Checked" Unchecked="CheckBoxMapLoad_Unchecked"/>
+                    <TextBox x:Name="TextBoxFile" Height="23" Margin="18,12,70,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1" Background="#FF515151" BorderBrush="#FF383838" Foreground="White" VerticalContentAlignment="Center" Cursor="Hand" IsReadOnly="True" Padding="5,0,0,0" SelectionOpacity="0.5" UndoLimit="0" MouseDoubleClick="TextBoxFile_MouseDoubleClick">
                         <TextBox.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Выбрать файл" />
-                                <MenuItem Header="Удалить" />
+                            <ContextMenu ContextMenuOpening="ContextMenuFile_Open">
+                                <MenuItem Header="Выбрать файл" Click="ButtonFileChange_Click" />
+                                <MenuItem Header="Удалить" Click="ButtonFileClean_Click"/>
                             </ContextMenu>
                         </TextBox.ContextMenu>
                     </TextBox>
-                    <Button x:Name="ButtonFileChange" Style="{StaticResource ButtonSmall}" Content="Выбрать" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,12,20,0" Width="50" Grid.Row="1" Height="23" Click="ButtonFileChange_Click" />
+                    <Button x:Name="ButtonFileChange" Style="{StaticResource ButtonSmall}" Content="Выбрать" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,12,20,0" Width="50" Grid.Row="1" Height="23" Click="ButtonFileChange_Click" >
+                        <Button.ContextMenu>
+                            <ContextMenu ContextMenuOpening="ContextMenuFile_Open">
+                                <MenuItem Header="Выбрать файл" Click="ButtonFileChange_Click" />
+                                <MenuItem Header="Удалить" Click="ButtonFileClean_Click"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
                     <Label x:Name="LabelFileSize" Content="Размер файла  3.5 Мб" HorizontalAlignment="Left" Margin="19,35,0,0" VerticalAlignment="Top" Grid.Row="1" Foreground="#FFBBBBBB" FontSize="10"/>
                 </Grid>
             </ScrollViewer>

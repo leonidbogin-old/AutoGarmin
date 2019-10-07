@@ -22,18 +22,14 @@ namespace AutoGarmin
         public WindowDeviceRename(string nickname)
         {
             InitializeComponent();
+            this.Title = Const.Title.RenameDevice;
             TextBoxNickname.Text = nickname;
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            nickname = TextBoxNickname.Text;
+            nickname = TextBoxNickname.Text.TrimStart().TrimEnd();
             this.DialogResult = true;
-        }
-
-        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = false;
         }
 
         private void TextBoxNickname_KeyDown(object sender, KeyEventArgs e)

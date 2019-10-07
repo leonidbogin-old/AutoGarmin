@@ -73,18 +73,6 @@ namespace AutoGarmin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string MapPath {
-            get {
-                return ((string)(this["MapPath"]));
-            }
-            set {
-                this["MapPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool AutoTracksDownload {
             get {
@@ -128,6 +116,30 @@ namespace AutoGarmin.Properties {
             }
             set {
                 this["AutoMapLoad"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MapName {
+            get {
+                return ((string)(this["MapName"]));
+            }
+            set {
+                this["MapName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MapOldPath {
+            get {
+                return ((string)(this["MapOldPath"]));
+            }
+            set {
+                this["MapOldPath"] = value;
             }
         }
     }

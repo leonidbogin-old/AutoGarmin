@@ -30,7 +30,9 @@ namespace AutoGarmin
             InitializeComponent();
             this.Name = "userControlDevice" + device.id; //UI Id
             LabelModel.Content = $"{device.model} ({device.diskname})";
-            LabelNickname.Content = device.nickname;
+            if (device.nickname != null && device.nickname.Length > 0)
+                LabelNickname.Content = device.nickname;
+            else LabelNickname.Content = Const.Label.NoNickname;
             LabelId.Content = device.id;
             LabelTimeConnect.Content = device.timeConnect.ToString("HH:mm:ss");
             ImageDevice.Source = LoadIco(device.diskname);
@@ -41,7 +43,7 @@ namespace AutoGarmin
         {
             BitmapImage bm1 = new BitmapImage();
 
-            string path = diskname + Path.GarminIco;
+            string path = diskname + Const.Path.GarminIco;
             if (!File.Exists(path))
             {
                 //Если нет стандартного ico, ищем любые другие ico на устройстве
@@ -53,7 +55,7 @@ namespace AutoGarmin
                 catch (UnauthorizedAccessException) { }
                 if (files.Count > 0)
                     path = files[0];
-                else path = Path.NoIco; //Иначе ставим картинку из ресурсов 'no.ico'
+                else path = Const.Path.NoIco; //Иначе ставим картинку из ресурсов 'no.ico'
             }
             bm1.BeginInit();
             bm1.UriSource = new Uri(path, UriKind.RelativeOrAbsolute);
@@ -73,28 +75,69 @@ namespace AutoGarmin
         }
         #endregion
 
-        private void DataGridDeviceRename_Click(object sender, RoutedEventArgs e)
+        private void RenameDevice()
         {
             if (device.userControl != null) //if (device.userControl == null) -> return
             {
                 string nickname = device.nickname;
                 WindowDeviceRename deviceRenameWindow = new WindowDeviceRename(nickname);
-                if (deviceRenameWindow.ShowDialog().Value) 
+                if (deviceRenameWindow.ShowDialog().Value)
                 {
                     if (device.userControl != null) //if (device.userControl == null) -> show error
                     {
                         device.nickname = deviceRenameWindow.nickname;
                         XmlDocument xDoc = new XmlDocument();
-                        xDoc.Load(device.diskname + Path.GarminXml);
+                        xDoc.Load(device.diskname + Const.Path.GarminXml); 
                         XmlElement xRoot = xDoc.DocumentElement;
-                        XmlElement xmlElem = xDoc.CreateElement("Nickname", xRoot.NamespaceURI);
-                        XmlText xmlText = xDoc.CreateTextNode(device.nickname);
-                        xmlElem.AppendChild(xmlText);
-                        xmlElem.Attributes.RemoveAll();
-                        xRoot.AppendChild(xmlElem);
-                        xDoc.Save(device.diskname + Path.GarminXml);
-                        logs.LogAdd(device, $"Изменено наименование с '{LabelNickname.Content}' на '{device.nickname}'");
-                        LabelNickname.Content = device.nickname;
+                        bool exits = false;
+                        XmlElement xmlElement = null;
+                        foreach (XmlElement xmlElementFind in xRoot)
+                        {
+                            if (xmlElementFind.Name == Const.Xml.Nickname)
+                            {
+                                xmlElement = xmlElementFind;
+                                exits = true;
+                                break;
+                            }
+                        }
+                        //if (xmlElementRemove != null) xRoot.RemoveChild(xmlElementRemove);
+                        //if (device.nickname != null && device.nickname.Length > 0)
+                        //{
+                        //    xmlElement.InnerText = device.nickname;
+                        //    LabelNickname.Content = device.nickname;
+                        //    logs.LogAdd(device, $"Изменено наименование с '{LabelNickname.Content}' на '{device.nickname}'");
+                        //}
+                        //else
+                        //{
+                        //    xmlElementRemove = xmlElement;
+                        //    LabelNickname.Content = Const.Label.NoNickname;
+                        //    logs.LogAdd(device, $"Удалено наименование");
+                        //}
+
+                        if (device.nickname != null && device.nickname.Length > 0)
+                        {
+                            if (exits)
+                            {
+                                xmlElement.InnerText = device.nickname;
+                                LabelNickname.Content = device.nickname;
+                                logs.LogAdd(device, $"Изменено наименование с '{LabelNickname.Content}' на '{device.nickname}'");
+                            }
+                            else
+                            {
+                                XmlElement xmlElem = xDoc.CreateElement(Const.Xml.Nickname, xRoot.NamespaceURI);
+                                xmlElem.InnerText = device.nickname;
+                                LabelNickname.Content = device.nickname;
+                                xRoot.AppendChild(xmlElem);
+                                logs.LogAdd(device, $"Добавлено наименование '{device.nickname}'");
+                            }
+                        }
+                        else
+                        { 
+                            if (exits) xRoot.RemoveChild(xmlElement);
+                            LabelNickname.Content = Const.Label.NoNickname;
+                            logs.LogAdd(device, $"Удалено наименование");
+                        }
+                        xDoc.Save(device.diskname + Const.Path.GarminXml);
                     }
                     else
                     {
@@ -104,6 +147,16 @@ namespace AutoGarmin
                     }
                 }
             }
+        }
+
+        private void DataGridDeviceRename_Click(object sender, RoutedEventArgs e)
+        {
+            RenameDevice();
+        }
+
+        private void LabelNickname_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            RenameDevice();
         }
     }
 }

@@ -52,9 +52,9 @@ namespace AutoGarmin.View
                 if (devices[i].check)
                 {
                     if (Properties.Settings.Default.SoundDisconnect)
-                        Sound.Play(Path.Sound.Disconnect);
+                        Sound.Play(Const.Path.Sound.Disconnect);
                     StackPanelDevices.Children.Remove(devices[i].userControl);
-                    logs.LogAdd(devices[i], "Устройство отключено");
+                    logs.LogAdd(devices[i], Const.Message.DeviceDisconnect);
                     devices[i].userControl = null;
                     devices.Remove(devices[i]);
                     i--;
@@ -76,7 +76,7 @@ namespace AutoGarmin.View
             device.userControl = new UserControlDevice(ref device, ref logs); 
             devices.Add(device);
             StackPanelDevices.Children.Add(device.userControl);
-            logs.LogAdd(device, "Устройство подключено");
+            logs.LogAdd(device, Const.Message.DeviceConnect);
         }
 
         public UserControlDevices(ref UserControlLogs logs)
