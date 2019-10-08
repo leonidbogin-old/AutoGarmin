@@ -235,14 +235,14 @@ namespace AutoGarmin
                 bool exitsKmz = false;
                 foreach (string file in files)
                     if ((Path.GetExtension(file)).ToLower() == (Const.Path.MapFileExtension).ToLower())
-                    {
-                        MapFileChange(files[0]);
+                    { 
+                        MapFileChange(file);
                         exitsKmz = true;
                         break;
                     }
                 //Если выполнение кода дошло сюда, 
                 //  следовательно в выбранных файлах не было файла с расширением .kmz
-                if (exitsKmz)
+                if (!exitsKmz)
                 {
                     if (System.Windows.Forms.MessageBox.Show(Const.Error.NoKmz, Const.Error.WordWarning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
                         == System.Windows.Forms.DialogResult.Yes)
@@ -263,7 +263,7 @@ namespace AutoGarmin
                     + @"\" + Const.Path.CustomMaps + @"\" + Properties.Settings.Default.MapName)
                 {
                     DirectoryInfo dir = new DirectoryInfo(Const.Path.CustomMaps);
-                    DeviceControl.DeleteAll(dir);
+                    FilesWork.Folder.Clean(dir);
                     File.Copy(path, Const.Path.CustomMaps + @"\" + Path.GetFileName(path), true);
                     Properties.Settings.Default.MapName = Path.GetFileName(path);
                     Properties.Settings.Default.MapOldPath = Path.GetDirectoryName(path);
@@ -285,7 +285,7 @@ namespace AutoGarmin
         private void MapFileClean() //Удаление файла
         {
             DirectoryInfo dir = new DirectoryInfo(Const.Path.CustomMaps);
-            DeviceControl.DeleteAll(dir);
+            FilesWork.Folder.Clean(dir);
             CheckFile();
         }
 
@@ -449,12 +449,12 @@ namespace AutoGarmin
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOn");
                 ButtonAuto.Content = Const.Label.ButonAuto.On;
                 this.Title = Const.Title.MainAutoOn;
-                if (devices.devices.Count > 0)
+                if (devices.devicesList.Count > 0)
                 {
-                    foreach (Device device in devices.devices)
-                        if (!device.ready)
+                    foreach (Device device in devices.devicesList)
+                        if (!device.deviceInfo.ready)
                         {
-                            device.control.StartAuto();
+                            device.StartAuto();
                         }
                 }
             }

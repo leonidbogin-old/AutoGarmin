@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AutoGarmin
 {
-    public class Device
+    public class DeviceInfo
     {
-        public DeviceControl control { get; set; }
+        //public DeviceControl control { get; set; }
         public string id { get; set; }
         public string nickname { get; set; }
         public string diskname { get; set; }
@@ -16,5 +16,6 @@ namespace AutoGarmin
         public bool ready { get; set; }
         public bool check { get; set; }
         public DateTime timeConnect { get; set; }
+        public bool extract { get; set; }
     }
 }

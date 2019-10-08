@@ -27,14 +27,30 @@ namespace AutoGarmin.View
             DataGridLogs.ItemsSource = logLines;
         }
 
-        public void Add(Device device, string action) //Новый лог
+        public void Add(DeviceInfo deviceInfo, string action) //Новый лог
         {
             LogLine logNew = new LogLine()
             {
                 time = DateTime.Now.ToString(Const.Time.Log),
-                id = device.id,
-                nickname = device.nickname,
-                modelAndDiskname = $"{device.model} ({device.diskname})",
+                id = deviceInfo.id,
+                nickname = deviceInfo.nickname,
+                modelAndDiskname = $"{deviceInfo.model} ({deviceInfo.diskname})",
+                action = action
+            };
+            this.Dispatcher.Invoke((System.Threading.ThreadStart)delegate {
+                logLines.Add(logNew);
+                DataGridLogs.ScrollIntoView(logLines.Last());
+            });
+        }
+
+        public void Add(string action) //Новый лог - ошибка
+        {
+            LogLine logNew = new LogLine()
+            {
+                time = DateTime.Now.ToString(Const.Time.Log),
+                id = "Ошибка",
+                nickname = "",
+                modelAndDiskname = "",
                 action = action
             };
             this.Dispatcher.Invoke((System.Threading.ThreadStart)delegate {

@@ -26,7 +26,7 @@ namespace AutoGarmin.View
 
         public bool AutoWork; //Статус работы программы
 
-        public List<Device> devices = new List<Device>(); //Список устройств
+        public List<Device> devicesList = new List<Device>();
 
         public Devices(ref Logs logs) //Инициализация
         {
@@ -34,22 +34,22 @@ namespace AutoGarmin.View
             InitializeComponent();
         }
 
-        #region Check devices
+        #region Check devicesList
         public void CheckStart() //Старт проверки акуальности устройств
         {
-            foreach (Device device in devices)
+            foreach (Device device in devicesList)
             {
-                device.check = true; //Отмечаем все устройства
+                device.deviceInfo.check = true; //Отмечаем все устройства
             }
         }
 
         public bool Check(string id) //Проверяем устройство
         {
-            foreach (Device device in devices)
+            foreach (Device device in devicesList)
             {
-                if (device.id == id)
+                if (device.deviceInfo.id == id)
                 {
-                    device.check = false; //Убираем флаг у проверенных устройств
+                    device.deviceInfo.check = false; //Убираем флаг у проверенных устройств
                     return true;
                 }
             }
@@ -58,16 +58,17 @@ namespace AutoGarmin.View
         
         public void CheckEnd() //Конец проверки актульности. Не акуальные удаляем
         {
-            for (int i = 0; i < devices.Count; i++)
+            for (int i = 0; i < devicesList.Count; i++)
             {
-                if (devices[i].check)
+                if (devicesList[i].deviceInfo.check)
                 {
                     if (Properties.Settings.Default.SoundDisconnect)
                         Sound.Play(Const.Path.Sound.Disconnect);
-                    StackPanelDevices.Children.Remove(devices[i].control);
-                    logs.Add(devices[i], Const.Message.DeviceDisconnect);
-                    devices[i].control = null;
-                    devices.Remove(devices[i]);
+                    StackPanelDevices.Children.Remove(devicesList[i]);
+                    logs.Add(devicesList[i].deviceInfo, Const.Log.DeviceDisconnect);
+                    //devicesList[i].deviceInfo = null;
+                    devicesList[i].DeleteDevice();
+                    devicesList.Remove(devicesList[i]);
                     i--;
                 }
             }
@@ -76,7 +77,7 @@ namespace AutoGarmin.View
 
         public void Add(string id, string nickname, string diskname, string model) //Добавление устройства
         {
-            Device device = new Device()
+            DeviceInfo deviceInfo = new DeviceInfo()
             {
                 id = id,
                 nickname = nickname,
@@ -85,14 +86,14 @@ namespace AutoGarmin.View
                 check = false,
                 timeConnect = DateTime.Now
             };
-            device.control = new DeviceControl(ref device, ref logs); 
-            devices.Add(device);
-            StackPanelDevices.Children.Add(device.control);
-            logs.Add(device, Const.Message.DeviceConnect);
+            Device device = new Device(ref deviceInfo, ref logs); 
+            devicesList.Add(device);
+            StackPanelDevices.Children.Add(device);
+            logs.Add(deviceInfo, Const.Log.DeviceConnect);
             if (AutoWork)
             {
                 //Запуск авто режима
-                device.control.StartAuto();
+                device.StartAuto();
             }
         }
     }

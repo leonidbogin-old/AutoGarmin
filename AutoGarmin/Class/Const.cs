@@ -8,14 +8,19 @@ namespace AutoGarmin
 {
     public static class Const
     {
-        public static class Color
+        public static class Color //Цвета
         {
-            public static System.Windows.Media.SolidColorBrush DeviceReady()
+            public static System.Windows.Media.SolidColorBrush DeviceStart()
             {
                 return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(11, 89, 141));
             }
 
+            public static System.Windows.Media.SolidColorBrush DeviceReady()
+            {
+                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(11, 89, 141));
+            }
         }
+
         public static class Title //Заголовки окон
         {
             public const string Main = "AutoGarmin 1.0";
@@ -32,12 +37,35 @@ namespace AutoGarmin
             public const string Nickname = "Nickname"; //Название поле, с помощью которого именуется устройство
         }
 
-        public static class Message //Сообщения для логов
+        public static class Log //Сообщения для логов
         {
             public const string DeviceConnect = "Устройство подключено.";
             public const string DeviceDisconnect = "Устройство отключено.";
+            public const string DeviceStartAuto = "Старт авто режима.";
+            public const string DeviceEndAuto = "Устройство готово к работе.";
             public const string DeviceTracksDownload = "Скачаны треки.";
             public const string DeviceTracksClean = "Очищена папка с треками.";
+            public const string DeviceMapsClean = "Очищена папка с картами.";
+            public const string DeviceMapLoad = "Карта залита.";
+            public const string DeviceRename = "Изменено наименование";
+            public const string DeviceNicknameDelete = "Наименование удалено.";
+
+            public static class Error
+            {
+                public const string RenameDevice = "Не удалось изменить наименование устройства.";
+
+                public const string DeviceTracksDownload = "Не удалось скачать треки.";
+                public const string NoTracksFolder = "На устройстве отсуствует папка треков. Треки не были скачаны.";
+
+                public const string DeviceTracksClean = "Не удалось очистить папку с треками.";
+                public const string NoTracksFolderClean = "На устройстве отсуствует папка треков. Папка треков не была очищена.";
+
+                public const string DeviceMapsClean = "Не удалось очистить папку с картами.";
+                public const string NoMapsFolder = "На устройстве отсуствует папка карт. Папка карт не была очищена.";
+
+                public const string DeviceMapLoad = "Не удалось залить карту.";
+                public const string NoMapFile = "Не выбран файл карты. Карта не была залита.";
+            }
         }
 
         public static class Label //Текст для интерфейса
@@ -60,17 +88,16 @@ namespace AutoGarmin
             public const string Copy = "Ошибка при копировании файла карты";
             public const string LoadMapNotWork = "Заливка карты без файла не работает";
             public const string NoMapFile = "Нет файла карты";
-            public const string NoTrack = "Ошибка. На устройстве отсуствует папка треков. Треки не были скачаны.";
-            public const string NoLoad = "Ошибка. Не удалось залить карту.";
+            
         }
 
         public static class Path //Работа с папками, файлами и звуками
         {
             public const string MapFileExtension = ".kmz";
             public const string CustomMaps = @"CustomMaps";
-            public const string CustomMapsPath = @"\Garmin\" + CustomMaps;
+            public const string CustomMapsPath = @"Garmin\" + CustomMaps;
             public const string GPX = @"GPX";
-            public const string GPXPath = @"\Garmin\" + GPX;
+            public const string GPXPath = @"Garmin\" + GPX;
             public const string GarminXml = @"\Garmin\GarminDevice.xml";
             public const string GarminIco = @"\Garmin\Garmintriangletm.ico";
             public const string NoIco = @"pack://application:,,,/no.ico";
