@@ -11,7 +11,7 @@
     <Setting Name="SoundDisconnect" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Auto" Type="System.Boolean" Scope="User">
+    <Setting Name="AutoOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="AutoTracksDownload" Type="System.Boolean" Scope="User">

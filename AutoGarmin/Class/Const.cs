@@ -26,8 +26,10 @@ namespace AutoGarmin
 
         public static class Message //Сообщения для логов
         {
-            public const string DeviceConnect = "Устройство подключено";
-            public const string DeviceDisconnect = "Устройство отключено";
+            public const string DeviceConnect = "Устройство подключено.";
+            public const string DeviceDisconnect = "Устройство отключено.";
+            public const string DeviceTracksDownload = "Скачаны треки.";
+            public const string DeviceTracksClean = "Очищена папка с треками.";
         }
 
         public static class Label //Текст для интерфейса
@@ -50,6 +52,7 @@ namespace AutoGarmin
             public const string Copy = "Ошибка при копировании файла карты";
             public const string LoadMapNotWork = "Заливка карты без файла не работает";
             public const string NoMapFile = "Нет файла карты";
+            public const string NoTrack = "На устройстве отсуствует папка треков. Треки не были скачаны.";
         }
 
         public static class Path //Работа с папками, файлами и звуками
@@ -57,6 +60,7 @@ namespace AutoGarmin
             public const string MapFileExtension = ".kmz";
             public const string CustomMaps = @"CustomMaps";
             public const string GPX = @"GPX";
+            public const string GPXPath = @"\Garmin\" + GPX;
             public const string GarminXml = @"\Garmin\GarminDevice.xml";
             public const string GarminIco = @"\Garmin\Garmintriangletm.ico";
             public const string NoIco = @"pack://application:,,,/no.ico";
@@ -65,6 +69,7 @@ namespace AutoGarmin
             {
                 public const string Connect = @"sounds/connect.wav";
                 public const string Ready = @"sounds/ready.wav";
+                public const string Error = @"sounds/error.wav";
                 public const string Disconnect = @"sounds/disconnect.wav";
             }
         }
@@ -73,6 +78,7 @@ namespace AutoGarmin
         {
             public const string Connect = "HH:mm:ss";
             public const string Log = "HH:mm:ss";
+            public const string Folder = "HH-mm-ss";
         }
     }
 }

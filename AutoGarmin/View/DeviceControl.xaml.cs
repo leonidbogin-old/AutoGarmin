@@ -18,15 +18,15 @@ using System.Xml;
 
 namespace AutoGarmin
 {
-    public partial class UserControlDevice : UserControl
+    public partial class DeviceControl : UserControl
     {
 
         #region Links
-        private View.UserControlLogs logs; 
+        private View.Logs logs; 
         private Device device;
         #endregion
 
-        public UserControlDevice(ref Device device, ref View.UserControlLogs logs) //Инилизация
+        public DeviceControl(ref Device device, ref View.Logs logs) //Инилизация
         {
             this.logs = logs;
             this.device = device;
@@ -79,13 +79,13 @@ namespace AutoGarmin
 
         private void RenameDevice() //Переименовать устройство
         {
-            if (device.userControl != null) //if (device.userControl == null) -> return
+            if (device.control != null) //if (device.userControl == null) -> return
             {
                 string nickname = device.nickname;
                 WindowDeviceRename deviceRenameWindow = new WindowDeviceRename(nickname);
                 if (deviceRenameWindow.ShowDialog().Value)
                 {
-                    if (device.userControl != null) //if (device.userControl == null) -> show error
+                    if (device.control != null) //if (device.userControl == null) -> show error
                     {
                         device.nickname = deviceRenameWindow.nickname;
                         XmlDocument xDoc = new XmlDocument();
@@ -102,27 +102,13 @@ namespace AutoGarmin
                                 break;
                             }
                         }
-                        //if (xmlElementRemove != null) xRoot.RemoveChild(xmlElementRemove);
-                        //if (device.nickname != null && device.nickname.Length > 0)
-                        //{
-                        //    xmlElement.InnerText = device.nickname;
-                        //    LabelNickname.Content = device.nickname;
-                        //    logs.LogAdd(device, $"Изменено наименование с '{LabelNickname.Content}' на '{device.nickname}'");
-                        //}
-                        //else
-                        //{
-                        //    xmlElementRemove = xmlElement;
-                        //    LabelNickname.Content = Const.Label.NoNickname;
-                        //    logs.LogAdd(device, $"Удалено наименование");
-                        //}
-
                         if (device.nickname != null && device.nickname.Length > 0)
                         {
                             if (exits)
                             {
                                 xmlElement.InnerText = device.nickname;
                                 LabelNickname.Content = device.nickname;
-                                logs.LogAdd(device, $"Изменено наименование с '{LabelNickname.Content}' на '{device.nickname}'");
+                                logs.Add(device, $"Изменено наименование с '{LabelNickname.Content}' на '{device.nickname}'");
                             }
                             else
                             {
@@ -130,20 +116,20 @@ namespace AutoGarmin
                                 xmlElem.InnerText = device.nickname;
                                 LabelNickname.Content = device.nickname;
                                 xRoot.AppendChild(xmlElem);
-                                logs.LogAdd(device, $"Добавлено наименование '{device.nickname}'");
+                                logs.Add(device, $"Добавлено наименование '{device.nickname}'");
                             }
                         }
                         else
                         { 
                             if (exits) xRoot.RemoveChild(xmlElement);
                             LabelNickname.Content = Const.Label.NoNickname;
-                            logs.LogAdd(device, $"Удалено наименование");
+                            logs.Add(device, $"Удалено наименование");
                         }
                         xDoc.Save(device.diskname + Const.Path.GarminXml);
                     }
                     else
                     {
-                        logs.LogAdd(new Device(), "Ошибка изменения наименования. Устройство было отключено");
+                        logs.Add(new Device(), "Ошибка изменения наименования. Устройство было отключено");
                         MessageBox.Show("Устройство было отключено. Изменение наименования не возможно.", "Ошибка",
                             MessageBoxButton.OK, MessageBoxImage.Error);
                     }

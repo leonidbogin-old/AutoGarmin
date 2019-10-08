@@ -262,7 +262,7 @@
                         <RowDefinition Height="21"/>
                         <RowDefinition Height="78"/>
                         <RowDefinition Height="21"/>
-                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="140"/>
                         <RowDefinition Height="21"/>
                         <RowDefinition Height="83"/>
                         <RowDefinition/>
@@ -300,6 +300,7 @@
                         </Button.ContextMenu>
                     </Button>
                     <Label x:Name="LabelFileSize" Content="Размер файла  3.5 Мб" HorizontalAlignment="Left" Margin="19,35,0,0" VerticalAlignment="Top" Grid.Row="1" Foreground="#FFBBBBBB" FontSize="10"/>
+                    <CheckBox x:Name="CheckBoxAutoOn" Style="{StaticResource CheckBox}" Content="Автоматическое включение" Margin="17,98,0,0" Checked="CheckBoxAutoOn_Checked" Unchecked="CheckBoxAutoOn_Unchecked" Grid.Row="3"/>
                 </Grid>
             </ScrollViewer>
             <Rectangle Margin="0" Stroke="#FF252526" VerticalAlignment="Bottom" Fill="#FF383838" StrokeThickness="0" Height="1"/>

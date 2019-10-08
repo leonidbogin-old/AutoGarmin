@@ -16,18 +16,18 @@ using System.Windows.Shapes;
 
 namespace AutoGarmin.View
 {
-    public partial class UserControlLogs : UserControl
+    public partial class Logs : UserControl
     {
         //Коллекция логов. Привязка к dataGridLogs
         private ObservableCollection<LogLine> logLines = new ObservableCollection<LogLine>();
 
-        public UserControlLogs() //Инициализация
+        public Logs() //Инициализация
         {
             InitializeComponent();
             DataGridLogs.ItemsSource = logLines;
         }
 
-        public void LogAdd(Device device, string action) //Новый лог
+        public void Add(Device device, string action) //Новый лог
         {
             LogLine logNew = new LogLine()
             {
@@ -37,19 +37,20 @@ namespace AutoGarmin.View
                 modelAndDiskname = $"{device.model} ({device.diskname})",
                 action = action
             };
-            logLines.Add(logNew);
-
-            DataGridLogs.ScrollIntoView(logLines.Last());
+            this.Dispatcher.Invoke((System.Threading.ThreadStart)delegate {
+                logLines.Add(logNew);
+                DataGridLogs.ScrollIntoView(logLines.Last());
+            });
         }
 
-        public void LogClear() //Очистка лога
+        public void Clear() //Очистка лога
         {
             logLines.Clear();
         }
 
         private void DataGridLogsClear_Click(object sender, RoutedEventArgs e)
         {
-            LogClear();
+            Clear();
         }
     }
 }

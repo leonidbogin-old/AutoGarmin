@@ -62,12 +62,12 @@ namespace AutoGarmin.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Auto {
+        public bool AutoOn {
             get {
-                return ((bool)(this["Auto"]));
+                return ((bool)(this["AutoOn"]));
             }
             set {
-                this["Auto"] = value;
+                this["AutoOn"] = value;
             }
         }
         
