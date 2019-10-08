@@ -168,6 +168,7 @@ namespace AutoGarmin
 
             CheckBoxSoundConnect.IsChecked = Properties.Settings.Default.SoundConnect;
             CheckBoxSoundReady.IsChecked = Properties.Settings.Default.SoundReady;
+            CheckBoxSoundError.IsChecked = Properties.Settings.Default.SoundError;
             CheckBoxSoundDisconnect.IsChecked = Properties.Settings.Default.SoundDisconnect;
 
             if (Properties.Settings.Default.AutoOn)
@@ -262,7 +263,7 @@ namespace AutoGarmin
                     + @"\" + Const.Path.CustomMaps + @"\" + Properties.Settings.Default.MapName)
                 {
                     DirectoryInfo dir = new DirectoryInfo(Const.Path.CustomMaps);
-                    Devices.DeleteAll(dir);
+                    DeviceControl.DeleteAll(dir);
                     File.Copy(path, Const.Path.CustomMaps + @"\" + Path.GetFileName(path), true);
                     Properties.Settings.Default.MapName = Path.GetFileName(path);
                     Properties.Settings.Default.MapOldPath = Path.GetDirectoryName(path);
@@ -284,7 +285,7 @@ namespace AutoGarmin
         private void MapFileClean() //Удаление файла
         {
             DirectoryInfo dir = new DirectoryInfo(Const.Path.CustomMaps);
-            Devices.DeleteAll(dir);
+            DeviceControl.DeleteAll(dir);
             CheckFile();
         }
 
@@ -418,26 +419,44 @@ namespace AutoGarmin
             Properties.Settings.Default.SoundDisconnect = false;
             Properties.Settings.Default.Save();
         }
+
+        private void CheckBoxSoundError_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.SoundError = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxSoundError_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.SoundError = false;
+            Properties.Settings.Default.Save();
+        }
         #endregion
 
         #region ButtonAuto
         private void ButtonAuto_Click(object sender, RoutedEventArgs e)
         {
-            if (Properties.Settings.Default.AutoOn)
+            if (devices.AutoWork)
             {
-                Properties.Settings.Default.AutoOn = false;
-                Properties.Settings.Default.Save();
+                devices.AutoWork = false;
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOff");
                 ButtonAuto.Content = Const.Label.ButonAuto.Off;
                 this.Title = Const.Title.Main;
             }
             else
             {
-                Properties.Settings.Default.AutoOn = true;
-                Properties.Settings.Default.Save();
+                devices.AutoWork = true;
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOn");
                 ButtonAuto.Content = Const.Label.ButonAuto.On;
                 this.Title = Const.Title.MainAutoOn;
+                if (devices.devices.Count > 0)
+                {
+                    foreach (Device device in devices.devices)
+                        if (!device.ready)
+                        {
+                            device.control.StartAuto();
+                        }
+                }
             }
         }
         #endregion

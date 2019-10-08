@@ -8,6 +8,14 @@ namespace AutoGarmin
 {
     public static class Const
     {
+        public static class Color
+        {
+            public static System.Windows.Media.SolidColorBrush DeviceReady()
+            {
+                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(11, 89, 141));
+            }
+
+        }
         public static class Title //Заголовки окон
         {
             public const string Main = "AutoGarmin 1.0";
@@ -52,13 +60,15 @@ namespace AutoGarmin
             public const string Copy = "Ошибка при копировании файла карты";
             public const string LoadMapNotWork = "Заливка карты без файла не работает";
             public const string NoMapFile = "Нет файла карты";
-            public const string NoTrack = "На устройстве отсуствует папка треков. Треки не были скачаны.";
+            public const string NoTrack = "Ошибка. На устройстве отсуствует папка треков. Треки не были скачаны.";
+            public const string NoLoad = "Ошибка. Не удалось залить карту.";
         }
 
         public static class Path //Работа с папками, файлами и звуками
         {
             public const string MapFileExtension = ".kmz";
             public const string CustomMaps = @"CustomMaps";
+            public const string CustomMapsPath = @"\Garmin\" + CustomMaps;
             public const string GPX = @"GPX";
             public const string GPXPath = @"\Garmin\" + GPX;
             public const string GarminXml = @"\Garmin\GarminDevice.xml";

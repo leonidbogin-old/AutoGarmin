@@ -142,5 +142,17 @@ namespace AutoGarmin.Properties {
                 this["MapOldPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SoundError {
+            get {
+                return ((bool)(this["SoundError"]));
+            }
+            set {
+                this["SoundError"] = value;
+            }
+        }
     }
 }

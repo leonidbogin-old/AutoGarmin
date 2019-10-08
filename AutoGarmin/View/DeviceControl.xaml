@@ -8,6 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="340" Height="75" Background="#FF272727" VerticalAlignment="Top" BorderBrush="#FF252526" BorderThickness="1" Margin="0,0,0,15" Width="Auto">
     <UserControl.ContextMenu>
         <ContextMenu>
+            <MenuItem Header="Ручной запуск авто режима" Click="DataGridDeviceAuto_Click" />
             <MenuItem Header="Сменить наименование" Click="DataGridDeviceRename_Click" />
         </ContextMenu>
     </UserControl.ContextMenu>

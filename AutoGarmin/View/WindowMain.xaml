@@ -264,7 +264,7 @@
                         <RowDefinition Height="21"/>
                         <RowDefinition Height="140"/>
                         <RowDefinition Height="21"/>
-                        <RowDefinition Height="83"/>
+                        <RowDefinition Height="100"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -278,7 +278,7 @@
                     <Label Content="Настройки звука" HorizontalAlignment="Left" Margin="18,3,0,3" VerticalAlignment="Center" Background="{x:Null}" Foreground="#FFC8C8C8" Padding="0" FontFamily="Calibri" Grid.Row="4" Height="15" Width="84"/>
                     <CheckBox x:Name="CheckBoxSoundConnect" Style="{StaticResource CheckBox}" Content=" Звук подключения" Margin="17,10,0,0" Grid.Row="5" Checked="CheckBoxSoundConnect_Checked" Unchecked="CheckBoxSoundConnect_Unchecked" Width="119"/>
                     <CheckBox x:Name="CheckBoxSoundReady" Style="{StaticResource CheckBox}" Content=" Звук завершения" Margin="17,32,0,0" Grid.Row="5" Checked="CheckBoxSoundReady_Checked" Unchecked="CheckBoxSoundReady_Unchecked" Width="111"/>
-                    <CheckBox x:Name="CheckBoxSoundDisconnect" Style="{StaticResource CheckBox}" Content=" Звук отключения" Margin="17,54,0,0" Grid.Row="5" Checked="CheckBoxSoundDisconnect_Checked" Unchecked="CheckBoxSoundDisconnect_Unchecked" Width="111"/>
+                    <CheckBox x:Name="CheckBoxSoundError" Style="{StaticResource CheckBox}" Content=" Звук ошибки" Margin="17,54,0,0" Grid.Row="5" Checked="CheckBoxSoundError_Checked" Unchecked="CheckBoxSoundError_Unchecked" Width="111"/>
                     <CheckBox x:Name="CheckBoxTracksDownload" Style="{StaticResource CheckBox}" Content="Скачать треки" Margin="17,10,0,0" Grid.Row="3" Checked="CheckBoxTracksDownload_Checked" Unchecked="CheckBoxTracksDownload_Unchecked" Width="119"/>
                     <CheckBox x:Name="CheckBoxTracksClear" Style="{StaticResource CheckBox}" Content="Очистить папку треков" Margin="17,32,0,0" Grid.Row="3" Unchecked="CheckBoxTracksClear_Unchecked" Checked="CheckBoxTracksClear_Checked"/>
                     <CheckBox x:Name="CheckBoxMapClean" Style="{StaticResource CheckBox}" Content="Очистить старые карты" Margin="17,54,0,0" Grid.Row="3" Checked="CheckBoxMapClean_Checked" Unchecked="CheckBoxMapClean_Unchecked"/>
@@ -301,6 +301,7 @@
                     </Button>
                     <Label x:Name="LabelFileSize" Content="Размер файла  3.5 Мб" HorizontalAlignment="Left" Margin="19,35,0,0" VerticalAlignment="Top" Grid.Row="1" Foreground="#FFBBBBBB" FontSize="10"/>
                     <CheckBox x:Name="CheckBoxAutoOn" Style="{StaticResource CheckBox}" Content="Автоматическое включение" Margin="17,98,0,0" Checked="CheckBoxAutoOn_Checked" Unchecked="CheckBoxAutoOn_Unchecked" Grid.Row="3"/>
+                    <CheckBox x:Name="CheckBoxSoundDisconnect" Style="{StaticResource CheckBox}" Content=" Звук отключения" Margin="17,75,0,0" Grid.Row="5" Checked="CheckBoxSoundDisconnect_Checked" Unchecked="CheckBoxSoundDisconnect_Unchecked" Width="111"/>
                 </Grid>
             </ScrollViewer>
             <Rectangle Margin="0" Stroke="#FF252526" VerticalAlignment="Bottom" Fill="#FF383838" StrokeThickness="0" Height="1"/>
