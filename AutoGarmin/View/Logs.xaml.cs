@@ -27,7 +27,7 @@ namespace AutoGarmin.View
             DataGridLogs.ItemsSource = logLines;
         }
 
-        public void Add(DeviceInfo deviceInfo, string action) //Новый лог
+        public void Add(DeviceInfo deviceInfo, string action, SolidColorBrush brush) //Новый лог
         {
             LogLine logNew = new LogLine()
             {
@@ -43,20 +43,9 @@ namespace AutoGarmin.View
             });
         }
 
-        public void Add(string action) //Новый лог - ошибка
+        public void Add(DeviceInfo deviceInfo, string action) //Новый лог
         {
-            LogLine logNew = new LogLine()
-            {
-                time = DateTime.Now.ToString(Const.Time.Log),
-                id = "Ошибка",
-                nickname = "",
-                modelAndDiskname = "",
-                action = action
-            };
-            this.Dispatcher.Invoke((System.Threading.ThreadStart)delegate {
-                logLines.Add(logNew);
-                DataGridLogs.ScrollIntoView(logLines.Last());
-            });
+            Add(deviceInfo, action, null); //Новый лог
         }
 
         public void Clear() //Очистка лога

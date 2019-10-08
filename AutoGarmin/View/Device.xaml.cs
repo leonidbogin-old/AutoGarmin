@@ -109,7 +109,7 @@ namespace AutoGarmin
             deviceInfo.ready = true;
             if (Properties.Settings.Default.SoundReady) Sound.Play(Const.Path.Sound.Ready);
             this.Dispatcher.Invoke((System.Threading.ThreadStart)delegate {
-                RectangleDeviceStatus.Fill = Const.Color.DeviceReady();
+                RectangleDeviceStatus.Fill = Const.Color.Device.DeviceReady();
                 logs.Add(deviceInfo, Const.Log.DeviceEndAuto);
             });
         }
@@ -141,7 +141,7 @@ namespace AutoGarmin
             catch
             {
                 if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                logs.Add(deviceInfo, Const.Log.Error.DeviceTracksDownload);
+                logs.Add(deviceInfo, Const.Log.Error.DeviceTracksDownload, Const.Color.Log.Error());
             }
         }
 
@@ -159,13 +159,13 @@ namespace AutoGarmin
                 else
                 {
                     if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                    logs.Add(deviceInfo, Const.Log.Error.NoTracksFolderClean);
+                    logs.Add(deviceInfo, Const.Log.Error.NoTracksFolderClean, Const.Color.Log.Error());
                 }
             }
             catch
             {
                 if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                logs.Add(deviceInfo, Const.Log.Error.DeviceTracksClean);
+                logs.Add(deviceInfo, Const.Log.Error.DeviceTracksClean, Const.Color.Log.Error());
             }
         }
 
@@ -182,13 +182,13 @@ namespace AutoGarmin
                 else
                 {
                     if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                    logs.Add(deviceInfo, Const.Log.Error.NoMapsFolder);
+                    logs.Add(deviceInfo, Const.Log.Error.NoMapsFolder, Const.Color.Log.Error());
                 }
             }
             catch
             {
                 if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                logs.Add(deviceInfo, Const.Log.Error.DeviceMapsClean);
+                logs.Add(deviceInfo, Const.Log.Error.DeviceMapsClean, Const.Color.Log.Error());
             }
         }
 
@@ -207,13 +207,13 @@ namespace AutoGarmin
                 else
                 {
                     if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                    logs.Add(deviceInfo, Const.Log.Error.NoMapFile);
+                    logs.Add(deviceInfo, Const.Log.Error.NoMapFile, Const.Color.Log.Error());
                 }
             }
             catch
             {
                 if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                logs.Add(deviceInfo, Const.Log.Error.DeviceMapLoad);
+                logs.Add(deviceInfo, Const.Log.Error.DeviceMapLoad, Const.Color.Log.Error());
             }
         }
 
@@ -234,9 +234,13 @@ namespace AutoGarmin
                 {
                     if (!deviceInfo.extract && File.Exists(deviceInfo.diskname + Const.Path.GarminXml)) //if (deviceInfo.userControl == null) -> show error
                     {
-                        deviceInfo.nickname = deviceRenameWindow.nickname;
+                        //deviceInfo.diskname + Const.Path.GarminXml
+                        //System.Windows.Forms.Application.StartupPath
+                        string tempGarminXml = System.Windows.Forms.Application.StartupPath
+                            + @"\" + System.IO.Path.GetFileName(Const.Path.GarminXml);
+                        File.Copy(deviceInfo.diskname + Const.Path.GarminXml, tempGarminXml, true);
                         XmlDocument xDoc = new XmlDocument();
-                        xDoc.Load(deviceInfo.diskname + Const.Path.GarminXml);
+                        xDoc.Load(tempGarminXml);
                         XmlElement xRoot = xDoc.DocumentElement;
                         bool exits = false;
                         XmlElement xmlElement = null;
@@ -250,21 +254,21 @@ namespace AutoGarmin
                             }
                         }
                         string newLog;
-                        if (deviceInfo.nickname != null && deviceInfo.nickname.Length > 0)
+                        if (deviceRenameWindow.nickname != null && deviceRenameWindow.nickname.Length > 0)
                         {
                             if (exits)
                             {
-                                xmlElement.InnerText = deviceInfo.nickname;
-                                newLog = Const.Log.DeviceRename;
-                                LabelNickname.Content = deviceInfo.nickname;
+                                xmlElement.InnerText = deviceRenameWindow.nickname;
+                                newLog = Const.Log.DeviceRename + deviceRenameWindow.nickname + ".";
+                                LabelNickname.Content = deviceRenameWindow.nickname;
                             }
                             else
                             {
                                 XmlElement xmlElem = xDoc.CreateElement(Const.Xml.Nickname, xRoot.NamespaceURI);
-                                xmlElem.InnerText = deviceInfo.nickname;
-                                LabelNickname.Content = deviceInfo.nickname;
+                                xmlElem.InnerText = deviceRenameWindow.nickname;
+                                LabelNickname.Content = deviceRenameWindow.nickname;
                                 xRoot.AppendChild(xmlElem);
-                                newLog = Const.Log.DeviceRename;
+                                newLog = Const.Log.DeviceNicknameAdd + deviceRenameWindow.nickname + ".";
                             }
                         }
                         else
@@ -273,10 +277,11 @@ namespace AutoGarmin
                             LabelNickname.Content = Const.Label.NoNickname;
                             newLog = Const.Log.DeviceNicknameDelete;
                         }
-                        if (File.Exists(deviceInfo.diskname + Const.Path.GarminXml))
-                            xDoc.Save(deviceInfo.diskname + Const.Path.GarminXml);
-                        else throw new Exception();
+                        xDoc.Save(tempGarminXml);
+                        File.Copy(tempGarminXml, deviceInfo.diskname + Const.Path.GarminXml, true);
+                        File.Delete(tempGarminXml);
                         logs.Add(deviceInfo, newLog);
+                        deviceInfo.nickname = deviceRenameWindow.nickname;
                     }
                     else
                     {
@@ -290,7 +295,7 @@ namespace AutoGarmin
             catch
             {
                 if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                logs.Add(deviceInfo, Const.Log.Error.RenameDevice);
+                logs.Add(deviceInfo, Const.Log.Error.RenameDevice, Const.Color.Log.Error());
             }
         }
 

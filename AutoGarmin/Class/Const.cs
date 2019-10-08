@@ -10,14 +10,35 @@ namespace AutoGarmin
     {
         public static class Color //Цвета
         {
-            public static System.Windows.Media.SolidColorBrush DeviceStart()
+            public static System.Windows.Media.SolidColorBrush Transparent()
             {
-                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(11, 89, 141));
+                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
             }
 
-            public static System.Windows.Media.SolidColorBrush DeviceReady()
+            public static class Device
             {
-                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(11, 89, 141));
+                public static System.Windows.Media.SolidColorBrush DeviceStart()
+                {
+                    return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(11, 89, 141));
+                }
+
+                public static System.Windows.Media.SolidColorBrush DeviceReady()
+                {
+                    return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(11, 89, 141));
+                }
+            }
+
+            public static class Log
+            {
+                public static System.Windows.Media.SolidColorBrush DeviceReady()
+                {
+                    return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(11, 89, 141));
+                }
+
+                public static System.Windows.Media.SolidColorBrush Error()
+                {
+                    return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(134, 42, 42));
+                }
             }
         }
 
@@ -47,7 +68,8 @@ namespace AutoGarmin
             public const string DeviceTracksClean = "Очищена папка с треками.";
             public const string DeviceMapsClean = "Очищена папка с картами.";
             public const string DeviceMapLoad = "Карта залита.";
-            public const string DeviceRename = "Изменено наименование";
+            public const string DeviceRename = "Изменено наименование на ";
+            public const string DeviceNicknameAdd = "Добавлено наименование ";
             public const string DeviceNicknameDelete = "Наименование удалено.";
 
             public static class Error
