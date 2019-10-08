@@ -84,14 +84,14 @@
     <Compile Include="View\WindowDeviceRename.xaml.cs">
       <DependentUpon>WindowDeviceRename.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControlDevice.xaml.cs">
-      <DependentUpon>UserControlDevice.xaml</DependentUpon>
+    <Compile Include="View\DeviceControl.xaml.cs">
+      <DependentUpon>DeviceControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControlDevices.xaml.cs">
-      <DependentUpon>UserControlDevices.xaml</DependentUpon>
+    <Compile Include="View\Devices.xaml.cs">
+      <DependentUpon>Devices.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControlLogs.xaml.cs">
-      <DependentUpon>UserControlLogs.xaml</DependentUpon>
+    <Compile Include="View\Logs.xaml.cs">
+      <DependentUpon>Logs.xaml</DependentUpon>
     </Compile>
     <Page Include="View\WindowDeviceRename.xaml">
       <SubType>Designer</SubType>
@@ -109,15 +109,15 @@
       <DependentUpon>WindowMain.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\UserControlDevice.xaml">
+    <Page Include="View\DeviceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UserControlDevices.xaml">
+    <Page Include="View\Devices.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UserControlLogs.xaml">
+    <Page Include="View\Logs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

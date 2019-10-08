@@ -8,7 +8,7 @@ namespace AutoGarmin
 {
     public class Device
     {
-        public UserControlDevice userControl { get; set; }
+        public DeviceControl control { get; set; }
         public string id { get; set; }
         public string nickname { get; set; }
         public string diskname { get; set; }

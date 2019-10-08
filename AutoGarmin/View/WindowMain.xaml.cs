@@ -14,8 +14,8 @@ namespace AutoGarmin
     public partial class WindowMain : Window
     {
         #region View
-        private UserControlDevices devices;
-        private UserControlLogs logs;
+        private Devices devices;
+        private Logs logs;
         #endregion
 
         #region USB
@@ -96,11 +96,11 @@ namespace AutoGarmin
         {
             InitializeComponent();
 
-            logs = new UserControlLogs();
+            logs = new Logs();
             logs.Visibility = Visibility.Hidden;
             GridContent.Children.Add(logs);
 
-            devices = new UserControlDevices(ref logs);
+            devices = new Devices(ref logs);
             devices.Visibility = Visibility.Visible;
             GridContent.Children.Add(devices);            
         }
@@ -164,19 +164,22 @@ namespace AutoGarmin
             CheckBoxTracksClear.IsChecked = Properties.Settings.Default.AutoTracksClean;
             CheckBoxMapClean.IsChecked = Properties.Settings.Default.AutoMapClean;
             CheckBoxMapLoad.IsChecked = Properties.Settings.Default.AutoMapLoad;
+            CheckBoxAutoOn.IsChecked = Properties.Settings.Default.AutoOn;
 
             CheckBoxSoundConnect.IsChecked = Properties.Settings.Default.SoundConnect;
             CheckBoxSoundReady.IsChecked = Properties.Settings.Default.SoundReady;
             CheckBoxSoundDisconnect.IsChecked = Properties.Settings.Default.SoundDisconnect;
 
-            if (Properties.Settings.Default.Auto)
+            if (Properties.Settings.Default.AutoOn)
             {
+                devices.AutoWork = true;
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOn");
                 ButtonAuto.Content = Const.Label.ButonAuto.On;
                 this.Title = Const.Title.MainAutoOn;
             }
             else
             {
+                devices.AutoWork = false;
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOff");
                 ButtonAuto.Content = Const.Label.ButonAuto.Off;
                 this.Title = Const.Title.MainAutoOn;
@@ -258,9 +261,8 @@ namespace AutoGarmin
                 if (path != System.Windows.Forms.Application.StartupPath
                     + @"\" + Const.Path.CustomMaps + @"\" + Properties.Settings.Default.MapName)
                 {
-                    var dirInfo = new DirectoryInfo(Const.Path.CustomMaps);
-                    foreach (var file in dirInfo.GetFiles())
-                        file.Delete();
+                    DirectoryInfo dir = new DirectoryInfo(Const.Path.CustomMaps);
+                    Devices.DeleteAll(dir);
                     File.Copy(path, Const.Path.CustomMaps + @"\" + Path.GetFileName(path), true);
                     Properties.Settings.Default.MapName = Path.GetFileName(path);
                     Properties.Settings.Default.MapOldPath = Path.GetDirectoryName(path);
@@ -281,9 +283,8 @@ namespace AutoGarmin
 
         private void MapFileClean() //Удаление файла
         {
-            var dirInfo = new DirectoryInfo(Const.Path.CustomMaps);
-            foreach (var file in dirInfo.GetFiles())
-                file.Delete();
+            DirectoryInfo dir = new DirectoryInfo(Const.Path.CustomMaps);
+            Devices.DeleteAll(dir);
             CheckFile();
         }
 
@@ -367,6 +368,18 @@ namespace AutoGarmin
             Properties.Settings.Default.AutoMapLoad = false;
             Properties.Settings.Default.Save();
         }
+
+        private void CheckBoxAutoOn_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AutoOn = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void CheckBoxAutoOn_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AutoOn = false;
+            Properties.Settings.Default.Save();
+        }
         #endregion
 
         #region Audio
@@ -410,9 +423,9 @@ namespace AutoGarmin
         #region ButtonAuto
         private void ButtonAuto_Click(object sender, RoutedEventArgs e)
         {
-            if (Properties.Settings.Default.Auto)
+            if (Properties.Settings.Default.AutoOn)
             {
-                Properties.Settings.Default.Auto = false;
+                Properties.Settings.Default.AutoOn = false;
                 Properties.Settings.Default.Save();
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOff");
                 ButtonAuto.Content = Const.Label.ButonAuto.Off;
@@ -420,7 +433,7 @@ namespace AutoGarmin
             }
             else
             {
-                Properties.Settings.Default.Auto = true;
+                Properties.Settings.Default.AutoOn = true;
                 Properties.Settings.Default.Save();
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOn");
                 ButtonAuto.Content = Const.Label.ButonAuto.On;
