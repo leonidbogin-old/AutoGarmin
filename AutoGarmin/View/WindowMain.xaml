@@ -283,7 +283,7 @@
                     <CheckBox x:Name="CheckBoxTracksClear" Style="{StaticResource CheckBox}" Content="Очистить папку треков" Margin="17,32,0,0" Grid.Row="3" Unchecked="CheckBoxTracksClear_Unchecked" Checked="CheckBoxTracksClear_Checked"/>
                     <CheckBox x:Name="CheckBoxMapClean" Style="{StaticResource CheckBox}" Content="Очистить старые карты" Margin="17,54,0,0" Grid.Row="3" Checked="CheckBoxMapClean_Checked" Unchecked="CheckBoxMapClean_Unchecked"/>
                     <CheckBox x:Name="CheckBoxMapLoad" Style="{StaticResource CheckBox}" Content="Залить карту" Margin="17,76,0,0" Grid.Row="3" Checked="CheckBoxMapLoad_Checked" Unchecked="CheckBoxMapLoad_Unchecked"/>
-                    <TextBox x:Name="TextBoxFile" Height="23" Margin="18,12,70,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1" Background="#FF515151" BorderBrush="#FF383838" Foreground="White" VerticalContentAlignment="Center" Cursor="Hand" IsReadOnly="True" Padding="5,0,0,0" SelectionOpacity="0.5" UndoLimit="0" MouseDoubleClick="TextBoxFile_MouseDoubleClick">
+                    <TextBox x:Name="TextBoxFile" Height="23" Margin="18,12,70,0" VerticalAlignment="Top" Grid.Row="1" Background="#FF515151" BorderBrush="#FF383838" Foreground="White" VerticalContentAlignment="Center" Cursor="Hand" IsReadOnly="True" Padding="5,0,0,0" SelectionOpacity="0.5" UndoLimit="0" MouseDoubleClick="TextBoxFile_MouseDoubleClick" MaxLines="1">
                         <TextBox.ContextMenu>
                             <ContextMenu ContextMenuOpening="ContextMenuFile_Open">
                                 <MenuItem Header="Выбрать файл" Click="ButtonFileChange_Click" />

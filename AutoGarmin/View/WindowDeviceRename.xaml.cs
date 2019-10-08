@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +20,7 @@ namespace AutoGarmin
 
         public WindowDeviceRename(string nickname) //Инициализация
         {
+            this.nickname = nickname;
             InitializeComponent();
             this.Title = Const.Title.RenameDevice;
             TextBoxNickname.Text = nickname;

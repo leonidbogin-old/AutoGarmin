@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="AutoGarmin.DeviceControl"
+﻿<UserControl x:Class="AutoGarmin.Device"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,6 +9,7 @@
     <UserControl.ContextMenu>
         <ContextMenu>
             <MenuItem Header="Ручной запуск авто режима" Click="DataGridDeviceAuto_Click" />
+            <MenuItem Header="Открыть папку" Click="DataGridDeviceFolder_Click" />
             <MenuItem Header="Сменить наименование" Click="DataGridDeviceRename_Click" />
         </ContextMenu>
     </UserControl.ContextMenu>

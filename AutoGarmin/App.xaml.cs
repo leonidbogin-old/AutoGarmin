@@ -13,6 +13,6 @@ namespace AutoGarmin
     /// </summary>
     public partial class App : Application
     {
-       
+        
     }
 }

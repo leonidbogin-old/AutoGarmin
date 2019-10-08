@@ -76,7 +76,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Class\Device.cs" />
+    <Compile Include="Class\DeviceInfo.cs" />
+    <Compile Include="Class\FilesWork.cs" />
     <Compile Include="Class\LogLine.cs" />
     <Compile Include="Class\Const.cs" />
     <Compile Include="Class\Sound.cs" />
@@ -84,8 +85,8 @@
     <Compile Include="View\WindowDeviceRename.xaml.cs">
       <DependentUpon>WindowDeviceRename.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\DeviceControl.xaml.cs">
-      <DependentUpon>DeviceControl.xaml</DependentUpon>
+    <Compile Include="View\Device.xaml.cs">
+      <DependentUpon>Device.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Devices.xaml.cs">
       <DependentUpon>Devices.xaml</DependentUpon>
@@ -109,7 +110,7 @@
       <DependentUpon>WindowMain.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\DeviceControl.xaml">
+    <Page Include="View\Device.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
