@@ -9,10 +9,12 @@
     <UserControl.ContextMenu>
         <ContextMenu>
             <MenuItem Header="Ручной запуск" Click="DataGridDeviceAuto_Click" />
-            <MenuItem Header="Выполнить →" >
-                <MenuItem Header="Открыть папку" Click="DataGridDeviceFolder_Click" />
-                <MenuItem Header="Сменить наименование" Click="DataGridDeviceRename_Click" />
-            </MenuItem>
+            <Separator></Separator>
+            <!--<MenuItem Header="Скачать треки" Click="MenuItemTracksDownload_Click" />
+            <MenuItem Header="Очистить папку треков" Click="MenuItemTracksClean_Click" />
+            <MenuItem Header="Очистить старые карты" Click="MenuItemMapsClean_Click" />
+            <MenuItem Header="Залить карту" Click="MenuItemMapsLoad_Click" />
+            <Separator></Separator>-->
             <MenuItem Header="Открыть папку" Click="DataGridDeviceFolder_Click" />
             <MenuItem Header="Сменить наименование" Click="DataGridDeviceRename_Click" />
         </ContextMenu>

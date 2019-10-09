@@ -94,6 +94,13 @@ namespace AutoGarmin
             public const string NoNickname = "Нет наименования";
             public const string FileSize = "Размер файла";
 
+            public static class ToolTip
+            {
+                public const string Error = "Ошибка. Подробнее смотрите в логах действий.";
+                public const string Warning = "Предупреждение. Подробнее смотрите в логах действий.";
+                public const string Ready = "Устройство готово к работе.";
+            }
+
             public static class ButonAuto //Кнопка включения авто режима
             {
                 public const string On = "Авто режим";

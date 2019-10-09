@@ -80,8 +80,8 @@
                 <DataGridTextColumn Binding="{Binding id}" Foreground="White" Header="id" IsReadOnly="True" Width="Auto" MinWidth="80" />
                 <DataGridTextColumn Binding="{Binding nickname}" Foreground="White" Header="Наименование" IsReadOnly="True" Width="Auto" MinWidth="110" />
                 <DataGridTextColumn Binding="{Binding modelAndDiskname}" Foreground="White" Header="Модель" IsReadOnly="True" Width="Auto" MinWidth="130" />
-                <DataGridTextColumn HeaderStyle="{StaticResource DataGridHeaderLeft}" CellStyle="{StaticResource DataGridCellLeft}" Binding="{Binding action}" Foreground="White" Header="Действие" IsReadOnly="True" Width="Auto" MinWidth="230" />
-                <DataGridTextColumn Binding="{x:Null}" CanUserResize="False" ClipboardContentBinding="{x:Null}" Width="*" MaxWidth="Infinity" MinWidth="0"/>
+                <DataGridTextColumn HeaderStyle="{StaticResource DataGridHeaderLeft}" CellStyle="{StaticResource DataGridCellLeft}" Binding="{Binding action}" Foreground="White" Header="Действие" IsReadOnly="True" Width="Auto" MinWidth="260" />
+                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Width="*" MaxWidth="Infinity" MinWidth="0"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
