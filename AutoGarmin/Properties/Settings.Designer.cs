@@ -73,7 +73,7 @@ namespace AutoGarmin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool AutoTracksDownload {
             get {
                 return ((bool)(this["AutoTracksDownload"]));
@@ -85,7 +85,7 @@ namespace AutoGarmin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool AutoTracksClean {
             get {
                 return ((bool)(this["AutoTracksClean"]));

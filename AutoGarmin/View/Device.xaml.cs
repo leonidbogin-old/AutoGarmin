@@ -85,6 +85,7 @@ namespace AutoGarmin
             deviceInfo.ready = false;
             deviceInfo.warning = false;
             deviceInfo.error = false;
+            RectangleDeviceStatus.ToolTip = "";
             RectangleDeviceStatus.Fill = Const.Color.DeviceStartAuto();
             logs.Add(deviceInfo, Const.Log.DeviceStartAuto);
             System.Threading.Thread myThread = new System.Threading.Thread(
@@ -112,10 +113,22 @@ namespace AutoGarmin
             }
             deviceInfo.ready = true;
             this.Dispatcher.Invoke((System.Threading.ThreadStart)delegate {
-                if (deviceInfo.error) RectangleDeviceStatus.Fill = Const.Color.Error();
-                else if (deviceInfo.warning) RectangleDeviceStatus.Fill = Const.Color.Warning();
-                else if (deviceInfo.ready) RectangleDeviceStatus.Fill = Const.Color.DeviceReady();
-                
+                if (deviceInfo.error)
+                {
+                    RectangleDeviceStatus.Fill = Const.Color.Error();
+                    RectangleDeviceStatus.ToolTip = Const.Label.ToolTip.Error;
+                }
+                else if (deviceInfo.warning)
+                {
+                    RectangleDeviceStatus.Fill = Const.Color.Warning();
+                    RectangleDeviceStatus.ToolTip = Const.Label.ToolTip.Warning;
+                }
+                else if (deviceInfo.ready)
+                {
+                    RectangleDeviceStatus.Fill = Const.Color.DeviceReady();
+                    RectangleDeviceStatus.ToolTip = Const.Label.ToolTip.Ready;
+                }
+
                 if (!deviceInfo.error && deviceInfo.ready)
                 {
                     if (Properties.Settings.Default.SoundReady) Sound.Play(Const.Path.Sound.Ready);
@@ -331,6 +344,26 @@ namespace AutoGarmin
         private void DataGridDeviceFolder_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("explorer", deviceInfo.diskname);
+        }
+
+        private void MenuItemTracksDownload_Click(object sender, RoutedEventArgs e)
+        {
+            CopyTracks();
+        }
+
+        private void MenuItemTracksClean_Click(object sender, RoutedEventArgs e)
+        {
+            CleanTracks();
+        }
+
+        private void MenuItemMapsClean_Click(object sender, RoutedEventArgs e)
+        {
+            CleanMaps();
+        }
+
+        private void MenuItemMapsLoad_Click(object sender, RoutedEventArgs e)
+        {
+            LoadMap();
         }
     }
 }
