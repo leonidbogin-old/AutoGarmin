@@ -8,29 +8,26 @@ using System.Windows;
 
 namespace AutoGarmin
 {
-    /// <summary>
-    /// Логика взаимодействия для App.xaml
-    /// </summary>
     public partial class App : Application
     {
         protected override void OnStartup(StartupEventArgs args)
         {
             base.OnStartup(args);
 
-            if (!InstanceCheck())
+            //prevent the program from running again
+            if (!InstanceCheck()) 
             {
                 MessageBox.Show(Const.Error.DuplicateApplication, Const.Error.DuplicateApplicationTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                 Environment.Exit(0);
             }
         }
 
-        // держим в переменной, чтобы сохранить владение им до конца пробега программы
+        //hold in a variable to keep possession of it until the end of the program run
         static System.Threading.Mutex InstanceCheckMutex;
         static bool InstanceCheck()
         {
             bool isNew;
-            InstanceCheckMutex = new System.Threading.Mutex(
-                true, "AutoGarmin", out isNew);
+            InstanceCheckMutex = new System.Threading.Mutex(true, "AutoGarmin", out isNew);
             return isNew;
         }
     }

@@ -1,81 +1,62 @@
 ﻿using AutoGarmin.Class;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutoGarmin.View
 {
     public partial class Devices : UserControl
     {
-        #region Links
-        private Logs logs;
-        #endregion
+        private Logs logs; //link to log
+        public bool AutoWork; //Status of operation of the program
+        public List<Device> deviceList = new List<Device>(); //device list
 
-        public bool AutoWork; //Статус работы программы
-
-        public List<Device> devicesList = new List<Device>();
-
-        public Devices(ref Logs logs) //Инициализация
+        public Devices(ref Logs logs) //start
         {
-            this.logs = logs;
+            this.logs = logs; //savelink
             InitializeComponent();
         }
 
-        #region Check devicesList
-        public void CheckStart() //Старт проверки акуальности устройств
+        public void CheckStart() //Start checking the relevance of devices
         {
-            foreach (Device device in devicesList)
+            foreach (Device device in deviceList)
             {
-                device.deviceInfo.check = true; //Отмечаем все устройства
+                device.deviceInfo.check = true; //Mark all devices
             }
         }
 
-        public bool Check(string id) //Проверяем устройство
+        public bool Check(string id) //Check the device for relevance
         {
-            foreach (Device device in devicesList)
+            foreach (Device device in deviceList)
             {
                 if (device.deviceInfo.id == id)
                 {
-                    device.deviceInfo.check = false; //Убираем флаг у проверенных устройств
+                    device.deviceInfo.check = false; //Remove the flag from the checked devices
                     return true;
                 }
             }
             return false;
         }
         
-        public void CheckEnd() //Конец проверки актульности. Не акуальные удаляем
+        public void CheckEnd() //End of validity check. Remove out-of-date.
         {
-            for (int i = 0; i < devicesList.Count; i++)
+            for (int i = 0; i < deviceList.Count; i++)
             {
-                if (devicesList[i].deviceInfo.check)
+                if (deviceList[i].deviceInfo.check)
                 {
                     if (Properties.Settings.Default.SoundDisconnect)
                         Sound.Play(Const.Path.Sound.Disconnect);
-                    StackPanelDevices.Children.Remove(devicesList[i]);
-                    logs.Add(devicesList[i].deviceInfo, Const.Log.DeviceDisconnect);
-                    //devicesList[i].deviceInfo = null;
-                    devicesList[i].DeleteDevice();
-                    devicesList.Remove(devicesList[i]);
+                    StackPanelDevices.Children.Remove(deviceList[i]);
+                    logs.Add(deviceList[i].deviceInfo, Const.Log.DeviceDisconnect);
+                    //deviceList[i].deviceInfo = null;
+                    deviceList[i].DeleteDevice();
+                    deviceList.Remove(deviceList[i]);
                     i--;
                 }
             }
         }
-        #endregion
-
-        public void Add(string id, string nickname, string diskname, string model) //Добавление устройства
+ 
+        public void Add(string id, string nickname, string diskname, string model) //Adding a deviceы
         {
             DeviceInfo deviceInfo = new DeviceInfo()
             {
@@ -86,13 +67,13 @@ namespace AutoGarmin.View
                 check = false,
                 timeConnect = DateTime.Now
             };
-            Device device = new Device(ref deviceInfo, ref logs); 
-            devicesList.Add(device);
+            Device device = new Device(deviceInfo, ref logs); 
+            deviceList.Add(device);
             StackPanelDevices.Children.Add(device);
             logs.Add(deviceInfo, Const.Log.DeviceConnect);
             if (AutoWork)
             {
-                //Запуск авто режима
+                //Start auto mode
                 device.StartAuto();
             }
         }

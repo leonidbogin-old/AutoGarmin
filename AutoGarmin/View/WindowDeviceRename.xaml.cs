@@ -16,9 +16,9 @@ namespace AutoGarmin
 {
     public partial class WindowDeviceRename : Window
     {
-        public string nickname; //Возвращаймая строка хранящая наименование устройства
+        public string nickname; //The returned string that stores the device name
 
-        public WindowDeviceRename(string nickname) //Инициализация
+        public WindowDeviceRename(string nickname) //start
         {
             this.nickname = nickname;
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace AutoGarmin
             TextBoxNickname.Text = nickname;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) //Загрузка окна
+        private void Window_Loaded(object sender, RoutedEventArgs e) //load
         {
             TextBoxNickname.Focus();
         }

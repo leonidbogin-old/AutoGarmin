@@ -13,13 +13,13 @@ namespace AutoGarmin
 {
     public partial class WindowMain : Window
     {
-        #region View
-        private Devices devices;
-        private Logs logs;
+        #region Views
+        private Devices devices; //userControlDevices
+        private Logs logs; //userControlLogs
         #endregion
 
         #region USB
-        //Отлов событий подключения/отключения usb устройств
+        //Capture usb device connect/disconnect events
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             if (msg == USB.Code.WM_DEVICECHANGE)
@@ -36,25 +36,25 @@ namespace AutoGarmin
             return IntPtr.Zero;
         }
 
-        private void UpdateDevices(bool first) //Обновление устройств (true = Первое обновление)
+        private void UpdateDevices(bool first) //Device update (true = First update)
         {
-            CheckFile(); //Проверка файла на актуальность
-            devices.CheckStart(); //Начало проверки устройств на актуальность
+            CheckFile(); //Checking the map file for relevance
+            devices.CheckStart(); //Start checking devices for relevance
 
-            //Выборка букв USB устройств
+            //USB device letter sampling
             DriveInfo[] D = DriveInfo.GetDrives();
             foreach (DriveInfo DI in D)
             {
                 if (DI.DriveType == DriveType.Removable)
-                { 
-                    //Проверка устройств на Garmin устройство
+                {
+                    //Checking devices on Garmin device
                     if (File.Exists(Convert.ToString(DI.Name) + Const.Path.GarminXml))
                     {
                         string id = null;
                         string model = null;
                         string nickname = null;
 
-                        //Загрузка данных устройства из XML файла
+                        //Loading device data from an XML file
                         XmlDocument xDoc = new XmlDocument();
                         xDoc.Load(Convert.ToString(DI.Name) + Const.Path.GarminXml);
                         XmlElement xRoot = xDoc.DocumentElement;
@@ -77,22 +77,22 @@ namespace AutoGarmin
                             {
                                 if (!first && Properties.Settings.Default.SoundConnect)
                                     Sound.Play(Const.Path.Sound.Connect);
-                                devices.Add(id, nickname, Convert.ToString(DI.Name), model); //Добавление устройства
+                                devices.Add(id, nickname, Convert.ToString(DI.Name), model); //Add a device
                             }
                     }
                 }
             }
-            devices.CheckEnd(); //Конец проверки устройств на актуальность (не актуальные удаляются)            
+            devices.CheckEnd(); //End of device up-to-date check(devices are deleted)
         }
 
-        private void UpdateDevices() //Не первое обновление устройств
+        private void UpdateDevices() //Not the first device update
         {
             UpdateDevices(false);
         }
         #endregion
 
         #region Window
-        public WindowMain() //Инициализация
+        public WindowMain() //start
         {
             InitializeComponent();
 
@@ -105,7 +105,7 @@ namespace AutoGarmin
             GridContent.Children.Add(devices);            
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) //Загрузка окна
+        private void Window_Loaded(object sender, RoutedEventArgs e) //load
         {
             LoadSidebar();
             //Hwnd start
@@ -114,14 +114,14 @@ namespace AutoGarmin
             UpdateDevices(true);
         }
 
-        private void Window_GotFocus(object sender, RoutedEventArgs e) //Окно получило фокус
+        private void Window_GotFocus(object sender, RoutedEventArgs e) //The window has focus
         {
             CheckFile();
             UpdateDevices();
         }
         #endregion
 
-        #region MainButton
+        #region MainButton_Click
         private void ButtonDevices_Click(object sender, RoutedEventArgs e)
         {
             if (devices.Visibility == Visibility.Hidden)
@@ -156,9 +156,9 @@ namespace AutoGarmin
         #endregion
 
         #region SideBar
-        private void LoadSidebar() //Загрузка Sidebar
+        private void LoadSidebar() //load Sidebar
         {
-            CheckFile(); //Проверка файла на актуальность
+            CheckFile(); //Checking the map file for relevance
 
             CheckBoxTracksDownload.IsChecked = Properties.Settings.Default.AutoTracksDownload;
             CheckBoxTracksClear.IsChecked = Properties.Settings.Default.AutoTracksClean;
@@ -200,7 +200,7 @@ namespace AutoGarmin
         #endregion
 
         #region MapFile
-        public void CheckFile() //Проверка актульности файла, отображение файла
+        public void CheckFile() //File up-to-date check, file display
         {
             if (File.Exists(Const.Path.CustomMaps + @"\" + Properties.Settings.Default.MapName))
             {
@@ -219,9 +219,8 @@ namespace AutoGarmin
             }
         }
 
-        private void OpenDialogMapFileChange() //Открытие диалога выбора файла
+        private void OpenDialogMapFileChange() //Opens the file selection dialog
         {
-            //System.Windows.Forms.MessageBox.Show(explorer);
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.CheckFileExists = true;
             openFile.Filter = "Map files(*.kmz)|*.kmz|All files(*.*)|*.*";
@@ -238,7 +237,7 @@ namespace AutoGarmin
             CheckFile();
         }
 
-        private void Window_Drop(object sender, System.Windows.DragEventArgs e) //Перетягивание файла в окно
+        private void Window_Drop(object sender, System.Windows.DragEventArgs e) //Drag a file into the window
         {
             if (e.Data.GetDataPresent(System.Windows.Forms.DataFormats.FileDrop))
             {
@@ -251,8 +250,7 @@ namespace AutoGarmin
                         exitsKmz = true;
                         break;
                     }
-                //Если выполнение кода дошло сюда, 
-                //  следовательно в выбранных файлах не было файла с расширением .kmz
+                //If the code execution came here, then there was no file with extension in the selected files .kmz
                 if (!exitsKmz)
                 {
                     if (System.Windows.Forms.MessageBox.Show(Const.Error.NoKmz, Const.Error.WordWarning, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
@@ -265,7 +263,7 @@ namespace AutoGarmin
             CheckFile();
         }
 
-        private void MapFileChange(string path) //Изменение файла
+        private void MapFileChange(string path) //Changing the map file
         {
             if (!Directory.Exists(Const.Path.CustomMaps)) Directory.CreateDirectory(Const.Path.CustomMaps);
             try
@@ -293,14 +291,14 @@ namespace AutoGarmin
             }
         }
 
-        private void MapFileClean() //Удаление файла
+        private void MapFileClean() //Deleting a map file
         {
             DirectoryInfo dir = new DirectoryInfo(Const.Path.CustomMaps);
             FilesWork.Folder.Clean(dir);
             CheckFile();
         }
 
-        private static string BytesToString(long byteCount) //Строка размера файла
+        private static string BytesToString(long byteCount) //size in the line
         {
             string[] suf = { "Байт", "Кб", "Мб", "Гб", "Тб", "Пб", "Эб" }; //
             if (byteCount == 0)
@@ -311,7 +309,7 @@ namespace AutoGarmin
             return (Math.Sign(byteCount) * num).ToString() + " " + suf[place];
         }
 
-        private void ButtonFileChange_Click(object sender, RoutedEventArgs e) //Нажатие кнопки "Выбрать" файл
+        private void ButtonFileChange_Click(object sender, RoutedEventArgs e)
         {
             OpenDialogMapFileChange();
         }
@@ -321,12 +319,12 @@ namespace AutoGarmin
             OpenDialogMapFileChange();
         }
 
-        private void ButtonFileClean_Click(object sender, RoutedEventArgs e) //Нажатие кновки удаления файла
+        private void ButtonFileClean_Click(object sender, RoutedEventArgs e) 
         {
             MapFileClean();
         } 
 
-        private void ContextMenuFile_Open(object sender, RoutedEventArgs e) //Событие открытия ContextMenu файла
+        private void ContextMenuFile_Open(object sender, RoutedEventArgs e)
         {
             CheckFile();
         }
@@ -463,9 +461,9 @@ namespace AutoGarmin
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOn");
                 ButtonAuto.Content = Const.Label.ButonAuto.On;
                 this.Title = Const.Title.MainAutoOn;
-                if (devices.devicesList.Count > 0)
+                if (devices.deviceList.Count > 0)
                 {
-                    foreach (Device device in devices.devicesList)
+                    foreach (Device device in devices.deviceList)
                         if (!device.deviceInfo.ready)
                         {
                             device.StartAuto();

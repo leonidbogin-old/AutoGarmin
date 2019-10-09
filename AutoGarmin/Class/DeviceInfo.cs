@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoGarmin
 {
-    public class DeviceInfo
+    public class DeviceInfo //device information
     {
-        public bool check { get; set; }
-        public string id { get; set; }
-        public string nickname { get; set; }
-        public string diskname { get; set; }
-        public string model { get; set; }
-        public DateTime timeConnect { get; set; }
-        public bool error { get; set; }
-        public bool warning { get; set; }
-        public bool ready { get; set; }
-        public bool extract { get; set; }
+        public bool check { get; set; } //checking for relevance
+        public string id { get; set; } //id device
+        public string nickname { get; set; } //name
+        public string diskname { get; set; } //drive letter
+        public string model { get; set; } //model
+        public DateTime timeConnect { get; set; } //сonnection time
+        public bool error { get; set; } //there is a mistake
+        public bool warning { get; set; } //there is a warning
+        public bool ready { get; set; } //the device is ready
+        public bool extract { get; set; } //the device is removed
     }
 }

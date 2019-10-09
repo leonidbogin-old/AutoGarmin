@@ -19,16 +19,16 @@ namespace AutoGarmin.View
 {
     public partial class Logs : UserControl
     {
-        //Коллекция логов. Привязка к dataGridLogs
+        //Collection of logs. Binding to dataGridLogs
         private ObservableCollection<LogLine> logLines = new ObservableCollection<LogLine>();
 
-        public Logs() //Инициализация
+        public Logs() //start
         {
             InitializeComponent();
-            DataGridLogs.ItemsSource = logLines;
+            DataGridLogs.ItemsSource = logLines; //Binding
         }
 
-        public void Add(DeviceInfo deviceInfo, string action) //Новый лог
+        public void Add(DeviceInfo deviceInfo, string action) //New log entry
         {
             LogLine logNew = new LogLine()
             {
@@ -44,7 +44,7 @@ namespace AutoGarmin.View
             });
         }
 
-        public void Clear() //Очистка лога
+        public void Clear() //Clearing the log
         {
             logLines.Clear();
         }
