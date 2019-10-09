@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace AutoGarmin.View
             DataGridLogs.ItemsSource = logLines;
         }
 
-        public void Add(DeviceInfo deviceInfo, string action, SolidColorBrush brush) //Новый лог
+        public void Add(DeviceInfo deviceInfo, string action) //Новый лог
         {
             LogLine logNew = new LogLine()
             {
@@ -43,11 +44,6 @@ namespace AutoGarmin.View
             });
         }
 
-        public void Add(DeviceInfo deviceInfo, string action) //Новый лог
-        {
-            Add(deviceInfo, action, null); //Новый лог
-        }
-
         public void Clear() //Очистка лога
         {
             logLines.Clear();
@@ -58,4 +54,6 @@ namespace AutoGarmin.View
             Clear();
         }
     }
+
+
 }

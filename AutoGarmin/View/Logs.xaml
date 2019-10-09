@@ -4,10 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutoGarmin.View"
+             xmlns:class="clr-namespace:AutoGarmin.Class"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        
+
         <!--#region DataGridHeader-->
         <Style x:Key="DataGridHeader" TargetType="DataGridColumnHeader">
             <Setter Property="Background" Value="#1e1e1e" />
@@ -28,9 +29,12 @@
             <Setter Property="Thumb.HorizontalContentAlignment" Value="Left" />
         </Style>
         <!--#endregion-->
-        
+
         <!--#region DataGridCell-->
+        <class:ActionToColorConverter x:Key="ActionToColorConverter" />
+
         <Style x:Key="DataGridCell" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background" Value="{Binding action, Converter={StaticResource ActionToColorConverter}}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -42,6 +46,7 @@
             </Setter>
         </Style>
         <Style x:Key="DataGridCellLeft" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background" Value="{Binding action, Converter={StaticResource ActionToColorConverter}}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -56,7 +61,7 @@
 
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="DataGridLogs" ColumnHeaderStyle="{StaticResource DataGridHeader}"  CellStyle="{StaticResource DataGridCell}" Margin="0" Foreground="White" BorderThickness="0" CanUserSortColumns="False" CanUserReorderColumns="False" RowBackground="#FF272727" AlternatingRowBackground="#FF1E1E1E" HeadersVisibility="Column" AutoGenerateColumns="False" HorizontalGridLinesBrush="#FF2D2D2D" VerticalGridLinesBrush="#FF2D2D2D" RowDetailsVisibilityMode="Visible" UseLayoutRounding="False" Background="{x:Null}" CanUserAddRows="False" RowHeight="23" VerticalContentAlignment="Center" ScrollViewer.CanContentScroll="False" VerticalScrollBarVisibility="Visible" Panel.ZIndex="1">
+        <DataGrid x:Name="DataGridLogs" ColumnHeaderStyle="{StaticResource DataGridHeader}"  CellStyle="{StaticResource DataGridCell}" Margin="0" Foreground="White" BorderThickness="0" CanUserSortColumns="False" CanUserReorderColumns="False" RowBackground="#FF272727" AlternatingRowBackground="#FF1E1E1E" HeadersVisibility="Column" AutoGenerateColumns="False" HorizontalGridLinesBrush="#FF2D2D2D" VerticalGridLinesBrush="#FF2D2D2D" RowDetailsVisibilityMode="Visible" UseLayoutRounding="False" Background="{x:Null}" CanUserAddRows="False" RowHeight="23" VerticalContentAlignment="Center" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Visible" Panel.ZIndex="1" HorizontalScrollBarVisibility="Visible">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Очистить лог" Click="DataGridLogsClear_Click" />
@@ -71,11 +76,12 @@
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF4F4F4F"/>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding time}" Foreground="White" Header="Время" IsReadOnly="True" Width="55" MinWidth="55"  />
-                <DataGridTextColumn Binding="{Binding id}" Foreground="White" Header="id" IsReadOnly="True" Width="80" MinWidth="80" />
-                <DataGridTextColumn Binding="{Binding nickname}" Foreground="White" Header="Наименование" IsReadOnly="True" Width="110" MinWidth="110" />
-                <DataGridTextColumn Binding="{Binding modelAndDiskname}" Foreground="White" Header="Модель" IsReadOnly="True" Width="130" MinWidth="130" />
-                <DataGridTextColumn HeaderStyle="{StaticResource DataGridHeaderLeft}" CellStyle="{StaticResource DataGridCellLeft}" Binding="{Binding action}" Foreground="White" Header="Действие" IsReadOnly="True" Width="*" MinWidth="150" />
+                <DataGridTextColumn Binding="{Binding time}" Foreground="White" Header="Время" IsReadOnly="True" Width="Auto" MinWidth="55"  />
+                <DataGridTextColumn Binding="{Binding id}" Foreground="White" Header="id" IsReadOnly="True" Width="Auto" MinWidth="80" />
+                <DataGridTextColumn Binding="{Binding nickname}" Foreground="White" Header="Наименование" IsReadOnly="True" Width="Auto" MinWidth="110" />
+                <DataGridTextColumn Binding="{Binding modelAndDiskname}" Foreground="White" Header="Модель" IsReadOnly="True" Width="Auto" MinWidth="130" />
+                <DataGridTextColumn HeaderStyle="{StaticResource DataGridHeaderLeft}" CellStyle="{StaticResource DataGridCellLeft}" Binding="{Binding action}" Foreground="White" Header="Действие" IsReadOnly="True" Width="Auto" MinWidth="230" />
+                <DataGridTextColumn Binding="{x:Null}" CanUserResize="False" ClipboardContentBinding="{x:Null}" Width="*" MaxWidth="Infinity" MinWidth="0"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

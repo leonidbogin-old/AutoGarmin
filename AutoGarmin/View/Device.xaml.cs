@@ -82,9 +82,13 @@ namespace AutoGarmin
 
         public void StartAuto()
         {
+            deviceInfo.ready = false;
+            deviceInfo.warning = false;
+            deviceInfo.error = false;
+            RectangleDeviceStatus.Fill = Const.Color.DeviceStartAuto();
             logs.Add(deviceInfo, Const.Log.DeviceStartAuto);
             System.Threading.Thread myThread = new System.Threading.Thread(
-                                new System.Threading.ThreadStart(Auto));
+                new System.Threading.ThreadStart(Auto));
             myThread.Start();
         }
 
@@ -107,10 +111,16 @@ namespace AutoGarmin
                 LoadMap();
             }
             deviceInfo.ready = true;
-            if (Properties.Settings.Default.SoundReady) Sound.Play(Const.Path.Sound.Ready);
             this.Dispatcher.Invoke((System.Threading.ThreadStart)delegate {
-                RectangleDeviceStatus.Fill = Const.Color.Device.DeviceReady();
-                logs.Add(deviceInfo, Const.Log.DeviceEndAuto);
+                if (deviceInfo.error) RectangleDeviceStatus.Fill = Const.Color.Error();
+                else if (deviceInfo.warning) RectangleDeviceStatus.Fill = Const.Color.Warning();
+                else if (deviceInfo.ready) RectangleDeviceStatus.Fill = Const.Color.DeviceReady();
+                
+                if (!deviceInfo.error && deviceInfo.ready)
+                {
+                    if (Properties.Settings.Default.SoundReady) Sound.Play(Const.Path.Sound.Ready);
+                    logs.Add(deviceInfo, Const.Log.DeviceEndAuto);
+                }
             });
         }
 
@@ -134,14 +144,16 @@ namespace AutoGarmin
                 }
                 else
                 {
+                    deviceInfo.error = true;
                     if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
                     logs.Add(deviceInfo, Const.Log.Error.NoTracksFolder);
                 }
             }
             catch
             {
+                deviceInfo.error = true;
                 if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                logs.Add(deviceInfo, Const.Log.Error.DeviceTracksDownload, Const.Color.Log.Error());
+                logs.Add(deviceInfo, Const.Log.Error.DeviceTracksDownload);
             }
         }
 
@@ -158,14 +170,14 @@ namespace AutoGarmin
                 }
                 else
                 {
-                    if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                    logs.Add(deviceInfo, Const.Log.Error.NoTracksFolderClean, Const.Color.Log.Error());
+                    deviceInfo.warning = true;
+                    logs.Add(deviceInfo, Const.Log.Error.NoTracksFolderClean);
                 }
             }
             catch
             {
-                if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                logs.Add(deviceInfo, Const.Log.Error.DeviceTracksClean, Const.Color.Log.Error());
+                deviceInfo.warning = true;
+                logs.Add(deviceInfo, Const.Log.Error.DeviceTracksClean);
             }
         }
 
@@ -181,14 +193,14 @@ namespace AutoGarmin
                 }
                 else
                 {
-                    if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                    logs.Add(deviceInfo, Const.Log.Error.NoMapsFolder, Const.Color.Log.Error());
+                    deviceInfo.warning = true;
+                    logs.Add(deviceInfo, Const.Log.Error.NoMapsFolder);
                 }
             }
             catch
             {
-                if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                logs.Add(deviceInfo, Const.Log.Error.DeviceMapsClean, Const.Color.Log.Error());
+                deviceInfo.warning = true;
+                logs.Add(deviceInfo, Const.Log.Error.DeviceMapsClean);
             }
         }
 
@@ -206,14 +218,16 @@ namespace AutoGarmin
                 }
                 else
                 {
+                    deviceInfo.error = true;
                     if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                    logs.Add(deviceInfo, Const.Log.Error.NoMapFile, Const.Color.Log.Error());
+                    logs.Add(deviceInfo, Const.Log.Error.NoMapFile);
                 }
             }
             catch
             {
+                deviceInfo.error = true;
                 if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                logs.Add(deviceInfo, Const.Log.Error.DeviceMapLoad, Const.Color.Log.Error());
+                logs.Add(deviceInfo, Const.Log.Error.DeviceMapLoad);
             }
         }
 
@@ -295,7 +309,7 @@ namespace AutoGarmin
             catch
             {
                 if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                logs.Add(deviceInfo, Const.Log.Error.RenameDevice, Const.Color.Log.Error());
+                logs.Add(deviceInfo, Const.Log.Error.RenameDevice);
             }
         }
 
