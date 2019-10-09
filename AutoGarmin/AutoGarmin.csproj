@@ -76,6 +76,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Class\ActionToColorConverter.cs" />
     <Compile Include="Class\DeviceInfo.cs" />
     <Compile Include="Class\FilesWork.cs" />
     <Compile Include="Class\LogLine.cs" />

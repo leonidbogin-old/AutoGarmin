@@ -15,30 +15,29 @@ namespace AutoGarmin
                 return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
             }
 
-            public static class Device
+            public static System.Windows.Media.SolidColorBrush DeviceStartAuto()
             {
-                public static System.Windows.Media.SolidColorBrush DeviceStart()
-                {
-                    return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(11, 89, 141));
-                }
-
-                public static System.Windows.Media.SolidColorBrush DeviceReady()
-                {
-                    return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(11, 89, 141));
-                }
+                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(11, 89, 141));
             }
 
-            public static class Log
+            public static System.Windows.Media.SolidColorBrush DeviceReady()
             {
-                public static System.Windows.Media.SolidColorBrush DeviceReady()
-                {
-                    return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(11, 89, 141));
-                }
+                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(71, 156, 14));
+            }
 
-                public static System.Windows.Media.SolidColorBrush Error()
-                {
-                    return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(134, 42, 42));
-                }
+            public static System.Windows.Media.SolidColorBrush Warning()
+            {
+                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(174, 188, 18));
+            }
+
+            public static System.Windows.Media.SolidColorBrush Error()
+            {
+                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(134, 42, 42));
+            }
+
+            public static System.Windows.Media.SolidColorBrush DeviceConnect()
+            {
+                return new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(104, 33, 122));
             }
         }
 

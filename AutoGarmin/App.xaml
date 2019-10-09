@@ -212,6 +212,12 @@
             </Setter>
         </Style>
 
+        <!--<Style TargetType="{x:Type MenuItem}">
+            <Setter Property="Background" Value="#FF252526" />
+        </Style>-->
+
+
+
         <!--#endregion-->
         
     </Application.Resources>
