@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutoGarmin
+﻿namespace AutoGarmin
 {
-    public class LogLine
+    public class LogLine //log string
     {
-        public string time { get; set; }
-        public string id { get; set; }
-        public string nickname { get; set; }
-        public string modelAndDiskname { get; set; }
-        public string action { get; set; }
+        public string time { get; set; } //action time
+        public string id { get; set; } //id device
+        public string nickname { get; set; } //name
+        public string modelAndDiskname { get; set; } //model and drive letter
+        public string action { get; set; } //a string describing the action
     }
 }

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutoGarmin
+﻿namespace AutoGarmin
 {
-    public static class Const
+    public static class Const //Constants of the program
     {
-        public static class Color //Цвета
+        public static class Color 
         {
             public static System.Windows.Media.SolidColorBrush Transparent()
             {
@@ -41,27 +35,27 @@ namespace AutoGarmin
             }
         }
 
-        public static class Title //Заголовки окон
+        public static class Title //Window title
         {
             public const string Main = "AutoGarmin 1.0";
-            public const string MainAutoOn = Main + " - (Авто режим)";
+            public const string MainAutoOn = Main + " - (Авторежим)";
             public const string ChooseFile = "Выбор файла для заливки";
             public const string RenameDevice = "Новое наименование устройства";
         }
         
-        public static class Xml //Xml константы
+        public static class Xml //Xml
         {
-            public const string Id = "Id"; //Уникальный id устройства
-            public const string Model = "Model"; //Данные устройства
-            public const string Description = "Description"; //Модель устройства
-            public const string Nickname = "Nickname"; //Название поле, с помощью которого именуется устройство
+            public const string Id = "Id"; //id device
+            public const string Model = "Model"; //Data
+            public const string Description = "Description"; //Model
+            public const string Nickname = "Nickname"; //name
         }
 
-        public static class Log //Сообщения для логов
+        public static class Log //Log messages
         {
             public const string DeviceConnect = "Устройство подключено.";
             public const string DeviceDisconnect = "Устройство отключено.";
-            public const string DeviceStartAuto = "Старт авто режима.";
+            public const string DeviceStartAuto = "Старт авторежима.";
             public const string DeviceEndAuto = "Устройство готово к работе.";
             public const string DeviceTracksDownload = "Скачаны треки.";
             public const string DeviceTracksClean = "Очищена папка с треками.";
@@ -89,7 +83,7 @@ namespace AutoGarmin
             }
         }
 
-        public static class Label //Текст для интерфейса
+        public static class Label //The text for the interface
         {
             public const string NoNickname = "Нет наименования";
             public const string FileSize = "Размер файла";
@@ -101,14 +95,14 @@ namespace AutoGarmin
                 public const string Ready = "Устройство готово к работе.";
             }
 
-            public static class ButonAuto //Кнопка включения авто режима
+            public static class ButonAuto
             {
-                public const string On = "Авто режим";
+                public const string On = "Авторежим";
                 public const string Off = "Включить";
             }
         }
 
-        public static class Error //Сообщения об ошибках
+        public static class Error //Error message
         {
             public const string NoKmz = "У выбранного файла расширение не .kmz, вы хотите продолжить?";
             public const string WordError = "Ошибка";
@@ -122,7 +116,7 @@ namespace AutoGarmin
 
         }
 
-        public static class Path //Работа с папками, файлами и звуками
+        public static class Path //Work with files
         {
             public const string MapFileExtension = ".kmz";
             public const string CustomMaps = @"CustomMaps";
@@ -134,9 +128,8 @@ namespace AutoGarmin
             public const string NoIco = @"pack://application:,,,/no.ico";
             public const string Icon = @"pack://application:,,,/icon.ico";
             public const string IconAuto = @"pack://application:,,,/icon_auto.ico";
-            internal static readonly string Icon_auto;
 
-            public static class Sound //Работа со звуками
+            public static class Sound 
             {
                 public const string Connect = @"sounds/connect.wav";
                 public const string Ready = @"sounds/ready.wav";
@@ -145,7 +138,7 @@ namespace AutoGarmin
             }
         }
 
-        public static class Time //Форматы времени
+        public static class Time //Time format
         {
             public const string Connect = "HH:mm:ss";
             public const string Log = "HH:mm:ss";

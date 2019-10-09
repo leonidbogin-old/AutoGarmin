@@ -2,65 +2,51 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Xml;
 
 namespace AutoGarmin
 {
     public partial class Device : UserControl
     {
+        private View.Logs logs; //link to log
+        public DeviceInfo deviceInfo; //device information
+        public WindowDeviceRename deviceRenameWindow; //window of renaming the device
 
-        #region Links
-        private View.Logs logs; 
-        public DeviceInfo deviceInfo;
-        public WindowDeviceRename deviceRenameWindow;
-
-        #endregion
-
-        public Device(ref DeviceInfo deviceInfo, ref View.Logs logs) //Инилизация
-        {
-            this.logs = logs;
+        public Device(DeviceInfo deviceInfo, ref View.Logs logs) //start
+        { 
+            this.logs = logs; //savelink
             this.deviceInfo = deviceInfo;
             InitializeComponent();
-            LabelModel.Content = $"{deviceInfo.model} ({deviceInfo.diskname})";
-            if (deviceInfo.nickname != null && deviceInfo.nickname.Length > 0)
+            LabelModel.Content = $"{deviceInfo.model} ({deviceInfo.diskname})"; //output model
+            if (deviceInfo.nickname != null && deviceInfo.nickname.Length > 0) //output nickname
                 LabelNickname.Content = deviceInfo.nickname;
             else LabelNickname.Content = Const.Label.NoNickname;
-            LabelId.Content = deviceInfo.id;
-            LabelTimeConnect.Content = deviceInfo.timeConnect.ToString(Const.Time.Connect);
-            ImageDevice.Source = LoadIco(deviceInfo.diskname);
+            LabelId.Content = deviceInfo.id; //output id
+            LabelTimeConnect.Content = deviceInfo.timeConnect.ToString(Const.Time.Connect); //output connectшщт time
+            ImageDevice.Source = LoadIco(deviceInfo.diskname); //output device image
         }
 
-        #region LoadIco
-        private BitmapImage LoadIco(string diskname) //Загрузка иконки устройства
+        private BitmapImage LoadIco(string diskname) //loading device icon
         {
             BitmapImage bm1 = new BitmapImage();
 
             string path = diskname + Const.Path.GarminIco;
             if (!File.Exists(path))
             {
-                //Если нет стандартного ico, ищем любые другие ico на устройстве
+                //If there is no standard ico, look for any other .ico on the device
                 List<string> files = new List<string>();
                 try
                 {
-                    GetAllFiles(diskname + "/", "*.ico", files);
+                    FilesWork.GetAllFiles(diskname + "/", "*.ico", ref files);
                 }
                 catch (UnauthorizedAccessException) { }
                 if (files.Count > 0)
                     path = files[0];
-                else path = Const.Path.NoIco; //Иначе ставим картинку из ресурсов 'no.ico'
+                else path = Const.Path.NoIco; //Otherwise, put the picture of the resources 'no.ico'
             }
             bm1.BeginInit();
             bm1.UriSource = new Uri(path, UriKind.RelativeOrAbsolute);
@@ -70,17 +56,7 @@ namespace AutoGarmin
             return bm1;
         }
 
-        private static void GetAllFiles(string rootDirectory, string fileExtension, List<string> files) //Поиск .ico файлов на устройстве
-        {
-            string[] directories = Directory.GetDirectories(rootDirectory);
-            files.AddRange(Directory.GetFiles(rootDirectory, fileExtension));
-
-            foreach (string path in directories)
-                GetAllFiles(path, fileExtension, files);
-        }
-        #endregion
-
-        public void StartAuto()
+        public void StartAuto() //start auto mode
         {
             deviceInfo.ready = false;
             deviceInfo.warning = false;
@@ -93,7 +69,7 @@ namespace AutoGarmin
             myThread.Start();
         }
 
-        private void Auto()
+        private void Auto() //auto mode
         {
             if (Properties.Settings.Default.AutoTracksDownload)
             {
@@ -137,7 +113,7 @@ namespace AutoGarmin
             });
         }
 
-        public void CopyTracks()
+        public void CopyTracks() //copying tracks
         {
             try
             {
@@ -171,7 +147,7 @@ namespace AutoGarmin
         }
 
 
-        public void CleanTracks()
+        public void CleanTracks() //removal of tracks
         {
             try
             {
@@ -194,7 +170,7 @@ namespace AutoGarmin
             }
         }
 
-        public void CleanMaps()
+        public void CleanMaps() //removal of maps
         {
             try
             {
@@ -217,7 +193,7 @@ namespace AutoGarmin
             }
         }
 
-        public void LoadMap()
+        public void LoadMap() //download maps on device
         {
             try
             {
@@ -244,7 +220,7 @@ namespace AutoGarmin
             }
         }
 
-        public void DeleteDevice()
+        public void DeleteDevice() //removing the device
         {
             deviceInfo.extract = true;
             if (deviceRenameWindow != null)
@@ -252,17 +228,15 @@ namespace AutoGarmin
                     deviceRenameWindow.Close();
         }
 
-        private void RenameDevice() //Переименовать устройство
+        private void RenameDevice() //to rename the device
         {
             try
             {
                 deviceRenameWindow = new WindowDeviceRename(deviceInfo.nickname);
                 if (deviceRenameWindow.ShowDialog().Value)
                 {
-                    if (!deviceInfo.extract && File.Exists(deviceInfo.diskname + Const.Path.GarminXml)) //if (deviceInfo.userControl == null) -> show error
+                    if (!deviceInfo.extract && File.Exists(deviceInfo.diskname + Const.Path.GarminXml)) 
                     {
-                        //deviceInfo.diskname + Const.Path.GarminXml
-                        //System.Windows.Forms.Application.StartupPath
                         string tempGarminXml = System.Windows.Forms.Application.StartupPath
                             + @"\" + System.IO.Path.GetFileName(Const.Path.GarminXml);
                         File.Copy(deviceInfo.diskname + Const.Path.GarminXml, tempGarminXml, true);
@@ -309,13 +283,6 @@ namespace AutoGarmin
                         File.Delete(tempGarminXml);
                         logs.Add(deviceInfo, newLog);
                         deviceInfo.nickname = deviceRenameWindow.nickname;
-                    }
-                    else
-                    {
-                        //if (Properties.Settings.Default.SoundError) Sound.Play(Const.Path.Sound.Error);
-                        //logs.Add("Ошибка изменения наименования. Устройство было отключено");
-                        //MessageBox.Show("Устройство было отключено. Изменение наименования не возможно.", "Ошибка",
-                        //    MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }

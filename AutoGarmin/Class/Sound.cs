@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Media;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoGarmin.Class
 {
-    public static class Sound
+    public static class Sound //work with sound
     {
-        public static void Play(string path)
+        public static void Play(string path) //play sound
         {
             if (File.Exists(path))
             {

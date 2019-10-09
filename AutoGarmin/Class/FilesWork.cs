@@ -1,43 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoGarmin.Class
 {
-    static class FilesWork
+    static class FilesWork //work with files
     {
-        public static class Folder
+        public static void GetAllFiles(string rootDirectory, string fileExtension, ref List<string> files) //Search files by extension on device
         {
-            public static void Copy(DirectoryInfo source, DirectoryInfo target) //Копирование папки
-            {
-                // Если директория для копирования файлов не существует, то создаем ее
-                if (Directory.Exists(target.FullName) == false)
-                {
-                    Directory.CreateDirectory(target.FullName);
-                }
+            string[] directories = Directory.GetDirectories(rootDirectory);
+            files.AddRange(Directory.GetFiles(rootDirectory, fileExtension));
 
-                // Копируем все файлы в новую директорию
-                foreach (FileInfo fi in source.GetFiles())
+            foreach (string path in directories)
+                GetAllFiles(path, fileExtension, files);
+        }
+
+        public static class Folder //work with folders
+        {
+            public static void Copy(DirectoryInfo source, DirectoryInfo target) //Copy folder
+            {
+                if (Directory.Exists(target.FullName) == false) Directory.CreateDirectory(target.FullName);
+                
+                foreach (FileInfo fi in source.GetFiles()) //Copy all files to a new directory
                 {
                     fi.CopyTo(System.IO.Path.Combine(target.ToString(), fi.Name), true);
                 }
 
-                // Копируем рекурсивно все поддиректории
-                foreach (DirectoryInfo diSourceSubDir in source.GetDirectories())
+                foreach (DirectoryInfo diSourceSubDir in source.GetDirectories()) //Copy recursively all subdirectories
                 {
-                    // Создаем новую поддиректорию в директории
-                    DirectoryInfo nextTargetSubDir =
-                      target.CreateSubdirectory(diSourceSubDir.Name);
-                    // Опять вызываем функцию копирования
-                    // Рекурсия
+                    //Create a new subdirectory in the directory
+                    DirectoryInfo nextTargetSubDir = target.CreateSubdirectory(diSourceSubDir.Name);
+                    //Again, call the copy function. Recursion
                     Copy(diSourceSubDir, nextTargetSubDir);
                 }
             }
 
-            public static void Clean(DirectoryInfo source) //Очистка папки
+            public static void Clean(DirectoryInfo source) //Clear folder
             {
                 foreach (FileInfo file in source.GetFiles())
                 {
