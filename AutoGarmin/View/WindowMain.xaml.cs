@@ -171,8 +171,11 @@ namespace AutoGarmin
             CheckBoxSoundError.IsChecked = Properties.Settings.Default.SoundError;
             CheckBoxSoundDisconnect.IsChecked = Properties.Settings.Default.SoundDisconnect;
 
+            string icon;
+
             if (Properties.Settings.Default.AutoOn)
             {
+                icon = Const.Path.IconAuto;
                 devices.AutoWork = true;
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOn");
                 ButtonAuto.Content = Const.Label.ButonAuto.On;
@@ -180,11 +183,19 @@ namespace AutoGarmin
             }
             else
             {
+                icon = Const.Path.Icon;
                 devices.AutoWork = false;
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOff");
                 ButtonAuto.Content = Const.Label.ButonAuto.Off;
-                this.Title = Const.Title.MainAutoOn;
+                this.Title = Const.Title.Main;
             }
+
+            System.Windows.Media.Imaging.BitmapImage bm1 = new System.Windows.Media.Imaging.BitmapImage();
+            bm1.BeginInit();
+            bm1.UriSource = new Uri(icon, UriKind.RelativeOrAbsolute);
+            bm1.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+            bm1.EndInit();
+            this.Icon = bm1;
         }
         #endregion
 
@@ -436,8 +447,10 @@ namespace AutoGarmin
         #region ButtonAuto
         private void ButtonAuto_Click(object sender, RoutedEventArgs e)
         {
+            string icon;
             if (devices.AutoWork)
             {
+                icon = Const.Path.Icon;
                 devices.AutoWork = false;
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOff");
                 ButtonAuto.Content = Const.Label.ButonAuto.Off;
@@ -445,6 +458,7 @@ namespace AutoGarmin
             }
             else
             {
+                icon = Const.Path.IconAuto;
                 devices.AutoWork = true;
                 ButtonAuto.Style = (Style)FindResource("ButtonAutoOn");
                 ButtonAuto.Content = Const.Label.ButonAuto.On;
@@ -458,6 +472,12 @@ namespace AutoGarmin
                         }
                 }
             }
+            System.Windows.Media.Imaging.BitmapImage bm1 = new System.Windows.Media.Imaging.BitmapImage();
+            bm1.BeginInit();
+            bm1.UriSource = new Uri(icon, UriKind.RelativeOrAbsolute);
+            bm1.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+            bm1.EndInit();
+            this.Icon = bm1;
         }
         #endregion
 
