@@ -132,6 +132,9 @@ namespace AutoGarmin
             public const string GarminXml = @"\Garmin\GarminDevice.xml";
             public const string GarminIco = @"\Garmin\Garmintriangletm.ico";
             public const string NoIco = @"pack://application:,,,/no.ico";
+            public const string Icon = @"pack://application:,,,/icon.ico";
+            public const string IconAuto = @"pack://application:,,,/icon_auto.ico";
+            internal static readonly string Icon_auto;
 
             public static class Sound //Работа со звуками
             {
