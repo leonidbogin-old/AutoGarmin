@@ -113,10 +113,13 @@ namespace AutoGarmin
             public const string NoKmz = "У выбранного файла расширение не .kmz, вы хотите продолжить?";
             public const string WordError = "Ошибка";
             public const string WordWarning = "Предупреждение";
-            public const string Copy = "Ошибка при копировании файла карты";
-            public const string LoadMapNotWork = "Заливка карты без файла не работает";
-            public const string NoMapFile = "Нет файла карты";
-            
+            public const string Copy = "Ошибка при копировании файла карты.";
+            public const string LoadMapNotWork = "Заливка карты без файла не работает.";
+            public const string NoMapFile = "Нет файла карты.";
+
+            public const string DuplicateApplication = "Программа AutoGarmin уже запущена.";
+            public const string DuplicateApplicationTitle = "Ошибка при запуске";
+
         }
 
         public static class Path //Работа с папками, файлами и звуками
