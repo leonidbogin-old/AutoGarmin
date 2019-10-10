@@ -24,5 +24,22 @@ namespace AutoGarmin
         {
             InitializeComponent();
         }
+
+        private void GridMargin_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (GridMargin.ActualWidth <= GridMargin.ColumnDefinitions[1].MaxWidth)
+            {
+                GridMargin.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
+                GridMargin.ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
+                GridMargin.ColumnDefinitions[2].Width = new GridLength(0, GridUnitType.Star);
+            }
+            else
+            {
+                GridMargin.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
+                GridMargin.ColumnDefinitions[1].Width = new GridLength(
+                    GridMargin.ColumnDefinitions[1].MaxWidth, GridUnitType.Star);
+                GridMargin.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
+            }
+        }
     }
 }
