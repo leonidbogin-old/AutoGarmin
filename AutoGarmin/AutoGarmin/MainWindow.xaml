@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoGarmin"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="589.5" Width="978.5" MinWidth="220" MinHeight="400">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="220"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="#FFDADCE0" BorderThickness="1,0,0,0" Grid.Column="1" Margin="0"/>
+        <ScrollViewer Margin="0" Padding="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+            <Grid x:Name="GridMargin" SizeChanged="GridMargin_SizeChanged">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition MaxWidth="900" Width="900"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="GridContent" Margin="0" Grid.Row="1" Grid.Column="1" Background="#FFD65A5A" VerticalAlignment="Center" Height="500">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="15"/>
+                    </Grid.RowDefinitions>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+
     </Grid>
 </Window>
