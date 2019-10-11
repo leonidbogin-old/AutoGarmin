@@ -25,6 +25,7 @@ namespace AutoGarmin
             InitializeComponent();
         }
 
+        #region UI
         private void GridMargin_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (GridMargin.ActualWidth <= GridMargin.ColumnDefinitions[1].MaxWidth)
@@ -41,5 +42,6 @@ namespace AutoGarmin
                 GridMargin.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
             }
         }
+        #endregion
     }
 }
