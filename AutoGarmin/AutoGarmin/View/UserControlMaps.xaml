@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="AutoGarmin.View.UserControlMaps"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoGarmin.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Width="270" Height="170" MinHeight="170">
+    <Grid Background="#FFF2F2F2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="0" Background="#FFE0E0E0">
+            <Label Content="Кастомные карты" Foreground="Black" HorizontalContentAlignment="Center" FontSize="13" FontFamily="Calibri"/>
+        </StackPanel>
+        <CheckBox Content="Очищать кастомные карты с устройства" VerticalContentAlignment="Center" FontSize="11" Margin="23,10,0,0" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
+        <Grid x:Name="GridFiles" Margin="24,11,24,8" Grid.Row="2">
+            <ListBox HorizontalAlignment="Center" Height="73" Margin="0,16,0,0" VerticalAlignment="Top" Width="222" Background="#FFEBEBEB" BorderBrush="#FFABADB3"/>
+            <Label Content="Файлы для залития" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Calibri" Padding="3,2,3,1" BorderBrush="#FFABADB3" BorderThickness="1,1,1,0" Background="#FFEBEBEB" FontSize="11" Foreground="Black"/>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

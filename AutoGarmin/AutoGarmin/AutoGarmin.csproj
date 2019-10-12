@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\UserControlMaps.xaml.cs">
+      <DependentUpon>UserControlMaps.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControlTracks.xaml.cs">
       <DependentUpon>UserControlTracks.xaml</DependentUpon>
     </Compile>
@@ -73,6 +76,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\UserControlMaps.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControlTracks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

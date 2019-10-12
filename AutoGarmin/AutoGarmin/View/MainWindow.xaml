@@ -7,16 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="493.5" Width="693">
     <Grid x:Name="GridMain">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="55"/>
+            <ColumnDefinition Width="270"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel x:Name="StackPanelMenu" Margin="0" Background="#FF676767"/>
-        <StackPanel x:Name="StackPanelDevices" Margin="0" Background="White" Grid.Column="2"/>
-        <ScrollViewer Margin="0" Grid.Column="1" VerticalScrollBarVisibility="Auto">
-            <StackPanel x:Name="StackPanelSidebar" Margin="0" Background="#FFF2F2F2"/>
-        </ScrollViewer>
+        <StackPanel x:Name="StackPanelMenu" Margin="0" Background="#FF676767" Grid.Row="1"/>
+        <StackPanel x:Name="StackPanelDevices" Margin="0" Background="White" Grid.Column="2" Grid.Row="1"/>
+        <StackPanel Margin="0" Grid.ColumnSpan="3" Background="#FF4D4D4D"/>
+        <Grid x:Name="GridSidebar" Grid.Column="1" Grid.Row="1" Background="#FFF2F2F2"/>
 
     </Grid>
 </Window>
