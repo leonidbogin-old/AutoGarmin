@@ -25,8 +25,8 @@ namespace AutoGarmin
         {
             InitializeComponent();
             UserControlUSB userControlUSB = new UserControlUSB();
-            StackPanelSidebar.Children.Clear();
-            StackPanelSidebar.Children.Add(userControlUSB);
+            GridSidebar.Children.Clear();
+            GridSidebar.Children.Add(userControlUSB);
         }
 
         #region UI
