@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutoGarmin.View"
-             xmlns:AutoGarmin="clr-namespace:AutoGarmin" x:Class="AutoGarmin.View.UserControlUSB"
+             xmlns:AutoGarmin="clr-namespace:AutoGarmin" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="AutoGarmin.View.UserControlUSB"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Width="270">
     <Grid>
@@ -12,13 +12,15 @@
             <RowDefinition/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <Button Content="Остановить USB-скрипт" Margin="0" Grid.Row="1" FontFamily="Calibri" FontSize="14" Background="#FF4283DE" Foreground="White" BorderThickness="0"/>
-        <ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="0" Width="270">
-                <AutoGarmin:UserControlTracks Height="Auto" Margin="0" Width="Auto"/>
-                <local:UserControlMaps Height="Auto" Margin="0" Width="Auto"/>
-            </StackPanel>
-        </ScrollViewer>
+        <Button Content="Остановить USB-скрипт" Margin="0" Grid.Row="1" FontFamily="Calibri" FontSize="14" Background="#FF4283DE" Foreground="White" BorderThickness="0" mah:ButtonHelper.CornerRadius="0" mah:ControlsHelper.ContentCharacterCasing="Upper"/>
+        <Border BorderBrush="#FFE0E0E0" BorderThickness="1,0" Margin="0">
+            <ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto" BorderThickness="0">
+                <StackPanel Margin="0" Width="270">
+                    <AutoGarmin:UserControlTracks Height="Auto" Margin="0" Width="Auto"/>
+                    <local:UserControlMaps Height="Auto" Margin="0" Width="Auto"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
 
     </Grid>
 </UserControl>
