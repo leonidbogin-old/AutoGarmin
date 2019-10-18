@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Width="270" Height="250" MinHeight="250" BorderBrush="#FFE0E0E0" BorderThickness="0">
     <UserControl.Resources>
-
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
     <Grid Background="#FFF2F2F2">
         <Grid.ColumnDefinitions>
@@ -50,7 +50,8 @@
             <!--
             </ListBox>-->
             <Label Content="Файлы для залития" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Calibri" Padding="3,2,3,1" BorderBrush="#FFABADB3" BorderThickness="1,1,1,0" Background="#FFEBEBEB" FontSize="11" Foreground="Black" Margin="0"/>
-            <DataGrid x:Name="DataGridFiles" Margin="0,17,0,0" Background="#FFF2F2F2" BorderBrush="#FFABADB3" BorderThickness="1" HeadersVisibility="None" FontFamily="Calibri" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" HorizontalGridLinesBrush="#FFE0E0E0" VerticalGridLinesBrush="#FFE0E0E0" GridLinesVisibility="Horizontal" SelectionMode="Single" MinRowHeight="14" CanUserResizeRows="False" EnableRowVirtualization="False" IsReadOnly="True" SelectedCellsChanged="DataGridFiles_SelectedCellsChanged_1">
+            <DataGrid ItemsSource="{Binding Path=., Mode=OneWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" 
+                      x:Name="DataGridFiles" Margin="0,17,0,0" Background="#FFF2F2F2" BorderBrush="#FFABADB3" BorderThickness="1" HeadersVisibility="None" FontFamily="Calibri" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" HorizontalGridLinesBrush="#FFE0E0E0" VerticalGridLinesBrush="#FFE0E0E0" GridLinesVisibility="Horizontal" SelectionMode="Single" MinRowHeight="14" CanUserResizeRows="False" EnableRowVirtualization="False" IsReadOnly="True" SelectedCellsChanged="DataGridFiles_SelectedCellsChanged" MouseMove="DataGridFiles_MouseMove" RowDetailsVisibilityMode="Visible">
                 <DataGrid.Columns>
                     <DataGridTextColumn CanUserResize="False" Binding="{Binding DisplayName}" Header="Имя файла" Width="*"/>
                     <DataGridTextColumn CanUserResize="False" Binding="{Binding DisplaySize}" Header="Размер файла" Width="50">
@@ -63,7 +64,7 @@
                     <DataGridTemplateColumn CanUserResize="False" Header="Закрыть" Width="20">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image MouseDown="DataGridDelete" Source="../Images/delete.png" Visibility="{Binding DisplayClose}" />
+                                <Image MouseDown="DataGridDelete" Source="../Images/delete.png" Visibility="{Binding Path=DisplayClose, Converter={StaticResource BooleanToVisibilityConverter} }" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
