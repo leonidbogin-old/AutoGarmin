@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,19 +23,20 @@ namespace AutoGarmin.View
     /// </summary>
     public partial class UserControlMaps : UserControl
     {
-        private ObservableCollection<MapFile> files = new ObservableCollection<MapFile>();
+        public ObservableCollection<MapFile> files { get; set; }
 
         public class MapFile
         {
             public string DisplayName { get; set; }
             public string DisplaySize { get; set; }
             public string DisplayTooltip { get; set; }
-            public Visibility DisplayClose { get; set; }
+            public bool DisplayClose { get; set; }
         }
 
         public UserControlMaps()
         {
             InitializeComponent();
+            files = new ObservableCollection<MapFile>();
             DataGridFiles.ItemsSource = files;
 
             MapFile file = new MapFile()
@@ -42,14 +44,14 @@ namespace AutoGarmin.View
                 DisplayName = "zal.kmz",
                 DisplaySize = "3.5 Мб",
                 DisplayTooltip = "zal.kmz (3.5 Мб) 15.10.2019 16:23:31",
-                DisplayClose = Visibility.Hidden
+                DisplayClose = false
             };
             MapFile file2 = new MapFile()
             {
                 DisplayName = "grid.kmz",
                 DisplaySize = "5 Мб",
                 DisplayTooltip = "zal.kmz (3.5 Мб) 15.10.2019 16:23:31",
-                DisplayClose = Visibility.Hidden
+                DisplayClose = true
             };
 
             files.Add(file);
@@ -60,17 +62,32 @@ namespace AutoGarmin.View
         private void DataGridDelete(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("delete");
+            files.Add(new MapFile());
         }
 
         private void DataGridFiles_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            
+            (sender as DataGrid).SelectedCells.Clear();
         }
 
-        private void DataGridFiles_SelectedCellsChanged_1(object sender, SelectedCellsChangedEventArgs e)
+        //private void DataGridFiles_SelectedCellsChanged_1(object sender, SelectedCellsChangedEventArgs e)
+        //{
+        //    for (int i = 0; i < files.Count; i++)
+        //        if (i != DataGridFiles.SelectedIndex)
+        //        {
+        //            if (files[i].DisplayClose) files[i].DisplayClose = false;
+        //        }
+        //        else
+        //        {
+        //            files[i].DisplayClose = true;
+        //        }
+
+        //    DataGridFiles.Items.Refresh();
+        //}
+
+        private void DataGridFiles_MouseMove(object sender, MouseEventArgs e)
         {
-            int i = DataGridFiles.SelectedIndex;
-            files[0].DisplayClose = Visibility.Visible;
+            
         }
     }
 }
