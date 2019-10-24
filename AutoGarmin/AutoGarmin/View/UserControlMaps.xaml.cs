@@ -67,7 +67,7 @@ namespace AutoGarmin.View
 
         private void DataGridFiles_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            (sender as DataGrid).SelectedCells.Clear();
+            //(sender as DataGrid).SelectedCells.Clear();
         }
 
         //private void DataGridFiles_SelectedCellsChanged_1(object sender, SelectedCellsChangedEventArgs e)

@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="55"/>
-            <ColumnDefinition Width="270"/>
+            <ColumnDefinition Width="300"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel x:Name="StackPanelMenu" Margin="0" Background="#FF676767" Grid.Row="1"/>

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutoGarmin"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="AutoGarmin.UserControlTracks"
-             mc:Ignorable="d" d:DesignWidth="800" Width="270" Height="190" Background="#FFF2F2F2" MinHeight="190" BorderBrush="#FFE0E0E0" BorderThickness="0">
+             mc:Ignorable="d" d:DesignWidth="800" Width="300" Height="230" Background="#FFF2F2F2" MinHeight="190" BorderBrush="#FFE0E0E0" BorderThickness="0">
     <UserControl.Resources>
         <Style x:Key="ButtonChoose" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#FFFFFFFF"/>
@@ -34,25 +34,24 @@
     </UserControl.Resources>
     <Grid x:Name="GridTracks" MinHeight="170" Margin="0,0,0,3">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="113"/>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="105"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
-            <RowDefinition Height="13"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="43"/>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="32"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="52"/>
+            <RowDefinition Height="35"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Margin="0" Background="#FFE0E0E0" Grid.ColumnSpan="2">
-            <Label Content="Треки" Foreground="Black" HorizontalContentAlignment="Center" FontSize="13" FontFamily="Calibri"/>
-        </StackPanel>
-        <Label Content="Сливать треки" Margin="0,2,5,0" Grid.Row="2" VerticalContentAlignment="Center" Padding="15,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="25" FontFamily="Calibri"/>
-        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="0,4" Grid.Row="2" VerticalAlignment="Center" Width="130" IsSynchronizedWithCurrentItem="False" Height="22" MinHeight="22">
+        <Label Content="Скачать треки" Margin="0,5,0,6" Grid.Row="2" VerticalContentAlignment="Center" Padding="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" FontFamily="Calibri" Width="92" Grid.Column="2"/>
+        <ComboBox Grid.Column="3" HorizontalAlignment="Left" Margin="0,6,0,7" Grid.Row="2" VerticalAlignment="Center" Width="130" IsSynchronizedWithCurrentItem="False" Height="22" MinHeight="22">
             <ComboBoxItem Content="Нет"/>
-            <Separator Margin="0,1"/>
+            <Separator Margin="0" Height="3"/>
             <ComboBoxItem Content="за 1 час"/>
             <ComboBoxItem Content="за 3 часа"/>
             <ComboBoxItem Content="за 10 часов"/>
@@ -62,13 +61,13 @@
             <Separator Margin="0,1"/>
             <ComboBoxItem Content="Выбрать"/>
         </ComboBox>
-        <Label Content="Именовать треки" Margin="0,0,5,0" Grid.Row="3" VerticalContentAlignment="Center" Padding="15,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" FontFamily="Calibri"/>
-        <StackPanel x:Name="StackPanelRename" Grid.Column="1" Margin="0" Grid.Row="3" VerticalAlignment="Center">
+        <Label Content="Именовать треки" Grid.Row="4" VerticalContentAlignment="Center" Padding="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" FontFamily="Calibri" Width="108" Grid.Column="2" Margin="0,14" Grid.ColumnSpan="2"/>
+        <StackPanel x:Name="StackPanelRename" Grid.Column="3" Margin="0,5" Grid.Row="4" VerticalAlignment="Center" Height="42">
             <CheckBox Content="Имена файлов" VerticalContentAlignment="Center" FontSize="11" Margin="0,0,0,5" HorizontalAlignment="Left" Height="18" MinHeight="18" BorderThickness="1" Padding="6,0,0,0"/>
             <CheckBox Content="На карте" VerticalContentAlignment="Center" FontSize="11" HorizontalAlignment="Left" MinHeight="18" BorderThickness="1" Height="18"/>
         </StackPanel>
-        <Label Content="Удалять треки" Margin="0,0,5,0" Grid.Row="5" VerticalContentAlignment="Center" Padding="15,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24" FontFamily="Calibri"/>
-        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="0,4" Grid.Row="5" VerticalAlignment="Center" Width="130" IsSynchronizedWithCurrentItem="False" Height="22" MinHeight="22">
+        <Label Content="Удалять треки" Margin="0,5,0,6" Grid.Row="5" VerticalContentAlignment="Center" Padding="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" FontFamily="Calibri" Width="91" Grid.Column="2"/>
+        <ComboBox Grid.Column="3" HorizontalAlignment="Left" Margin="0,7,0,6" Grid.Row="5" VerticalAlignment="Center" Width="130" IsSynchronizedWithCurrentItem="False" Height="22" MinHeight="22">
             <ComboBoxItem Content="Нет"/>
             <Separator Margin="0,1"/>
             <ComboBoxItem Content="старше 1 дня"/>
@@ -79,9 +78,16 @@
             <Separator Margin="0,1"/>
             <ComboBoxItem Content="Выбрать"/>
         </ComboBox>
-        <Label Content="Папка для слития" Margin="0,1,5,0" Grid.Row="4" VerticalContentAlignment="Center" Padding="15,5,5,5" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Width="108" FontFamily="Calibri"/>
-        <TextBox x:Name="TextBoxTracksFolder" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="0,4" Grid.Row="4" VerticalAlignment="Center" Width="87" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="10" MaxLines="1" ToolTip="{Binding Text, ElementName=TextBoxTracksFolder}" IsReadOnly="True" IsUndoEnabled="False" Background="White" MinHeight="22"/>
-        <Button Content="Выбрать" Style="{StaticResource ButtonChoose}" Grid.Column="1" Margin="59,4,0,4" Grid.Row="4" VerticalAlignment="Center" Height="22" FontFamily="Calibri" MinHeight="22" mah:ButtonHelper.CornerRadius="0" Width="44"/>
+        <Label Content="Папка для слития" Margin="0,4,0,5" Grid.Row="3" VerticalContentAlignment="Center" Padding="5" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="108" FontFamily="Calibri" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="TextBoxTracksFolder" Grid.Column="3" HorizontalAlignment="Left" Height="22" Margin="0" Grid.Row="3" VerticalAlignment="Center" Width="86" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="10" MaxLines="1" ToolTip="{Binding Text, ElementName=TextBoxTracksFolder}" IsReadOnly="True" IsUndoEnabled="False" Background="White" MinHeight="22" Panel.ZIndex="2"/>
+        <Button Content="Выбрать" Style="{StaticResource ButtonChoose}" Grid.Column="3" Margin="85,1,0,0" Grid.Row="3" VerticalAlignment="Center" Height="22" FontFamily="Calibri" MinHeight="22" mah:ButtonHelper.CornerRadius="0" HorizontalAlignment="Left" Width="45" Padding="0"/>
+        <Image Grid.Column="1" Margin="5,7,3,6" Grid.Row="2" Source="/AutoGarmin;component/Images/download.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="22" Height="22"/>
+        <Image Grid.Column="1" Margin="5,15,3,15" Grid.Row="4" Source="/AutoGarmin;component/Images/rename.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="22" Height="22"/>
+        <Image Grid.Column="1" Margin="5,7" Grid.Row="3" Source="/AutoGarmin;component/Images/folder.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="21"/>
+        <Image Grid.Column="1" Margin="3,5,1,5" Grid.Row="5" Source="/AutoGarmin;component/Images/delete2.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="26" Height="25"/>
+        <Grid x:Name="GridHeader" Grid.ColumnSpan="4" Margin="0" Background="#FFB9B9B9">
+            <Label Content="Треки" Foreground="Black" HorizontalContentAlignment="Center" FontSize="13" FontFamily="Calibri" Margin="0" Grid.Column="2" Width="42" Grid.ColumnSpan="2"/>
+        </Grid>
 
     </Grid>
 </UserControl>
