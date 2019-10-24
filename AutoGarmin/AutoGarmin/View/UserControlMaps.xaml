@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:AutoGarmin.View"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="AutoGarmin.View.UserControlMaps"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Width="270" Height="250" MinHeight="250" BorderBrush="#FFE0E0E0" BorderThickness="0">
+             d:DesignHeight="450" d:DesignWidth="800" Width="350" Height="250" MinHeight="250" BorderBrush="#FFE0E0E0" BorderThickness="0">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
