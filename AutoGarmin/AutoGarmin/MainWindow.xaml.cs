@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace AutoGarmin
 {
     /// <summary>
-    /// Логика взаимодействия для UserControlTracks.xaml
+    /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class UserControlTracks : UserControl
+    public partial class MainWindow : Window
     {
-        public UserControlTracks()
+        public MainWindow()
         {
             InitializeComponent();
         }
