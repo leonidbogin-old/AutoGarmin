@@ -6,7 +6,19 @@
         xmlns:local="clr-namespace:AutoGarmin"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid x:Name="GridMain">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Grid Margin="0" Grid.RowSpan="2" Background="#FF333333"/>
+        <Grid Margin="0" Grid.Column="1" Grid.ColumnSpan="2" Background="#FFD5D5D5"/>
+        <Grid Grid.Column="2" Margin="0" Grid.Row="1" Background="#FFF3F3F3"/>
+
     </Grid>
 </Window>
