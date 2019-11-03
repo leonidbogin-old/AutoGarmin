@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29403.142
+VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGarmin", "AutoGarmin\AutoGarmin.csproj", "{6AF5196A-A26F-4D15-8CFE-D2A841E77157}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGarmin", "AutoGarmin\AutoGarmin.csproj", "{858648A6-6758-4D99-B245-D2964AB482F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6AF5196A-A26F-4D15-8CFE-D2A841E77157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6AF5196A-A26F-4D15-8CFE-D2A841E77157}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6AF5196A-A26F-4D15-8CFE-D2A841E77157}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6AF5196A-A26F-4D15-8CFE-D2A841E77157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{858648A6-6758-4D99-B245-D2964AB482F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{858648A6-6758-4D99-B245-D2964AB482F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{858648A6-6758-4D99-B245-D2964AB482F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{858648A6-6758-4D99-B245-D2964AB482F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A253513C-3D47-468B-874E-6938B81F18E7}
+		SolutionGuid = {8AFA6384-163A-4B05-B0CC-BAA0DAC90C21}
 	EndGlobalSection
 EndGlobal
