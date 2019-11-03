@@ -12,13 +12,21 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="60"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
-        <Grid Margin="0" Grid.RowSpan="2" Background="#FF333333"/>
-        <Grid Margin="0" Grid.Column="1" Grid.ColumnSpan="2" Background="#FFD5D5D5"/>
-        <Grid Grid.Column="2" Margin="0" Grid.Row="1" Background="#FFF3F3F3"/>
+        <Grid Margin="0" Grid.RowSpan="2" Background="#FF333333">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Image x:Name="ImageMenuUSB" Margin="0" Stretch="Fill" Source="ImageMenu/usb.png"/>
+            <Image x:Name="ImageMenuSettings" Margin="0" Grid.Row="5" Source="ImageMenu/settings.png"/>
+        </Grid>
+        <Grid Margin="0" Grid.Column="1" Background="#FFF3F3F3"/>
+        <Grid Grid.Column="2" Margin="0" Background="#FFD5D5D5" Grid.RowSpan="2"/>
 
     </Grid>
 </Window>
