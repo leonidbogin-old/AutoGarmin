@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoGarmin"
         mc:Ignorable="d"
-        Title="AutoGarmin" Height="450" Width="800">
+        Title="AutoGarmin" Height="450" Width="800" Icon="icon.ico">
     <Window.Resources>
         <Style x:Key="ButtonMenu" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
@@ -56,7 +56,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
         <Grid x:Name="GridMenu" Margin="0" Grid.RowSpan="2" Background="#FF333333">
             <Grid.RowDefinitions>
