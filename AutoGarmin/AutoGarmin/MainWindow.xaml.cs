@@ -1,19 +1,8 @@
 ﻿using AutoGarmin.Class;
 using AutoGarmin.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Interop;
 
 namespace AutoGarmin
 {
@@ -69,6 +58,31 @@ namespace AutoGarmin
         private void ButtonMenuSettings_Click(object sender, RoutedEventArgs e)
         {
             MainMenuClick(MainMenu.menu.Settings);
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == USB.Code.WM_DEVICECHANGE)
+            {
+                if (wParam.ToInt32() == USB.Code.DBT_DEVICEARRIVAL
+                    || wParam.ToInt32() == USB.Code.DBT_DEVICEREMOVECOMPLETE)
+                {
+                    Action update = () => UpdateDevices();
+                    this.Dispatcher.BeginInvoke(update);
+                }
+            }
+            return IntPtr.Zero;
+        }
+
+        private void UpdateDevices()
+        {
+            MessageBox.Show("Change usb");
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            HwndSource source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
+            source.AddHook(new HwndSourceHook(WndProc));
         }
     }
 }

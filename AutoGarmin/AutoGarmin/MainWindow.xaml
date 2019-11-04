@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoGarmin"
         mc:Ignorable="d"
-        Title="AutoGarmin" Height="450" Width="800" Icon="icon.ico">
+        Title="AutoGarmin" Height="450" Width="800" Icon="icon.ico" Loaded="Window_Loaded">
     <Window.Resources>
         <Style x:Key="ButtonMenu" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
