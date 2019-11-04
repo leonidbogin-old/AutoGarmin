@@ -5,31 +5,74 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoGarmin"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="AutoGarmin" Height="450" Width="800">
     <Window.Resources>
- 
+        <Style x:Key="ButtonMenu" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0,0,0,0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="#FF454545"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" Value="#FF414141"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ButtonMenuActive" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF414141"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Cursor" Value="Arrow"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0,0,0,0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="false">
+                </Trigger>
+                <Trigger Property="IsPressed" Value="false">
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid x:Name="GridMain">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
-        <Grid Margin="0" Grid.RowSpan="2" Background="#FF333333">
+        <Grid x:Name="GridMenu" Margin="0" Grid.RowSpan="2" Background="#FF333333">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
                 <RowDefinition/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
-            <Image x:Name="ImageMenuUSB" Margin="0" Stretch="Fill" Source="ImageMenu/usb.png"/>
-            <Image x:Name="ImageMenuSettings" Margin="0" Grid.Row="5" Source="ImageMenu/settings.png"/>
+            <Button x:Name="ButtonMenuUSB" Style="{StaticResource ButtonMenu}" Click="ButtonMenuUSB_Click">
+                <Image x:Name="ImageMenuUSB" Margin="0" Stretch="Fill" Source="ImageMenu/usb.png"/>
+            </Button>
+            <Button x:Name="ButtonMenuSettings" Style="{StaticResource ButtonMenu}" Grid.Row="5" Click="ButtonMenuSettings_Click">
+                <Image x:Name="ImageMenuSettings" Margin="0" Stretch="Fill" Source="ImageMenu/settings.png"/>
+            </Button>
         </Grid>
-        <Grid Margin="0" Grid.Column="1" Background="#FFF3F3F3"/>
-        <Grid Grid.Column="2" Margin="0" Background="#FFD5D5D5" Grid.RowSpan="2"/>
+        <Grid x:Name="GridContent" Margin="0" Grid.Column="1" Background="#FFF3F3F3"/>
+        <Grid x:Name="GridDevices" Grid.Column="2" Margin="0" Background="#FFD5D5D5" Grid.RowSpan="2"/>
 
     </Grid>
 </Window>
