@@ -56,9 +56,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="GridMenu" Margin="0" Grid.RowSpan="2" Background="#FF333333">
+        <Grid x:Name="GridMenu" Margin="0" Background="#FF333333">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
                 <RowDefinition/>
@@ -72,7 +72,20 @@
             </Button>
         </Grid>
         <Grid x:Name="GridContent" Margin="0" Grid.Column="1" Background="#FFF3F3F3"/>
-        <Grid x:Name="GridDevices" Grid.Column="2" Margin="0" Background="#FFD5D5D5" Grid.RowSpan="2"/>
+        <Grid x:Name="GridDevices" Grid.Column="2" Margin="0" Background="#FFD5D5D5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="GridDevicesTop" Margin="0" Background="#FFB2B2B2">
+                <Label Content="Устройства" HorizontalAlignment="Left" Margin="6,0,0,0" VerticalAlignment="Center" Background="{x:Null}" Foreground="White"/>
+            </Grid>
+            <Border BorderBrush="#FFB2B2B2" BorderThickness="1,0,0,0" Margin="0" Grid.Row="1">
+                <ScrollViewer x:Name="ScrollViewerDevices" Margin="0" Padding="0" BorderThickness="1,0,0,1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="StackPanelDevices" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                </ScrollViewer>
+            </Border>
+        </Grid>
 
     </Grid>
 </Window>
