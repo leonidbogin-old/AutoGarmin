@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Interop;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace AutoGarmin
 {
@@ -96,7 +97,7 @@ namespace AutoGarmin
                     {
                         string id = null;
                         string model = null;
-                        //string nickname = null;
+                        string nickname = null;
                         string icon = null;
 
                         //Loading device data from an XML file
@@ -134,13 +135,29 @@ namespace AutoGarmin
                         }
                         if (!find) //not yet
                         {
+                            //additional information
+                            if (File.Exists(Convert.ToString(DI.Name) + Const.Path.GarminInformationXml))
+                            {
+                                XmlDocument xDocInfo = new XmlDocument();
+                                xDocInfo.Load(Convert.ToString(DI.Name) + Const.Path.GarminInformationXml);
+                                XmlElement xRootInfo = xDocInfo.DocumentElement;
+                                foreach (XmlNode xnode in xRootInfo)
+                                {
+                                    if (xnode.Name == Const.Xml.Nickname)
+                                    {
+                                        nickname = xnode.InnerText;
+                                        break;
+                                    }
+                                }
+                            }
+
                             //get ico from autorun
                             if (File.Exists(Convert.ToString(DI.Name) + Const.Path.GarminAutorun))
                             {
-                                FileStream finput = new FileStream(Convert.ToString(DI.Name) + Const.Path.GarminAutorun, FileMode.Open);
-                                StreamReader fin = new StreamReader(finput);
                                 try
                                 {
+                                    FileStream finput = new FileStream(Convert.ToString(DI.Name) + Const.Path.GarminAutorun, FileMode.Open);
+                                    StreamReader fin = new StreamReader(finput);
                                     while (!fin.EndOfStream)
                                     {
                                         string buff = fin.ReadLine();
@@ -150,17 +167,18 @@ namespace AutoGarmin
                                             break;
                                         }
                                     }
-                                }
-                                finally
-                                {
                                     fin.Close();
+                                }
+                                catch
+                                {
+
                                 }
                             }
 
                             DeviceInfo deviceInfo = new DeviceInfo()
                             {
                                 id = id,
-                                nickname = "1-6",
+                                nickname = nickname,
                                 diskname = Convert.ToString(DI.Name),
                                 model = model,
                                 icon = icon,
@@ -191,3 +209,7 @@ namespace AutoGarmin
         }
     }
 }
+
+//XDocument xdoc = new XDocument();
+//XElement GarminInformation = new XElement(Const.Xml.GarminInformation);
+//XAttribute iphoneNameAttr = new XAttribute(Const.Xml.Nickname, "");

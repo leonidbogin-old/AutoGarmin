@@ -14,6 +14,7 @@ namespace AutoGarmin.Class
             public const string Model = "Model"; //Data
             public const string Description = "Description"; //Model
             public const string Nickname = "Nickname"; //name
+            public const string GarminInformation = "GarminInformation"; //name
         }
 
         public static class Path //Work with files
@@ -21,6 +22,7 @@ namespace AutoGarmin.Class
             public const string GarminXml = @"\Garmin\GarminDevice.xml";
             public const string GarminAutorun = @"autorun.inf";
             public const string GarminAutorunImage = @"icon=";
+            public const string GarminInformationXml = @"GarminInformation.xml";
 
             public const string NoIco = @"pack://application:,,,/no.ico";
             public const string Icon = @"pack://application:,,,/icon.ico";
@@ -29,6 +31,11 @@ namespace AutoGarmin.Class
         public static class Time //Time format
         {
             public const string Connect = "HH:mm:ss";
+        }
+
+        public static class Label
+        {
+            public const string NoNickname = "Нет наименования";
         }
     }
 }
