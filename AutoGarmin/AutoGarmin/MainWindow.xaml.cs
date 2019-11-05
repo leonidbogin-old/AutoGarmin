@@ -1,8 +1,11 @@
 ﻿using AutoGarmin.Class;
 using AutoGarmin.View;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Interop;
+using System.Xml;
 
 namespace AutoGarmin
 {
@@ -74,15 +77,117 @@ namespace AutoGarmin
             return IntPtr.Zero;
         }
 
+
+        #region Devices
+        public List<UserControlDevice> deviceList = new List<UserControlDevice>(); //device list
+
         private void UpdateDevices()
         {
-            MessageBox.Show("Change usb");
+            List<UserControlDevice> deviceCheck = deviceList.GetRange(0, deviceList.Count);
+
+            //USB device letter sampling
+            DriveInfo[] D = DriveInfo.GetDrives();
+            foreach (DriveInfo DI in D)
+            {
+                if (DI.DriveType == DriveType.Removable)
+                {
+                    //Checking devices on Garmin device
+                    if (File.Exists(Convert.ToString(DI.Name) + Const.Path.GarminXml))
+                    {
+                        string id = null;
+                        string model = null;
+                        //string nickname = null;
+                        string icon = null;
+
+                        //Loading device data from an XML file
+                        XmlDocument xDoc = new XmlDocument();
+                        xDoc.Load(Convert.ToString(DI.Name) + Const.Path.GarminXml);
+                        XmlElement xRoot = xDoc.DocumentElement;
+
+                        bool find = false;
+                        foreach (XmlNode xnode in xRoot)
+                        {
+                            if (xnode.Name == Const.Xml.Id)
+                            {
+                                id = xnode.InnerText;
+                                for (int i = 0; i < deviceCheck.Count; i++)
+                                {
+                                    if (deviceCheck[i].deviceInfo.id == id) //already have
+                                    {
+                                        find = true;
+                                        deviceCheck.Remove(deviceCheck[i]);
+                                        break;
+                                    }
+                                }
+                            }
+                            else if (xnode.Name == Const.Xml.Model)
+                            {
+                                foreach (XmlNode xmodel in xnode)
+                                {
+                                    if (xmodel.Name == Const.Xml.Description)
+                                    {
+                                        model = xmodel.InnerText;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if (!find) //not yet
+                        {
+                            //get ico from autorun
+                            if (File.Exists(Convert.ToString(DI.Name) + Const.Path.GarminAutorun))
+                            {
+                                FileStream finput = new FileStream(Convert.ToString(DI.Name) + Const.Path.GarminAutorun, FileMode.Open);
+                                StreamReader fin = new StreamReader(finput);
+                                try
+                                {
+                                    while (!fin.EndOfStream)
+                                    {
+                                        string buff = fin.ReadLine();
+                                        if (buff.StartsWith(Const.Path.GarminAutorunImage))
+                                        {
+                                            icon = buff.Substring(Const.Path.GarminAutorunImage.Length);
+                                            break;
+                                        }
+                                    }
+                                }
+                                finally
+                                {
+                                    fin.Close();
+                                }
+                            }
+
+                            DeviceInfo deviceInfo = new DeviceInfo()
+                            {
+                                id = id,
+                                nickname = "1-6",
+                                diskname = Convert.ToString(DI.Name),
+                                model = model,
+                                icon = icon,
+                                timeConnect = DateTime.Now
+                            };
+                            UserControlDevice userControlDevice = new UserControlDevice(deviceInfo);
+                            deviceList.Add(userControlDevice);
+                            StackPanelDevices.Children.Add(userControlDevice);
+                        }
+                    }
+                }
+            }
+            //need to delete
+            for (int i = 0; i < deviceCheck.Count; i++)
+            {
+                deviceList.Remove(deviceCheck[i]);
+                StackPanelDevices.Children.Remove(deviceCheck[i]);
+                deviceCheck.Remove(deviceCheck[i]);
+            }
         }
+        #endregion
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             HwndSource source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
             source.AddHook(new HwndSourceHook(WndProc));
+            UpdateDevices();
         }
     }
 }

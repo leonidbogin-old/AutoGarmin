@@ -65,6 +65,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Class\Const.cs" />
+    <Compile Include="Class\DeviceInfo.cs" />
     <Compile Include="Class\USB.cs" />
     <Compile Include="View\UserControlDevice.xaml.cs">
       <DependentUpon>UserControlDevice.xaml</DependentUpon>
@@ -136,6 +138,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="no.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
