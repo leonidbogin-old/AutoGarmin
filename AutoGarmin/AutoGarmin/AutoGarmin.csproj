@@ -72,11 +72,14 @@
     <Compile Include="View\UserControlDevice.xaml.cs">
       <DependentUpon>UserControlDevice.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControlTrack.xaml.cs">
+      <DependentUpon>UserControlTrack.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControlSettings.xaml.cs">
       <DependentUpon>UserControlSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControlUSB.xaml.cs">
-      <DependentUpon>UserControlUSB.xaml</DependentUpon>
+    <Compile Include="View\UserControlMap.xaml.cs">
+      <DependentUpon>UserControlMap.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WindowDeviceRename.xaml.cs">
       <DependentUpon>WindowDeviceRename.xaml</DependentUpon>
@@ -98,11 +101,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UserControlTrack.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\UserControlSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UserControlUSB.xaml">
+    <Page Include="View\UserControlMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -155,6 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ImageMenu\update.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageMenu\track.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,13 +16,14 @@ namespace AutoGarmin
     public partial class MainWindow : Window
     {
         private MainMenu mainMenu;
-        private UserControlUSB userControlUSB;
+        private UserControlMap userControlMap;
+        private UserControlTrack userControlTrack;
         private UserControlSettings userControlSettings;
 
         public MainWindow()
         {
             InitializeComponent();
-            MainMenuLoad(MainMenu.menu.USB);
+            MainMenuLoad(MainMenu.menu.Map);
         }
 
         private void MainMenuLoad(MainMenu.menu i)
@@ -33,11 +34,16 @@ namespace AutoGarmin
             GridContent.Children.Clear();
             switch (mainMenu.i)
             {
-                case MainMenu.menu.USB:
-                    ButtonMenuUSB.Style = (Style)FindResource("ButtonMenuActive");
-                    if (userControlUSB == null) userControlUSB = new UserControlUSB();
-                    GridContent.Children.Add(userControlUSB);
+                case MainMenu.menu.Map:
+                    ButtonMenuMap.Style = (Style)FindResource("ButtonMenuActive");
+                    if (userControlMap == null) userControlMap = new UserControlMap();
+                    GridContent.Children.Add(userControlMap);
                         break;
+                case MainMenu.menu.Track:
+                    ButtonMenuTrack.Style = (Style)FindResource("ButtonMenuActive");
+                    if (userControlTrack == null) userControlTrack = new UserControlTrack();
+                    GridContent.Children.Add(userControlTrack);
+                    break;
                 case MainMenu.menu.Settings:
                     ButtonMenuSettings.Style = (Style)FindResource("ButtonMenuActive");
                     if (userControlSettings == null) userControlSettings = new UserControlSettings();
@@ -51,15 +57,21 @@ namespace AutoGarmin
             if (i != mainMenu.i)
             {
                 Style ButtonMenu = (Style)FindResource("ButtonMenu");
-                if (ButtonMenuUSB.Style != ButtonMenu) ButtonMenuUSB.Style = ButtonMenu;
+                if (ButtonMenuMap.Style != ButtonMenu) ButtonMenuMap.Style = ButtonMenu;
+                if (ButtonMenuTrack.Style != ButtonMenu) ButtonMenuTrack.Style = ButtonMenu;
                 if (ButtonMenuSettings.Style != ButtonMenu) ButtonMenuSettings.Style = ButtonMenu;
                 MainMenuLoad(i);
             }
         }
 
-        private void ButtonMenuUSB_Click(object sender, RoutedEventArgs e)
+        private void ButtonMenuMap_Click(object sender, RoutedEventArgs e)
         {
-            MainMenuClick(MainMenu.menu.USB);
+            MainMenuClick(MainMenu.menu.Map);
+        }
+
+        private void ButtonMenuTrack_Click(object sender, RoutedEventArgs e)
+        {
+            MainMenuClick(MainMenu.menu.Track);
         }
 
         private void ButtonMenuSettings_Click(object sender, RoutedEventArgs e)

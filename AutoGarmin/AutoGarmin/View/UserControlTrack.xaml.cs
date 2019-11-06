@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace AutoGarmin.View
 {
     /// <summary>
-    /// Логика взаимодействия для UserControlUSB.xaml
+    /// Логика взаимодействия для UserControlTrack.xaml
     /// </summary>
-    public partial class UserControlUSB : UserControl
+    public partial class UserControlTrack : UserControl
     {
-        public UserControlUSB()
+        public UserControlTrack()
         {
             InitializeComponent();
         }
