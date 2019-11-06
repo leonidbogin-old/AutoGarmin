@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoGarmin.View"
         mc:Ignorable="d"
-        Title="Переименовать устройство" Height="86.562" Width="370.312" Icon="/AutoGarmin;component/icon.ico" ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+        Title="Переименовать устройство" Height="86.562" Width="369.249" Icon="/AutoGarmin;component/icon.ico" ShowInTaskbar="False" Topmost="True" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Grid Background="#FFD5D5D5">
         <TextBox x:Name="TextBoxNickname" HorizontalAlignment="Left" Height="23" Margin="145,13,0,0" VerticalAlignment="Top" Width="120" MaxLines="1" MaxLength="256" VerticalContentAlignment="Center" Padding="2,0,0,0"/>
         <Label Content="Новое наименование" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="ButtonSave" Content="Сохранить" HorizontalAlignment="Left" Margin="265,13,0,0" VerticalAlignment="Top" Width="71" Height="23" BorderBrush="#FFABADB3" Padding="1,1,1,2" Background="#FFB2B2B2" Foreground="White" Click="ButtonSave_Click"/>
+        <Button x:Name="ButtonSave" Content="Сохранить" HorizontalAlignment="Left" Margin="264,13,0,0" VerticalAlignment="Top" Width="71" Height="23" BorderBrush="#FFABADB3" Padding="1,1,1,2" Background="#FFB2B2B2" Foreground="White" Click="ButtonSave_Click"/>
 
     </Grid>
 </Window>

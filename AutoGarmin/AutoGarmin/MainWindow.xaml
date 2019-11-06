@@ -51,6 +51,23 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="ButtonUpdateDevice" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0,0,0,0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="false">
+                </Trigger>
+                <Trigger Property="IsPressed" Value="false">
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid x:Name="GridMain">
         <Grid.ColumnDefinitions>
@@ -79,6 +96,9 @@
             </Grid.RowDefinitions>
             <Grid x:Name="GridDevicesTop" Margin="0" Background="#FFB2B2B2">
                 <Label Content="Устройства" HorizontalAlignment="Left" Margin="6,0,0,0" VerticalAlignment="Center" Background="{x:Null}" Foreground="White"/>
+                <Button x:Name="ButtonUpdateDevice" Style="{StaticResource ButtonUpdateDevice}" HorizontalAlignment="Right" Margin="0,0,8,0" VerticalAlignment="Center" Width="13" Height="13" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Click="ButtonUpdate_Click">
+                    <Image x:Name="ImageUpdateDevice" HorizontalAlignment="Right" VerticalAlignment="Center" Width="11" Height="11" Source="ImageMenu/update.png"/>
+                </Button>
             </Grid>
             <Border BorderBrush="#FFB2B2B2" BorderThickness="1,0,0,0" Margin="0" Grid.Row="1">
                 <ScrollViewer x:Name="ScrollViewerDevices" Margin="0" Padding="0" BorderThickness="1,0,0,1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">

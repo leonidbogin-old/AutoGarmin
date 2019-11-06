@@ -24,6 +24,9 @@ namespace AutoGarmin.Class
             public const string GarminAutorunImage = @"icon=";
             public const string GarminInformationXml = @"GarminInformation.xml";
 
+            public const string CustomMaps = @"CustomMaps";
+            public const string CustomMapsPath = @"Garmin\" + CustomMaps;
+
             public const string NoIco = @"pack://application:,,,/no.ico";
             public const string Icon = @"pack://application:,,,/icon.ico";
         }
@@ -36,6 +39,7 @@ namespace AutoGarmin.Class
         public static class Label
         {
             public const string NoNickname = "Нет наименования";
+            public const string NoNicknameTooltip = "Двойной клик, чтобы установить наименование";
         }
     }
 }
