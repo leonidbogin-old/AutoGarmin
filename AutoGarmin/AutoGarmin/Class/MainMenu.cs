@@ -12,7 +12,8 @@ namespace AutoGarmin.Class
 
         public enum menu
         {
-            USB,
+            Map,
+            Track,
             Settings
         }
 
