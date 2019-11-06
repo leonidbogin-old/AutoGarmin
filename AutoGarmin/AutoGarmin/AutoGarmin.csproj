@@ -67,6 +67,7 @@
     </ApplicationDefinition>
     <Compile Include="Class\Const.cs" />
     <Compile Include="Class\DeviceInfo.cs" />
+    <Compile Include="Class\FilesWork.cs" />
     <Compile Include="Class\USB.cs" />
     <Compile Include="View\UserControlDevice.xaml.cs">
       <DependentUpon>UserControlDevice.xaml</DependentUpon>
@@ -148,6 +149,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="no.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageMenu\map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageMenu\update.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,8 +3,11 @@ using AutoGarmin.View;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -84,6 +87,13 @@ namespace AutoGarmin
 
         private void UpdateDevices()
         {
+            var doubleAnimation = new DoubleAnimation(0, 360, new Duration(TimeSpan.FromSeconds(1)));
+            var rotateTransform = new RotateTransform();
+            ImageUpdateDevice.RenderTransform = rotateTransform;
+            ImageUpdateDevice.RenderTransformOrigin = new Point(0.5, 0.5);
+            doubleAnimation.RepeatBehavior = new RepeatBehavior(1);
+            rotateTransform.BeginAnimation(RotateTransform.AngleProperty, doubleAnimation);               
+
             List<UserControlDevice> deviceCheck = deviceList.GetRange(0, deviceList.Count);
 
             //USB device letter sampling
@@ -206,6 +216,12 @@ namespace AutoGarmin
             HwndSource source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
             source.AddHook(new HwndSourceHook(WndProc));
             UpdateDevices();
+        }
+
+        private void ButtonUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            Action update = () => UpdateDevices();
+            this.Dispatcher.BeginInvoke(update);
         }
     }
 }

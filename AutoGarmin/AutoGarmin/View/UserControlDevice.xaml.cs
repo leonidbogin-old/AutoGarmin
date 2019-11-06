@@ -23,12 +23,15 @@ namespace AutoGarmin.View
     /// </summary>
     public partial class UserControlDevice : UserControl
     {
+        //Информация об устройстве
         public DeviceInfo deviceInfo;
 
+        //Инициализация
         public UserControlDevice(DeviceInfo deviceInfo)
         {
             this.deviceInfo = deviceInfo;
             InitializeComponent();
+            ProgressBarDevice.Value = 0;
 
             string model = deviceInfo.model;
             if (model.Length > 16)
@@ -47,11 +50,26 @@ namespace AutoGarmin.View
                 }
                 else LabelNickname.Content = deviceInfo.nickname;
             }
+            else
+            {
+                deviceInfo.nickname = "";
+                LabelNickname.Content = Const.Label.NoNickname;
+                LabelNickname.ToolTip = Const.Label.NoNicknameTooltip;
+            }
             LabelId.Content = deviceInfo.id; 
             LabelTimeConnect.Content = deviceInfo.timeConnect.ToString(Const.Time.Connect); 
-            ImageDevice.Source = LoadIco(deviceInfo.diskname, deviceInfo.icon); 
+            ImageDevice.Source = LoadIco(deviceInfo.diskname, deviceInfo.icon);
+
+            if (Properties.Settings.Default.UploadMapScript)
+            {
+                ProgressBarDevice.Value = 20;
+                System.Threading.Thread myThread = new System.Threading.Thread(
+                    new System.Threading.ThreadStart(MapUploadScript));
+                myThread.Start();
+            }
         }
 
+        //Загрузка иконки
         private BitmapImage LoadIco(string diskname, string icon) //loading device icon
         {
             BitmapImage bm1 = new BitmapImage();
@@ -67,6 +85,7 @@ namespace AutoGarmin.View
             return bm1;
         }
 
+        //Переименовать устройство
         private void LabelNickname_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             WindowDeviceRename windowDeviceRename = new WindowDeviceRename(deviceInfo.nickname);
@@ -101,7 +120,7 @@ namespace AutoGarmin.View
                     xmlElem.InnerText = windowDeviceRename.Result;
                     xRootInfo.AppendChild(xmlElem);
                 }
-                if (File.Exists(deviceInfo.diskname + Const.Path.GarminInformationXml))
+                if (Directory.Exists(deviceInfo.diskname))
                 {
                     try
                     {
@@ -111,18 +130,42 @@ namespace AutoGarmin.View
                     {
                         if (windowDeviceRename.Result != null && windowDeviceRename.Result.Length > 0)
                         {
-                            if (deviceInfo.nickname.Length > 20)
+                            if (windowDeviceRename.Result.Length > 20)
                             {
-                                LabelNickname.ToolTip = deviceInfo.nickname;
-                                LabelNickname.Content = deviceInfo.nickname.Substring(0, 20) + "..";
+                                LabelNickname.ToolTip = windowDeviceRename.Result;
+                                LabelNickname.Content = windowDeviceRename.Result.Substring(0, 20) + "..";
                             }
-                            else LabelNickname.Content = deviceInfo.nickname;
+                            else
+                            {
+                                LabelNickname.Content = windowDeviceRename.Result;
+                                LabelNickname.ToolTip = "";
+                            }
+                            deviceInfo.nickname = windowDeviceRename.Result;
                         }
-                        else LabelNickname.Content = Const.Label.NoNickname;
-                        deviceInfo.nickname = windowDeviceRename.Result;
+                        else
+                        {
+                            deviceInfo.nickname = "";
+                            LabelNickname.Content = Const.Label.NoNickname;
+                            LabelNickname.ToolTip = Const.Label.NoNicknameTooltip;
+                        }
                     }
+
                 }
             }
+        }
+
+        //Скрипт загрузки карты
+        public void MapUploadScript()
+        {
+            if (Properties.Settings.Default.RemoveOldMap)
+            {
+                if (Directory.Exists(deviceInfo.diskname + Const.Path.CustomMapsPath))
+                {
+                    DirectoryInfo dir = new DirectoryInfo(deviceInfo.diskname + Const.Path.CustomMapsPath);
+                    FilesWork.Folder.Clean(dir);
+                }
+            }
+            //Загрузить выбранные файлы (файлы из папки program/CustomMaps/) ----------------------------------------------------------------------
         }
     }
 }
