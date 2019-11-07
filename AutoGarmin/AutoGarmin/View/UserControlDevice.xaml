@@ -5,21 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutoGarmin.View"
              mc:Ignorable="d" d:DesignWidth="800" Width="Auto">
-    <Border BorderBrush="#FFB2B2B2" BorderThickness="0,0,0,1" Margin="0">
-        <Grid x:Name="GridMain" Background="#FFD5D5D5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="72"/>
-                <RowDefinition Height="7"/>
-            </Grid.RowDefinitions>
-            <Grid x:Name="GridContent" Margin="0">
-                <Image x:Name="ImageDevice" Margin="10,10,0,0" HorizontalAlignment="Left" Width="50" Height="50" VerticalAlignment="Top" Source="/AutoGarmin;component/no.ico"/>
-                <Label x:Name="LabelModel" Content="GPSMAP 66S (E:)" HorizontalAlignment="Left" Margin="65,10,0,0" VerticalAlignment="Top" MaxWidth="200"/>
-                <Label x:Name="LabelNickname" Content="Нет наименования" HorizontalAlignment="Left" Margin="65,36,0,0" VerticalAlignment="Top" MouseDoubleClick="LabelNickname_MouseDoubleClick" MaxWidth="148" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" Foreground="#FF610505" Background="{x:Null}"/>
-                <Label x:Name="LabelTimeConnect" Content="23:56:14" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Foreground="#FFB2B2B2" Height="26" Width="54"/>
-                <Label x:Name="LabelId" Content="3990423305" HorizontalAlignment="Right" Margin="0,36,10,0" VerticalAlignment="Top" Foreground="#FFB2B2B2" Height="26" Width="75"/>
-            </Grid>
-            <ProgressBar x:Name="ProgressBarDevice" Margin="0" Grid.Row="1" Foreground="#FF289E3E"/>
-
+    <Grid x:Name="GridMain" Background="#FFD5D5D5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="69"/>
+            <RowDefinition Height="7"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GridContent" Margin="0">
+            <Image x:Name="ImageDevice" Margin="10,10,0,0" HorizontalAlignment="Left" Width="50" Height="50" VerticalAlignment="Top" Source="/AutoGarmin;component/no.ico"/>
+            <Label x:Name="LabelModel" Content="GPSMAP 66S (E:)" HorizontalAlignment="Left" Margin="65,10,0,0" VerticalAlignment="Top" MaxWidth="200"/>
+            <Label x:Name="LabelNickname" Content="Нет наименования" HorizontalAlignment="Left" Margin="65,36,0,0" VerticalAlignment="Top" MouseDoubleClick="LabelNickname_MouseDoubleClick" MaxWidth="148" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" Foreground="#FF610505" Background="{x:Null}" Cursor="Hand"/>
+            <Label x:Name="LabelTimeConnect" Content="23:56:14" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Foreground="#FFB2B2B2" Height="26" Width="54"/>
+            <Label x:Name="LabelId" Content="3990423305" HorizontalAlignment="Right" Margin="0,36,10,0" VerticalAlignment="Top" Foreground="#FFB2B2B2" Height="26" Width="75"/>
         </Grid>
-    </Border>
+        <ProgressBar x:Name="ProgressBarDevice" Margin="0" Grid.Row="1" Foreground="#FFB2B2B2"/>
+
+    </Grid>
 </UserControl>
