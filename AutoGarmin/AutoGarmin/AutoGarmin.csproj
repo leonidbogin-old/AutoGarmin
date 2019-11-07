@@ -166,5 +166,14 @@
   <ItemGroup>
     <Resource Include="ImageMenu\track.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageMenu\start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageMenu\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ImageMenu\add.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

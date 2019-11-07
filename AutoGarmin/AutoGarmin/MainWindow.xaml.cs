@@ -237,7 +237,3 @@ namespace AutoGarmin
         }
     }
 }
-
-//XDocument xdoc = new XDocument();
-//XElement GarminInformation = new XElement(Const.Xml.GarminInformation);
-//XAttribute iphoneNameAttr = new XAttribute(Const.Xml.Nickname, "");

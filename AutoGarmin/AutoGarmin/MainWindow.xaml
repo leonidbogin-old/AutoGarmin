@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoGarmin"
         mc:Ignorable="d"
-        Title="AutoGarmin" Height="450" Width="800" Icon="icon.ico" Loaded="Window_Loaded">
+        Title="AutoGarmin" Height="568" Width="950" Icon="icon.ico" Loaded="Window_Loaded">
     <Window.Resources>
         <Style x:Key="ButtonMenu" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
@@ -100,7 +100,7 @@
             </Grid.RowDefinitions>
             <Grid x:Name="GridDevicesTop" Margin="0" Background="#FFB2B2B2">
                 <Label Content="Устройства" HorizontalAlignment="Left" Margin="6,0,0,0" VerticalAlignment="Center" Background="{x:Null}" Foreground="White"/>
-                <Button x:Name="ButtonUpdateDevice" Style="{StaticResource ButtonUpdateDevice}" HorizontalAlignment="Right" Margin="0,0,8,0" VerticalAlignment="Center" Width="13" Height="13" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Click="ButtonUpdate_Click">
+                <Button x:Name="ButtonUpdateDevice" Style="{StaticResource ButtonUpdateDevice}" HorizontalAlignment="Right" Margin="0,0,8,0" VerticalAlignment="Center" Width="13" Height="13" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Click="ButtonUpdate_Click" Cursor="Hand">
                     <Image x:Name="ImageUpdateDevice" HorizontalAlignment="Right" VerticalAlignment="Center" Width="11" Height="11" Source="ImageMenu/update.png"/>
                 </Button>
             </Grid>

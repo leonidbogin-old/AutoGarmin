@@ -12,7 +12,14 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid x:Name="GridTopMenu" Margin="0" Background="#FFF3F3F3"/>
-        <Grid x:Name="GridContent" Margin="0" Grid.Row="1" Background="White"/>
+        <ScrollViewer Margin="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <Grid x:Name="GridContent" Margin="0" Background="White">
+                <Label Content="1. Папка для скачивания треков" HorizontalAlignment="Left" Margin="20,15,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="TextBoxNickname" HorizontalAlignment="Left" Height="23" Margin="38,41,0,0" VerticalAlignment="Top" Width="250" MaxLines="1" MaxLength="256" VerticalContentAlignment="Center" Padding="2,0,0,0"/>
+                <Button x:Name="ButtonSave" Content="Выбрать папку" HorizontalAlignment="Left" Margin="288,41,0,0" VerticalAlignment="Top" Width="100" Height="23" BorderBrush="#FFABADB3" Padding="1,1,1,2" Background="#FFB2B2B2" Foreground="White"/>
+                <Label Content="2. " HorizontalAlignment="Left" Margin="20,73,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </ScrollViewer>
 
     </Grid>
 </UserControl>
