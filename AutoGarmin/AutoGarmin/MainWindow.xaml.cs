@@ -235,5 +235,10 @@ namespace AutoGarmin
             Action update = () => UpdateDevices();
             this.Dispatcher.BeginInvoke(update);
         }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            this.Title = userControlMap.ActualWidth.ToString() + " " + this.Width.ToString();
+        }
     }
 }
