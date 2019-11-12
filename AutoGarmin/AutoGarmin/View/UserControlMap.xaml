@@ -136,20 +136,16 @@
             <Label Content="CustomMaps" HorizontalAlignment="Right" Margin="0,6,10,8" VerticalAlignment="Center" Padding="0"/>
         </Grid>
         <ScrollViewer Margin="0" Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Grid x:Name="GridContent" Background="White" ClipToBounds="True" MinWidth="300" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,0,0,26">
+            <Grid x:Name="GridContent" Background="White" ClipToBounds="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,0,0,26" Width="384" HorizontalAlignment="Left">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="26"/>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="26"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="1. Загрузить выбранные карты" HorizontalAlignment="Left" Margin="0,21,0,0" VerticalAlignment="Top" Padding="0,5,5,5" Grid.Column="1"/>
-                <Button Content="Запустить скрипт загрузки карты" Margin="0,192,0,0" Height="30" BorderBrush="#FF939393" Foreground="#FF333333" Background="#FFF3F3F3" Padding="1,0,1,1" VerticalAlignment="Top" Grid.Column="1"/>
-                <ListBox Height="104" VerticalAlignment="Top" Margin="13,71,0,0" Grid.Column="1">
+                <Button Content="Запустить загрузку карты" Margin="0,204,0,0" Height="30" BorderBrush="#FF939393" Foreground="#FF333333" Background="#FFF3F3F3" Padding="1,0,1,1" VerticalAlignment="Top" Grid.Column="1" Width="332"/>
+                <ListBox Height="104" VerticalAlignment="Top" Margin="13,71,0,0" Grid.Column="1" Width="319">
                     <ListBoxItem Content="kmz.zal"/>
-                    <ListBoxItem Content="kmz.zal1"/>
-                    <ListBoxItem Content="kmz.zal2"/>
-                    <ListBoxItem Content="kmz.zal3"/>
-                    <ListBoxItem Content="kmz.zal4"/>
                 </ListBox>
                 <Button Grid.Column="1" HorizontalAlignment="Left" Margin="119,48,0,0" VerticalAlignment="Top" Background="#FFF3F3F3" BorderBrush="#FFABADB3" Padding="0" Width="19" Height="19" Cursor="Hand">
                     <Image Source="/AutoGarmin;component/ImageMenu/delete.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="13" Height="13"/>
