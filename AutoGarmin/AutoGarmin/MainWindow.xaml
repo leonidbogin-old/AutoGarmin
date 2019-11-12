@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoGarmin"
         mc:Ignorable="d"
-        Title="AutoGarmin" Height="568" Width="950" Icon="icon.ico" Loaded="Window_Loaded">
+        Title="AutoGarmin" Height="568" Width="950" Icon="icon.ico" Loaded="Window_Loaded" SizeChanged="Window_SizeChanged">
     <Window.Resources>
         <Style x:Key="ButtonMenu" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
@@ -26,12 +26,12 @@
                     <Setter Property="Background" Value="#FF454545"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="true">
-                    <Setter Property="Background" Value="#FF414141"/>
+                    <Setter Property="Background" Value="#FF4F4F4F"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="ButtonMenuActive" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#FF414141"/>
+            <Setter Property="Background" Value="#FF4F4F4F"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Cursor" Value="Arrow"/>
             <Setter Property="BorderThickness" Value="0"/>
