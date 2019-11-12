@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutoGarmin.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450">
     <UserControl.Resources>
         <SolidColorBrush x:Key="CheckedBlueBorder" Color="#FF66758F" />
         <Style x:Key="BlueSwitchStyle" TargetType="{x:Type CheckBox}">
@@ -73,21 +73,66 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="ButtonUpdateDevice" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0,0,0,0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="false"/>
+                <Trigger Property="IsPressed" Value="false"/>
+            </Style.Triggers>
+        </Style>
 
     </UserControl.Resources>
-    <Grid x:Name="GridUSB">
+    <Grid x:Name="GridTracks" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid x:Name="GridTopMenu" Margin="0" Background="#FFF3F3F3"/>
-        <ScrollViewer Margin="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1">
-            <Grid x:Name="GridContent" Margin="0" Background="White">
-                <Label Content="1. Папка для скачивания треков" HorizontalAlignment="Left" Margin="20,15,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="TextBoxNickname" HorizontalAlignment="Left" Height="23" Margin="38,41,0,0" VerticalAlignment="Top" Width="250" MaxLines="1" MaxLength="256" VerticalContentAlignment="Center" Padding="2,0,0,0"/>
-                <Button x:Name="ButtonSave" Content="Выбрать папку" HorizontalAlignment="Left" Margin="288,41,0,0" VerticalAlignment="Top" Width="100" Height="23" BorderBrush="#FFABADB3" Padding="1,1,1,2" Background="#FFB2B2B2" Foreground="White"/>
-                <Label Content="2. " HorizontalAlignment="Left" Margin="20,73,0,0" VerticalAlignment="Top"/>
-                <CheckBox HorizontalAlignment="Left" Style="{DynamicResource BlueSwitchStyle}" VerticalAlignment="Top" Content="" Margin="227,340,0,0" Cursor="Hand"/>
+        <Grid x:Name="GridTopMenu" Margin="0" Background="#FFF3F3F3">
+            <Button x:Name="ButtonUpdateDevice" Style="{StaticResource ButtonUpdateDevice}" HorizontalAlignment="Left" Margin="0" Width="25" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Cursor="Hand" Height="30">
+                <Image x:Name="ImageUpdateDevice" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/AutoGarmin;component/ImageMenu/start.png" Width="13" Height="13" Margin="2,0,0,0"/>
+            </Button>
+            <Label Content="Треки" HorizontalAlignment="Left" Margin="25,6,0,8" VerticalAlignment="Center" Padding="0"/>
+            <Label Content="GPX" HorizontalAlignment="Right" Margin="0,6,10,8" VerticalAlignment="Center" Padding="0"/>
+        </Grid>
+        <ScrollViewer Margin="0" Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid x:Name="GridContent" Background="White" ClipToBounds="True" MinWidth="300" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="26"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="26"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="1. Выбор папки для скачивания треков" HorizontalAlignment="Left" Margin="0,21,0,0" VerticalAlignment="Top" Padding="0,5,5,5" Grid.Column="1"/>
+                <Button Content="Запустить скачивание треков" Margin="0,350,0,0" Height="30" BorderBrush="#FF939393" Foreground="#FF333333" Background="#FFF3F3F3" Padding="1,0,1,1" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="332"/>
+                <TextBox x:Name="TextBoxNickname_Copy" HorizontalAlignment="Left" Height="23" Margin="13,48,0,0" VerticalAlignment="Top" Width="219" MaxLines="1" MaxLength="256" VerticalContentAlignment="Center" Padding="2,0,0,0" Grid.Column="1"/>
+                <Button x:Name="ButtonSave_Copy" Content="Выбрать папку" HorizontalAlignment="Left" Margin="231,48,0,0" VerticalAlignment="Top" Width="100" Height="23" BorderBrush="#FFABADB3" Padding="1,1,1,2" Background="#FFB2B2B2" Foreground="White" Grid.Column="1"/>
+                <CheckBox HorizontalAlignment="Left" Style="{DynamicResource BlueSwitchStyle}" VerticalAlignment="Top" Content="" Margin="270,82,0,0" Cursor="Hand" Grid.Column="1"/>
+                <Label Content="2. Скачивать последние треки" HorizontalAlignment="Left" Margin="0,113,0,0" VerticalAlignment="Top" Padding="0,5,5,5" Grid.Column="1"/>
+                <Button Content="1 трек" Grid.Column="1" HorizontalAlignment="Left" Margin="107,139,0,0" VerticalAlignment="Top" Width="50" Height="23" Background="White" Padding="1,0,1,1" BorderBrush="#FFABADB3"/>
+                <Button Content="2 трека" Grid.Column="1" HorizontalAlignment="Left" Margin="160,139,0,0" VerticalAlignment="Top" Width="50" Height="23" Background="White" Padding="1,0,1,1" BorderBrush="#FFABADB3"/>
+                <Label Content="По количеству:" HorizontalAlignment="Left" Margin="13,137,0,0" VerticalAlignment="Top" Padding="0,5,5,5" Grid.Column="1"/>
+                <Button Content="3 трека" Grid.Column="1" HorizontalAlignment="Left" Margin="213,139,0,0" VerticalAlignment="Top" Width="50" Height="23" Background="White" Padding="1,0,1,1" BorderBrush="#FFABADB3"/>
+                <Label Content="По времени:" HorizontalAlignment="Left" Margin="13,166,0,0" VerticalAlignment="Top" Padding="0,5,5,5" Grid.Column="1"/>
+                <Button Content="1 час" Grid.Column="1" HorizontalAlignment="Left" Margin="107,168,0,0" VerticalAlignment="Top" Width="50" Height="23" Background="White" Padding="1,0,1,1" BorderBrush="#FFABADB3"/>
+                <Button Content="5 часов" Grid.Column="1" HorizontalAlignment="Left" Margin="160,168,0,0" VerticalAlignment="Top" Width="50" Height="23" Background="White" Padding="1,0,1,1" BorderBrush="#FFABADB3"/>
+                <Button Content="24 часа" Grid.Column="1" HorizontalAlignment="Left" Margin="213,168,0,0" VerticalAlignment="Top" Width="50" Height="23" Background="White" Padding="1,0,1,1" BorderBrush="#FFABADB3"/>
+                <Button Content="Выбрать" Grid.Column="1" HorizontalAlignment="Left" Margin="266,139,0,0" VerticalAlignment="Top" Width="60" Height="23" Background="White" Padding="1,0,1,1" BorderBrush="#FFABADB3"/>
+                <Button Content="Выбрать" Grid.Column="1" HorizontalAlignment="Left" Margin="266,168,0,0" VerticalAlignment="Top" Width="60" Height="23" Background="White" Padding="1,0,1,1" BorderBrush="#FFABADB3"/>
+                <Label Content="Создавать подпапку для каждого устройства:" HorizontalAlignment="Left" Margin="14,76,0,0" VerticalAlignment="Top" Padding="0,5,5,5" Grid.Column="1"/>
+                <Label Content="3. Переименовывать треки" HorizontalAlignment="Left" Margin="0,208,0,0" VerticalAlignment="Top" Padding="0,5,5,5" Grid.Column="1"/>
+                <Label Content="Название на карте:" HorizontalAlignment="Left" Margin="13,231,0,0" VerticalAlignment="Top" Padding="0,5,5,5" Grid.Column="1"/>
+                <Label Content="Название файла:" HorizontalAlignment="Left" Margin="13,258,0,0" VerticalAlignment="Top" Padding="0,5,5,5" Grid.Column="1"/>
+                <CheckBox HorizontalAlignment="Left" Style="{DynamicResource BlueSwitchStyle}" VerticalAlignment="Top" Content="" Margin="132,237,0,0" Cursor="Hand" Grid.Column="1"/>
+                <CheckBox HorizontalAlignment="Left" Style="{DynamicResource BlueSwitchStyle}" VerticalAlignment="Top" Content="" Margin="132,264,0,0" Cursor="Hand" Grid.Column="1"/>
+                <Label Content="4. Открыть папку по завершению:" HorizontalAlignment="Left" Margin="0,299,0,0" VerticalAlignment="Top" Padding="0,5,5,5" Grid.Column="1"/>
+                <CheckBox HorizontalAlignment="Left" Style="{DynamicResource BlueSwitchStyle}" VerticalAlignment="Top" Content="" Margin="199,305,0,0" Cursor="Hand" Grid.Column="1"/>
             </Grid>
         </ScrollViewer>
 
